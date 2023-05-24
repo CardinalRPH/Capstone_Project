@@ -3,7 +3,6 @@ import React from "react";
 const ForgetPw_pg = () => {
     return (
         <>
-            <h1>Tes DOang</h1>
             <h3 className=" headerLupaPassword">Forgot Your Password?</h3>
             <form className="mx-3">
                 <div className="form-group mb-3">
