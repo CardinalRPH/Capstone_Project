@@ -1,0 +1,80 @@
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@800&family=Roboto:wght@300&display=swap');
+
+.login,
+.image {
+  min-height: 100vh;
+}
+
+h3{
+  font-family: 'Inter';
+}
+
+.card {
+  width: 490px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.headerLogin{
+  color: #018546;
+  margin-bottom: 1.5rem;
+  font-size: 24px;
+}
+
+.headerLupaPassword{
+  color: #018546;
+  margin-bottom: 1.5rem;
+  font-size: 40px;
+}
+
+.bg-image-petani {
+  background-image: url('../public/images/orang-bertani.jpg');
+  background-size: cover;
+  background-position: center center;
+  filter: brightness(70%);
+}
+
+.bg-image-lupaPassword {
+  background-image: url('../public/images/Lupa-Password.jpg');
+  background-size: cover;
+  background-position: center center;
+}
+
+.google-btn:hover {
+    background-color: rgb(196, 196, 196) !important;
+}
+
+.jumbotron{
+    font-family: 'Inter';
+    color: #018546;
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.password-toggle {
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+}
+
+.buttonSkip {
+  text-decoration: none;
+}
+
+.buttonSkip:hover{
+  text-decoration: underline;
+}
+
