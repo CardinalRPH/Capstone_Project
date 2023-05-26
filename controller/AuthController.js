@@ -1,165 +1,102 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { getDocs, where, getDoc, doc, updateDoc, query, setDoc } from "firebase/firestore";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup, deleteUser } from "firebase/auth";
 import firebaseApp from "../globals/FirebaseConfig.js";
-import MODELS from "../models/FirebaseFireStore.model.js";
+
+import cType from "../utils/general_check.js";
+import JWT_check from "../utils/jwt_checker.js";
+import { for_LoginEmail, for_SignUp } from "../utils/component_check.js";
+import { createUser } from "./FirebaseDBController.js";
 
 const auth = getAuth(firebaseApp);
 
+const LoginEmail = (req, res, next) => {
+    if (cType(req)) {
+        if (for_LoginEmail(req, res)) {
+            let { email, password } = req.body;
 
-const createUser = (req, res, next) => {
-    const { email, password } = req.body;
-    createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in 
-            res.send(userCredential);
-            const user = userCredential.user;
-            // ...
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            res.send(errorMessage);
-            // ..
-        });
-}
-
-const loginUser = (req, res, next) => {
-
-    const { email, password } = req.body;
-    // bcrypt.hash(password, saltRound).then
-    signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in 
-            res.send(userCredential);
-            const user = userCredential.user;
-            // ...
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            res.send(errorMessage);
-        });
-}
-
-const SignOut = (req, res, next) => {
-    signOut(auth).then(() => {
-        res.send('scs out');
-        // Sign-out successful.
-    }).catch((error) => {
-        res.send(error);
-        // An error happened.
-    });
-}
-
-const forgot_pass = (req, res, next) => {
-    const { email } = req.body;
-    sendPasswordResetEmail(auth, email).then(() => {
-        res.send('forget_link send to ur email');
-    }).catch((error) => {
-        res.send(error)
-    })
-}
-
-
-// login google
-const provider = new GoogleAuthProvider();
-
-const loginGoogle = (req, res, next) => {
-    signInWithPopup(auth, provider)
-        .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            // The signed-in user info.
-            const user = result.user;
-            // IdP data available using getAdditionalUserInfo(result)
-            res.send({
-                Creden: credential,
-                tokens: token,
-                users: user
+            signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
+                res.status(200).json({
+                    ok: true,
+                    code: 200,
+                    data: userCredential.user.stsTokenManager.accessToken
+                });
+            }).catch((error) => {
+                res.status(500).json({
+                    ok: true,
+                    code: 500,
+                    message: error
+                });
             })
-        }).catch((error) => {
-            // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.customData.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
-
-            res.send({
-                errorCode: errorCode,
-                errorMessage: errorMessage,
-                email: email,
-                credential: credential
-            })
-            // ...
-        });
-}
-
-const readDb = (req, res, next) => {
-    getDocs(MODELS.USERS).then((data) => {
-        let resData = data.docs.map((doc) => {
-            return {
-                id: doc.id,
-                data: doc.data()
-            }
-        })
-        res.send(resData);
-    });
-}
-
-const selectWh = (req, res, next) => {
-    getDocs(query(
-        MODELS.USERS,
-        where('location', '==', 'Jakarta')
-    )).then((data) => {
-        let resData = data.docs.map((doc) => {
-            return {
-                id: doc.id,
-                data: doc.data()
-            }
-        });
-        res.send(resData);
-    })
-}
-
-const selectUsrId = (req, res, next) => {
-    let { id } = req.body;
-    getDoc(doc(MODELS.USERS, id)).then((data) => {
-        let resData = data.data();
-        res.send(resData);
-    })
-}
-
-const updateDb = (req, res, next) => {
-    let { id, verif } = req.body;
-    let updateData = {
-        verif: verif
+        } else {
+            res.status(400).json({
+                ok: false,
+                code: 400,
+                message: "Email and Password is required"
+            });
+        }
     }
-    updateDoc(doc(MODELS.USERS, id), updateData).then(() => {
-        res.send('Data Updated');
-    }).catch((error) => {
-        res.send(error);
-    })
 }
 
-const AddDb = (req, res, next) => {
-    let { id, location, name, verif, verif_exp } = req.body;
-    let newData = {
-        location: location,
-        verif: verif,
-        verif_exp: verif_exp,
-        name: name
+
+const SignUp = (req, res, next) => {
+    if (JWT_check(req, res)) {
+        if (cType(req)) {
+            if (for_SignUp(req)) {
+                let { email, fullname, password } = req.body;
+
+                createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+                    let newData = {
+                        location: null,
+                        name: fullname,
+                        verif: userCredential.user.emailVerified,
+                        email: userCredential.user.email
+                    }
+
+                    createUser(newData, userCredential.user.uid).then((resolve) => {
+                        if (resolve.ok) {
+                            res.status(200).json({
+                                ok: true,
+                                code: 200,
+                                message: 'Users Created'
+                            });
+
+                        } else {
+                            deleteUser(auth, userCredential.user.uid).then(() => {
+                                res.status(500).send({
+                                    ok: false,
+                                    code: 500,
+                                    message: 'Internal Server Error',
+                                });
+                            }).catch((error) => {
+                                res.status(500).send({
+                                    ok: false,
+                                    code: 500,
+                                    message: 'Internal Server Error',
+                                    error: error
+                                });
+                            })
+                        }
+                    }).catch((reject) => {
+                        res.status(500).send({
+                            ok: false,
+                            code: 500,
+                            message: 'Internal Server Error',
+                            error: reject.message
+                        });
+                    })
+                })
+
+            } else {
+                res.status(400).send({
+                    ok: false,
+                    code: 400,
+                    message: "email, fullname, password, required",
+                })
+            }
+        }
     }
-
-    setDoc(doc(MODELS.USERS, id), newData).then(() => {
-        res.send('Data Created');
-    }).catch((error) => {
-        res.send(error);
-    })
 }
 
+const Login_Google = () => { }
 
 
-export { createUser, loginUser, SignOut, forgot_pass, loginGoogle, readDb, selectWh, selectUsrId, updateDb, AddDb };
+export {LoginEmail}

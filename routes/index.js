@@ -1,6 +1,8 @@
 import express from 'express';
 const router = express.Router();
-import { createUser, loginUser, SignOut, forgot_pass, loginGoogle, readDb, selectUsrId, selectWh, updateDb, AddDb} from '../controller/AuthController.js';
+import { createUser, loginUser, SignOut, forgot_pass, loginGoogle, readDb, selectUsrId, selectWh, updateDb, AddDb, DelUser } from '../controller/ExampleController.js';
+
+import { LoginEmail } from '../controller/AuthController.js';
 
 
 /* GET home page. */
@@ -21,7 +23,10 @@ router.get('/selwh', selectWh);
 router.get('/seluid', selectUsrId);
 router.get('/update', updateDb);
 router.get('/add', AddDb);
+router.get('/deluser', DelUser);
 
+//for real
+router.post('/login-email', LoginEmail);
 
 
 
