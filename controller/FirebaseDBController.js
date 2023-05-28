@@ -17,7 +17,7 @@ const createUserDB = (newData, id) => new Promise((resolve, reject) => {
     })
 });
 
-const GoogleCheckEmail = (id) => new Promise((resolve, reject) => {
+const checkEmail = (id) => new Promise((resolve, reject) => {
     getDoc(doc(MODELS.USERS, id)).then((data) => {
         if (data.data() == null) {
             resolve(true);
@@ -28,6 +28,7 @@ const GoogleCheckEmail = (id) => new Promise((resolve, reject) => {
         reject({
             ok: false,
             code: 500,
+            data: false,
             message: error
         });
     })
@@ -37,4 +38,4 @@ const GoogleCheckEmail = (id) => new Promise((resolve, reject) => {
 
 
 
-export { createUserDB, GoogleCheckEmail };
+export { createUserDB, checkEmail };
