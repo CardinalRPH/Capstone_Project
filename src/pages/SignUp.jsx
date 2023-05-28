@@ -7,11 +7,11 @@ const Signup_pg = () => {
             <form class="mx-3">
                 <div class="form-group mb-3 formFullName">
                     <label for="inputFullName">Nama Lengkap</label>
-                    <input id="inputFullName" type="text" placeholder="" required="" autofocus="" class="form-control rounded border-0 shadow-sm px-4 my-2" />
+                    <input id="inputFullName" type="text" placeholder="" required autofocus="" class="form-control rounded border-0 shadow-sm px-4 my-2" />
                 </div>
                 <div class="form-group mb-3 formEmail">
                     <label for="inputEmail">Email</label>
-                    <input id="inputEmail" type="email" placeholder="" required="" autofocus="" class="form-control rounded border-0 shadow-sm px-4 my-2" />
+                    <input id="inputEmail" type="email" placeholder="" required autofocus="" class="form-control rounded border-0 shadow-sm px-4 my-2" />
                 </div>
                 <div class="form-group mb-3 formPassword">
                     <label for="inputPassword">Password</label>
@@ -27,7 +27,7 @@ const Signup_pg = () => {
                         <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="23px" class="mx-1" />
                         Sign up With Google
                     </button>
-                    <small class="text-secondary">Already have an account? <a href="login" class="text-decoration-none text-success">Sign in.</a></small>
+                    <small class="text-secondary">Already have an account? <a href="/login" class="text-decoration-none text-success">Sign in.</a></small>
                 </div>
             </form>
         </>
