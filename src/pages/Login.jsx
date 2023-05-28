@@ -19,7 +19,7 @@ const Login_pg = () => {
                         <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="23px" className="mx-1" />
                         Sign in With Google
                     </button>
-                    <small className="text-secondary">Dont have account <a href="signup.html" className="text-decoration-none text-success">Sign Up</a></small>
+                    <small className="text-secondary">Dont have account <a href="sign-up" className="text-decoration-none text-success">Sign Up</a></small>
                 </div>
             </form>
         </>
