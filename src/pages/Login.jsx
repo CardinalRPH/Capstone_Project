@@ -18,16 +18,26 @@ const Login_pg = () => {
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                // The signed-in user info.
-                const user = result.user;
                 console.log(credential);
-                // IdP data available using getAdditionalUserInfo(result)
-                console.log({
-                    Creden: credential,
-                    tokens: token,
-                    users: user
+                fetch(AuthVar.forLoginG, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        Jtoken: credential.idToken,
+                    })
+                }).then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Fail Load With Status ' + response.status);
+                    }
+                    return response.json();
+                }).then((data) => {
+                    console.log(data);
+                }).catch((error) => {
+                    console.log(error);
                 })
+
             }).catch((error) => {
                 // Handle Errors here.
                 const errorCode = error.code;
@@ -70,7 +80,7 @@ const Login_pg = () => {
                 })
             }).then((response) => {
                 if (!response.ok) {
-                    throw new Error('Permintaan gagal dengan status ' + response.status);
+                    throw new Error('Fail Load With Status ' + response.status);
                 }
                 return response.json();
             }).then((data) => {

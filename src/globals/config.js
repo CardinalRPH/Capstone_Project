@@ -8,8 +8,8 @@ const BackBaseURI = 'http://localhost:3000';
 
 
 const AuthVar = {
-    forLogin: `${BackBaseURI}/login-email`
-
+    forLogin: `${BackBaseURI}/login-email`,
+    forLoginG: `${BackBaseURI}/login-google`,
 }
 
 export { g_variable, AuthVar };
