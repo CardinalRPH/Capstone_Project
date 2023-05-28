@@ -2,7 +2,7 @@ import { getDocs, where, getDoc, doc, updateDoc, query, setDoc, deleteDoc } from
 import firebaseApp from "../globals/FirebaseConfig.js";
 import MODELS from "../models/FirebaseFireStore.model.js";
 
-const createUser = (newData, id) => new Promise((resolve, reject) => {
+const createUserDB = (newData, id) => new Promise((resolve, reject) => {
     setDoc(doc(MODELS.USERS, id), newData).then(() => {
         resolve({
             ok: true,
@@ -17,12 +17,24 @@ const createUser = (newData, id) => new Promise((resolve, reject) => {
     })
 });
 
-const GoogleCheckEmail = (userData) => new Promise((resolve, reject) => {
-    
-})
+const GoogleCheckEmail = (id) => new Promise((resolve, reject) => {
+    getDoc(doc(MODELS.USERS, id)).then((data) => {
+        if (data.data() == null) {
+            resolve(true);
+        } else {
+            resolve(false);
+        }
+    }).catch((error) => {
+        reject({
+            ok: false,
+            code: 500,
+            message: error
+        });
+    })
+});
 
 
 
 
 
-export { createUser }  
+export { createUserDB, GoogleCheckEmail };

@@ -16,19 +16,32 @@ const for_SignUp = (req) => {
     }
 }
 
-const for_google_signup = (req, res) => {
-    let { email, name, GSub } = req.body;
-    if (email === null || name === null || GSub == null) {
+const for_LoginorSignUpGoogle = (req, res) => {
+    let { Jtoken } = req.body;
+    if (Jtoken == null) {
         res.status(400).send({
             ok: false,
             code: 400,
-            message: "email, name, GSub required",
+            message: "Jtoken required",
         });
-        return false
+        return false;
     } else {
-        return true
+        return true;
     }
 }
+// const for_google_signup = (req, res) => {
+//     let { email, name, GSub } = req.body;
+//     if (email === null || name === null || GSub == null) {
+//         res.status(400).send({
+//             ok: false,
+//             code: 400,
+//             message: "email, name, GSub required",
+//         });
+//         return false
+//     } else {
+//         return true
+//     }
+// }
 
 const for_setLocation = (req, res) => {
     let { province, city, mail } = req.body;
@@ -45,4 +58,4 @@ const for_setLocation = (req, res) => {
 
 }
 
-export { for_LoginEmail, for_SignUp }
+export { for_LoginEmail, for_SignUp, for_LoginorSignUpGoogle }
