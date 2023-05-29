@@ -1,10 +1,10 @@
-import { createBrowserRouter } from "react-router-dom"
+import { Navigate, createBrowserRouter, Route } from "react-router-dom"
 
 import PrivateRoute from "../utils/PrivateRoute";
 
-import LnSuLayout from "../pages/layout/LnSuLayout";
-import Forget_Layout from "../pages/layout/ForgetPwLayout";
-import Dash_Layout from "../pages/layout/DashboardLayout"
+import LnSuLayout from "../layout/LnSuLayout";
+import Forget_Layout from "../layout/ForgetPwLayout";
+import Dash_Layout from "../layout/DashboardLayout"
 
 import Login_pg from "../pages/Login";
 import Signup_pg from "../pages/SignUp";
@@ -25,59 +25,62 @@ const AppRouter = createBrowserRouter([
     //     element: <LandingPage />
     // },
     {
-        path: '/login',
-        element: (
-            <LnSuLayout>
-                <Login_pg />
-            </LnSuLayout>
-        )
-    },
-    {
-        path: '/sign-up',
-        element: (<LnSuLayout>
-            <Signup_pg />
-        </LnSuLayout>)
+        path: '/i',
+        element: <LnSuLayout />,
+        children: [
+            {
+                path: "login",
+                element: <Login_pg />
+            }, {
+                path: "sign-up",
+                element: <Signup_pg />
+            }
+        ]
+
     },
     {
         path: '/forget-password',
-        element: (
-            <Forget_Layout>
-                <ForgetPw_pg />
-            </Forget_Layout>)
+        element: <Forget_Layout />,
+        children: [
+            {
+                path: '',
+                element: <ForgetPw_pg />
+            }, {
+                path: 'sended',
+                element: (
+                    <PrivateRoute>
+                        <ForgetPwSend_pg />
+                    </PrivateRoute>
+                )
+            }
+        ]
     },
-    {
-        path: '/forget-send',
-        element: (
-            <PrivateRoute>
-                <Forget_Layout>
-                    <ForgetPwSend_pg />
-                </Forget_Layout>
-            </PrivateRoute>)
-    },
+
+    //dashboard loged
     {
         path: '/dashboard',
-        // element: (<PrivateRoute component={Dash_Layout}>
-        //     <Dashboard_pg />
-        // </PrivateRoute>)
-    },
-    {
-        path: '/calendar',
-        element: (<Dash_Layout>
-            <Calendar_pg />
-        </Dash_Layout>)
-    },
-    {
-        path: '/cuaca',
-        element: (<Dash_Layout>
-            <Cuaca_pg />
-        </Dash_Layout>)
-    },
-    {
-        path: '/tips',
-        element: (<Dash_Layout>
-            <Tips_pg />
-        </Dash_Layout>)
-    },
+        element: (
+            // <PrivateRoute>
+                <Dash_Layout />
+            // </PrivateRoute>
+        ),
+        children: [
+            {
+                path: '',
+                element:<Dashboard_pg/>
+            },
+            {
+                path: 'calendar',
+                element: <Calendar_pg />
+            }, {
+                path: 'cuaca',
+                element: <Cuaca_pg />
+            }, {
+                path: 'tips',
+                element: <Tips_pg />
+            }
+        ]
+    }
 ]);
 
 export default AppRouter;

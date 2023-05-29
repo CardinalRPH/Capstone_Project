@@ -2,7 +2,7 @@ import React from "react";
 const Dashboard_pg = () => {
     return(
         <>
-            PUNTEN
+            <h1>Punten</h1>
         </>
     )
 }

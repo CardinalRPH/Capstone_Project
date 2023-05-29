@@ -10,7 +10,7 @@ const PrivateRoute = ({ children }) => {
 
 
     useEffect(() => {
-        !isAuthenticated && navigate("/login")
+        !isAuthenticated && navigate("/i/login")
     }, [isAuthenticated, navigate])
 
     return <>{children}</>

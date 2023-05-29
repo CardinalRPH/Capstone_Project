@@ -1,5 +1,6 @@
 import React from 'react';
-const LnSuLayout = ({children}) => {
+import { Outlet } from 'react-router-dom';
+const LnSuLayout = () => {
     return (
         <div className="container-fluid">
             <div className="row no-gutter">
@@ -14,7 +15,7 @@ const LnSuLayout = ({children}) => {
                                 <div className="col-lg-10 col-xl-7 mx-auto">
                                     <h1 className="text-center mb-4 text-success jumbotron">CropPlanner</h1>
                                     <div className="container p-3 bg-white shadow rounded mt-4">
-                                       {children}
+                                        <Outlet />
                                     </div>
                                 </div>
                             </div>

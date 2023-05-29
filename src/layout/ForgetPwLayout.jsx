@@ -1,5 +1,6 @@
 import React from "react";
-const Forget_Layout = ({children}) => {
+import { Outlet } from 'react-router-dom';
+const Forget_Layout = () => {
     return (
         <div className="container-fluid">
             <div className="row no-gutter">
@@ -12,7 +13,7 @@ const Forget_Layout = ({children}) => {
                             <div className="row">
                                 <div className="col-lg-10 col-xl-7 mx-auto">
                                     <div className="container p-3 bg-white shadow rounded mt-4">
-                                        {children}
+                                        <Outlet/>
                                     </div>
                                 </div>
                             </div>
