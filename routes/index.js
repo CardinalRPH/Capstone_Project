@@ -19,13 +19,6 @@ router.post('/forgots-pass', forgot_pass);
 
 //basic CRUD
 
-router.get('/readdb', readDb);
-router.get('/selwh', selectWh);
-router.get('/seluid', selectUsrId);
-router.get('/update', updateDb);
-router.get('/add', AddDb);
-router.get('/deluser', DelUser);
-
 //for real
 router.get('/gen-token', oa2);
 
