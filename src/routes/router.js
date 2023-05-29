@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 
 import LnSuLayout from "../pages/layout/LnSuLayout";
 import Forget_Layout from "../pages/layout/ForgetPwLayout";
@@ -14,6 +14,14 @@ import Cuaca_pg from "../pages/Cuaca";
 import Tips_pg from "../pages/Tips";
 
 const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Navigate to="/login" replace />
+    },
+    // {
+    //     path: "/home",
+    //     element: <LandingPage />
+    // },
     {
         path: '/login',
         element: <LnSuLayout>
@@ -61,7 +69,7 @@ const router = createBrowserRouter([
         element: <Dash_Layout>
             <Tips_pg />
         </Dash_Layout>
-    }
+    },
 ]);
 
 

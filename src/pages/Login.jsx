@@ -3,7 +3,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import CookieConsent from "react-cookie-consent";
 
 import firebaseApp from "../globals/FirebaseConfig";
-import { PassEmailValidate, EmailValidate } from "../utils/EmailPassValidate";
+import { PassEmailValidate } from "../utils/EmailPassValidate";
 import { AuthVar } from "../globals/config";
 
 
@@ -68,7 +68,7 @@ const Login_pg = () => {
             password: password
         });
 
-        if (EmailValidate(email)) {
+        if (PassEmailValidate(password, email)) {
             fetch(AuthVar.forLogin, {
                 method: 'POST',
                 headers: {
@@ -90,7 +90,7 @@ const Login_pg = () => {
             })
         } else {
 
-            console.log("he false");
+            console.log("Email or Pass Not Req minimum spec");
         }
 
     }
@@ -104,7 +104,7 @@ const Login_pg = () => {
                 </div>
                 <div className="form-group mb-3 formPassword">
                     <label htmlFor="inputPassword">Password</label>
-                    <input id="passwordInput" type="password" placeholder="" required className="form-control rounded border-0 shadow-sm px-4 mt-2" /><span className="password-toggle" onMouseDown="showPassword()" onMouseUp="hidePassword()" onMouseOut="hidePassword()">&#x1f441;</span>
+                    <input id="passwordInput" type="password" placeholder="" required className="form-control rounded border-0 shadow-sm px-4 mt-2" /><span className="password-toggle" onMouseDown="" onMouseUp="hidePassword()" onMouseOut="hidePassword()">&#x1f441;</span>
                     <small><a href="/forget-password" className="text-secondary text-decoration-none forgetPassword">Forget your password?</a></small>
                 </div>
                 <div className="d-flex flex-column align-items-center">
