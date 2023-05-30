@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import { Link } from 'react-router-dom';
 const DashboardLayout = () => {
-    const decoded=''
+    let decoded=''
     if (localStorage.getItem("authentication") != null) {  
         const getLocalStorage = localStorage.getItem("authentication");
         const { token } = JSON.parse(getLocalStorage);
@@ -221,7 +221,7 @@ const DashboardLayout = () => {
                                 {/* Nav Item - User Information */}
                                 <li className="nav-item dropdown no-arrow">
                                     <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{decoded.name}</span>
                                         <img className="img-profile rounded-circle" src="img/undraw_profile.svg" />
                                     </a>
                                     {/* Dropdown - User Information */}
