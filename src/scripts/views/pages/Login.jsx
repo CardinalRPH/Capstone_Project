@@ -19,9 +19,8 @@ const Login_pg = () => {
 
     const { isAuthenticated, token } = useSelector((state) => state.auth)
 
-    const handleLogin = (id, token) => {
+    const handleLogin = (token) => {
         dispatch(authAction.login({
-            id: id,
             token: token
         }));
     }
@@ -38,16 +37,19 @@ const Login_pg = () => {
         e.preventDefault();
         signInWithPopup(auth, provider)
             .then((result) => {
+                let { uid, email, emailVerified, displayName } = result.user;
                 document.getElementById('Loader').style.display = "flex";
                 // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
                 fetch(AuthVar.forLoginG, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        Jtoken: credential.idToken,
+                        name: displayName,
+                        email: email,
+                        uid: uid,
+                        verif: emailVerified
                     })
                 }).then((response) => {
                     if (!response.ok) {
@@ -56,10 +58,9 @@ const Login_pg = () => {
                     }
                     return response.json();
                 }).then((data) => {
-                    const { token, id } = data.data;
-                    console.log(data);
+                    const { token } = data.data;
                     document.getElementById('Loader').style.display = "none";
-                    handleLogin(id, token);
+                    handleLogin(token);
 
                 }).catch((error) => {
                     document.getElementById('Loader').style.display = "none";
@@ -81,7 +82,7 @@ const Login_pg = () => {
                     errorMessage: errorMessage,
                     email: email,
                     credential: credential
-                })
+                });
                 // ...
             });
     }

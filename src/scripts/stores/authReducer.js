@@ -6,20 +6,18 @@ const getAuthLocalStorage = () => {
     return {
       isAuthenticated: false,
       token: "",
-      id:""
     }
   } else {
-    const { isAuthenticated, token, id } = JSON.parse(getLocalStorage)
+    const { isAuthenticated, token} = JSON.parse(getLocalStorage)
     return {
       isAuthenticated,
       token,
-      id
     }
   }
 }
 
 const saveAuthLocalStorage = (isAuthenticated, token, id) => {
-  const authentication = { isAuthenticated, token, id }
+  const authentication = { isAuthenticated, token}
   localStorage.setItem("authentication", JSON.stringify(authentication));
 }
 
@@ -36,13 +34,11 @@ const authSlice = createSlice({
   reducers: {
     login(state, action) {
       state.isAuthenticated = true;
-      state.id = action.payload.id;
       state.token = action.payload.token;
       saveAuthLocalStorage(true, state.token, state.id);
     },
     logout(state) {
       state.isAuthenticated = false
-      state.id = '';
       state.token = '';
       removeAuthLocalStorage();
     },

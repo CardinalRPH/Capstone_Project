@@ -1,6 +1,12 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
+import { Link } from 'react-router-dom';
 const DashboardLayout = () => {
+    const getLocalStorage = localStorage.getItem("authentication");
+    const { token } = JSON.parse(getLocalStorage);
+    const decoded = jwtDecode(token);
+
     return (
         <div>
             {/* Page Wrapper */}
@@ -10,17 +16,17 @@ const DashboardLayout = () => {
                     {/* Sidebar - Brand */}
                     <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                         <div className="sidebar-brand-icon rotate-n-15">
-                            <i className="fas fa-laugh-wink" />
+                            {/* <i className="fas fa-laugh-wink" /> */}
                         </div>
-                        <div className="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                        <div className="sidebar-brand-text mx-3">CropPlanner</div>
                     </a>
                     {/* Divider */}
                     <hr className="sidebar-divider my-0" />
                     {/* Nav Item - Dashboard */}
                     <li className="nav-item active">
-                        <a className="nav-link" href="index.html">
-                            <i className="fas fa-fw fa-tachometer-alt" />
-                            <span>Dashboard</span></a>
+                        <Link className="nav-link" to="/dashboard">
+                        <i class="fa-solid fa-chart-line"></i>
+                            <span>Dashboard</span></Link>
                     </li>
                     {/* Divider */}
                     <hr className="sidebar-divider" />
@@ -29,71 +35,26 @@ const DashboardLayout = () => {
                         Interface
                     </div>
                     {/* Nav Item - Pages Collapse Menu */}
-                    <li className="nav-item">
-                        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                            <i className="fas fa-fw fa-cog" />
-                            <span>Components</span>
-                        </a>
-                        <div id="collapseTwo" className="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                            <div className="bg-white py-2 collapse-inner rounded">
-                                <h6 className="collapse-header">Custom Components:</h6>
-                                <a className="collapse-item" href="buttons.html">Buttons</a>
-                                <a className="collapse-item" href="cards.html">Cards</a>
-                            </div>
-                        </div>
-                    </li>
-                    {/* Nav Item - Utilities Collapse Menu */}
-                    <li className="nav-item">
-                        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                            <i className="fas fa-fw fa-wrench" />
-                            <span>Utilities</span>
-                        </a>
-                        <div id="collapseUtilities" className="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                            <div className="bg-white py-2 collapse-inner rounded">
-                                <h6 className="collapse-header">Custom Utilities:</h6>
-                                <a className="collapse-item" href="utilities-color.html">Colors</a>
-                                <a className="collapse-item" href="utilities-border.html">Borders</a>
-                                <a className="collapse-item" href="utilities-animation.html">Animations</a>
-                                <a className="collapse-item" href="utilities-other.html">Other</a>
-                            </div>
-                        </div>
-                    </li>
                     {/* Divider */}
                     <hr className="sidebar-divider" />
                     {/* Heading */}
-                    <div className="sidebar-heading">
-                        Addons
-                    </div>
-                    {/* Nav Item - Pages Collapse Menu */}
-                    <li className="nav-item">
-                        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                            <i className="fas fa-fw fa-folder" />
-                            <span>Pages</span>
-                        </a>
-                        <div id="collapsePages" className="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                            <div className="bg-white py-2 collapse-inner rounded">
-                                <h6 className="collapse-header">Login Screens:</h6>
-                                <a className="collapse-item" href="login.html">Login</a>
-                                <a className="collapse-item" href="register.html">Register</a>
-                                <a className="collapse-item" href="forgot-password.html">Forgot Password</a>
-                                <div className="collapse-divider" />
-                                <h6 className="collapse-header">Other Pages:</h6>
-                                <a className="collapse-item" href="404.html">404 Page</a>
-                                <a className="collapse-item" href="blank.html">Blank Page</a>
-                            </div>
-                        </div>
-                    </li>
                     {/* Nav Item - Charts */}
                     <li className="nav-item">
-                        <a className="nav-link" href="charts.html">
-                            <i className="fas fa-fw fa-chart-area" />
-                            <span>Charts</span></a>
+                        <Link className="nav-link" to="/dashboard/planner">
+                            <i class="fa-regular fa-calendar"></i>
+                            <span>Planner</span>
+                        </Link>
                     </li>
                     {/* Nav Item - Tables */}
                     <li className="nav-item">
-                        <a className="nav-link" href="tables.html">
-                            <i className="fas fa-fw fa-table" />
-                            <span>Tables</span></a>
+                        <Link className="nav-link" to="/dashboard/tips">
+                            <i class="fa-regular fa-lightbulb"></i>
+                            <span>Tips & Trick</span></Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/dashboard/history">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                            <span>History</span></Link>
                     </li>
                     {/* Divider */}
                     <hr className="sidebar-divider d-none d-md-block" />
@@ -102,11 +63,6 @@ const DashboardLayout = () => {
                         <button className="rounded-circle border-0" id="sidebarToggle" />
                     </div>
                     {/* Sidebar Message */}
-                    <div className="sidebar-card d-none d-lg-flex">
-                        <img className="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="..." />
-                        <p className="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                        <a className="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-                    </div>
                 </ul>
                 {/* End of Sidebar */}
                 {/* Content Wrapper */}
@@ -262,7 +218,7 @@ const DashboardLayout = () => {
                                 {/* Nav Item - User Information */}
                                 <li className="nav-item dropdown no-arrow">
                                     <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{decoded.name}</span>
                                         <img className="img-profile rounded-circle" src="img/undraw_profile.svg" />
                                     </a>
                                     {/* Dropdown - User Information */}
@@ -292,11 +248,7 @@ const DashboardLayout = () => {
                         {/* Begin Page Content */}
                         <div className="container-fluid">
                             {/* Page Heading */}
-                            <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                                <h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
-                                <a href="#" className="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i className="fas fa-download fa-sm text-white-50" /> Generate Report</a>
-                            </div>
-                            <Outlet/>
+                            <Outlet />
                         </div>
                         {/* /.container-fluid */}
                     </div>

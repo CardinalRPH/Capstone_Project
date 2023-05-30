@@ -1,4 +1,5 @@
 import { Navigate, createBrowserRouter, Route } from "react-router-dom"
+import { Helmet } from "react-helmet";
 
 import PrivateRoute from "../utils/PrivateRoute";
 
@@ -30,10 +31,15 @@ const AppRouter = createBrowserRouter([
         children: [
             {
                 path: "login",
-                element: <Login_pg />
+                element: (<><Helmet>
+                    <title>Login</title>
+                </Helmet><Login_pg /></>)
             }, {
                 path: "sign-up",
-                element: <Signup_pg />
+                element: (<><Helmet>
+                    <title>Sign Up</title>
+                </Helmet><Signup_pg /></>
+                )
             }
         ]
 
@@ -44,7 +50,11 @@ const AppRouter = createBrowserRouter([
         children: [
             {
                 path: '',
-                element: <ForgetPw_pg />
+                element: (
+                    <><Helmet>
+                        <title>Forget Password</title>
+                    </Helmet><ForgetPw_pg /></>
+                )
             }, {
                 path: 'sended',
                 element: <ForgetPwSend_pg />
@@ -63,17 +73,25 @@ const AppRouter = createBrowserRouter([
         children: [
             {
                 path: '',
-                element: <Dashboard_pg />
+                element: (<><Helmet>
+                    <title>Dashboard</title>
+                </Helmet><Dashboard_pg /></>)
             },
             {
-                path: 'calendar',
-                element: <Calendar_pg />
+                path: 'planner',
+                element: (<><Helmet>
+                    <title>Planner</title>
+                </Helmet><Calendar_pg /></>)
             }, {
                 path: 'cuaca',
-                element: <Cuaca_pg />
+                element: (<><Helmet>
+                    <title>Cuaca</title>
+                </Helmet><Cuaca_pg /></>)
             }, {
                 path: 'tips',
-                element: <Tips_pg />
+                element: (<><Helmet>
+                    <title>Tips</title>
+                </Helmet><Tips_pg /></>)
             }
         ]
     }
