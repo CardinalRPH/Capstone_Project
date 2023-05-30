@@ -1,19 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { setAuthenticated } from "../stores/authReducer";
-
 
 const ForgetPwSend_pg = () => {
-    const dispatch = useDispatch();
-    const handleLogin = () => {
-        // Mengatur isAuthenticated menjadi true saat login
-        dispatch(setAuthenticated(true));
-    };
-
-    const handleLogout = () => {
-        // Mengatur isAuthenticated menjadi false saat logout
-        dispatch(setAuthenticated(false));
-    };
     return (
         <>
             <div class="d-flex flex-column align-items-center">

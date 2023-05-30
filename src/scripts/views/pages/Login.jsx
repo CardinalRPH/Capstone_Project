@@ -1,24 +1,46 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import CookieConsent from "react-cookie-consent";
 
-import firebaseApp from "../globals/FirebaseConfig";
-import { PassEmailValidate } from "../utils/EmailPassValidate";
-import { AuthVar } from "../globals/config";
-
+import firebaseApp from "../../../globals/FirebaseConfig";
+import { PassEmailValidate } from "../../utils/EmailPassValidate";
+import { AuthVar } from "../../../globals/config";
+import { useDispatch, useSelector } from "react-redux";
+import { authAction } from "../../stores/authReducer";
+import { useNavigate } from "react-router-dom";
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth(firebaseApp);
 
 const Login_pg = () => {
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const { isAuthenticated, token } = useSelector((state) => state.auth)
+
+    const handleLogin = (id, token) => {
+        dispatch(authAction.login({
+            id: id,
+            token: token
+        }));
+    }
+
+    useEffect(() => {
+        console.log(isAuthenticated);
+        if (isAuthenticated && token) { 
+            navigate('/dashboard', { replace: true });
+        }
+    },[isAuthenticated])
+
+
     const As_Google = (e) => {
         e.preventDefault();
         signInWithPopup(auth, provider)
             .then((result) => {
+                document.getElementById('Loader').style.display = "flex";
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 const credential = GoogleAuthProvider.credentialFromResult(result);
-                console.log(credential);
                 fetch(AuthVar.forLoginG, {
                     method: 'POST',
                     headers: {
@@ -29,16 +51,23 @@ const Login_pg = () => {
                     })
                 }).then((response) => {
                     if (!response.ok) {
+                        document.getElementById('Loader').style.display = "none";
                         throw new Error('Fail Load With Status ' + response.status);
                     }
                     return response.json();
                 }).then((data) => {
+                    const { token, id } = data.data;
                     console.log(data);
+                    document.getElementById('Loader').style.display = "none";
+                    handleLogin(id, token);
+
                 }).catch((error) => {
+                    document.getElementById('Loader').style.display = "none";
                     console.log(error);
                 })
 
             }).catch((error) => {
+                document.getElementById('Loader').style.display = "none";
                 // Handle Errors here.
                 const errorCode = error.code;
                 const errorMessage = error.message;
@@ -59,7 +88,7 @@ const Login_pg = () => {
 
     const As_Email = (e) => {
         e.preventDefault();
-
+        document.getElementById('Loader').style.display = "flex";
         let email = document.getElementById('inputEmail').value;
         let password = document.getElementById('passwordInput').value;
 
@@ -80,12 +109,15 @@ const Login_pg = () => {
                 })
             }).then((response) => {
                 if (!response.ok) {
+                    document.getElementById('Loader').style.display = "none";
                     throw new Error('Fail Load With Status ' + response.status);
                 }
                 return response.json();
             }).then((data) => {
+                document.getElementById('Loader').style.display = "none";
                 console.log(data);
             }).catch((error) => {
+                document.getElementById('Loader').style.display = "none";
                 console.log(error);
             })
         } else {
@@ -96,6 +128,11 @@ const Login_pg = () => {
     }
     return (
         <>
+            <div id="Loader" className="position-fixed top-50 start-50 translate-middle w-100 h-100 justify-content-center align-items-center" style={{ display: "none" }}>
+                <div className="spinner-border text-success" role="status" style={{ width: "100px", height: "100px" }}>
+                    <span className="sr-only">Loading...</span>
+                </div>
+            </div>
             <h3 className=" headerLogin">Sign In Account</h3>
             <form className="mx-3" onSubmit={(e) => { As_Email(e) }}>
                 <div className="form-group mb-3 formEmail">

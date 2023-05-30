@@ -1,6 +1,6 @@
 import React from "react";
-import { AuthVar } from "../globals/config";
-import { EmailValidate } from "../utils/EmailPassValidate";
+import { AuthVar } from "../../../globals/config"
+import { EmailValidate } from "../../utils/EmailPassValidate";
 
 const ForgetPw_pg = () => {
     const Forget_PW = (e) => {

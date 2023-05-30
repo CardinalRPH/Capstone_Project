@@ -1,4 +1,4 @@
-import { g_variable } from "../globals/config";
+import { g_variable } from "../../globals/config"
 
 const EmailValidate = (email) => {
     if ((String(email).match(g_variable.mailformat)) && (email != null) && (email != '')) {

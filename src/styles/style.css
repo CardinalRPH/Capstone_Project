@@ -78,3 +78,7 @@ h3{
   text-decoration: underline;
 }
 
+#Loader {
+  backdrop-filter: brightness(20%);
+}
+

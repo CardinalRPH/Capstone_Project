@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import './styles/style.css'
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import App from './scripts/App';
+import reportWebVitals from './scripts/reportWebVitals';
+
+import './styles/index.css';
+import './styles/style.css';
+import './styles/css/sb-admin-2.min.css';
+import './scripts/js/sb-admin-2.js'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
