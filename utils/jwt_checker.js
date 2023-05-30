@@ -13,7 +13,6 @@ const JWT_check = (req, res) => {
     } else {
         try {
             const decoded = jwt.verify(token, g_variable.jwt_code);
-            req.user = decoded;
             if (decoded) {
                 return true;
             }

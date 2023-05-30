@@ -1,15 +1,10 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup, deleteUser } from "firebase/auth";
 import firebaseApp from "../globals/FirebaseConfig.js";
-
 import cType from "../utils/general_check.js";
 import JWT_check from "../utils/jwt_checker.js";
 import { for_LoginEmail, for_SignUp, for_LoginorSignUpGoogle } from "../utils/component_check.js";
-
-import { createUserDB, checkEmail } from "./FirebaseDBController.js";
 import { createUser, findOne } from "./SQLDBController.js";
-
-import jwt_decode from 'jwt-decode';
-import getNameEmail from "../utils/name_generate.js";
+import GentToken from "../utils/generateJwt.js";
 
 const auth = getAuth(firebaseApp);
 
@@ -28,8 +23,11 @@ const LoginEmail = (req, res, next) => {
                     if (resolve != false) {
                         res.status(200).json({
                             ok: true,
-                            code: 404,
-                            data: userCredential.user.stsTokenManager.accessToken
+                            code: 200,
+                            data: {
+                                id: userCredential.user.stsTokenManager.accessToken,
+                                token: GentToken()
+                            }
                         });
                     } else {
                         res.status(200).json({
@@ -82,8 +80,8 @@ const SignUp = (req, res, next) => {
                         location: null,
                         email: userCredential.user.email,
                         isGoogle: false,
-                        verif:  userCredential.user.emailVerified,
-                        
+                        verif: userCredential.user.emailVerified,
+
                     }).then((resolve) => {
                         if (resolve == true) {
                             res.status(200).json({
@@ -133,74 +131,78 @@ const SignUp = (req, res, next) => {
 const Login_Google = (req, res) => {
     if (cType(req)) {
         if (for_LoginorSignUpGoogle(req, res)) {
-            let { Jtoken } = req.body;
-            let credential;
-            try {
-                credential = jwt_decode(Jtoken);
+            let { name, email, verif, uid } = req.body;
 
-                findOne({
-                    attributes: ['email'],
-                    where: {
-                        uid: credential.sub
-                    }
-                }).then((resolve) => {
-                    if (resolve != false) {
-                        res.status(200).json({
-                            ok: true,
-                            code: 200,
-                            data: resolve
-                        });
-                    } else {
-                        createUser({
-                            uid: credential.sub,
-                            name: getNameEmail(credential.email),
-                            location: null,
-                            email: credential.email,
-                            isGoogle: true,
-                            verif: credential.email_verified
-                            
-                        }).then((resolve) => {
-                            if (resolve == true) {
-                                res.status(200).json({
-                                    ok: true,
-                                    code: 200,
-                                    message: 'Users Created',
-                                    data: credential.sub
-                                });
-                            } else {
-                                res.status(500).send({
-                                    ok: false,
-                                    code: 500,
-                                    data: false,
-                                    message: 'Internal Server Error',
-                                });
-                            }
-                        }).catch((reject) => {
+            findOne({
+                attributes: ['email'],
+                where: {
+                    uid: uid
+                }
+            }).then((resolve) => {
+                if (resolve != false) {
+                    res.status(200).json({
+                        ok: true,
+                        code: 200,
+                        data: {
+                            token: GentToken({
+                                uid: uid,
+                                name: name,
+                                location: null,
+                                email: email
+                            })
+                        }
+                    });
+                } else {
+                    createUser({
+                        uid: uid,
+                        name: name,
+                        location: null,
+                        email: email,
+                        isGoogle: true,
+                        verif: verif
+
+                    }).then((resolve) => {
+                        if (resolve == true) {
+                            res.status(200).json({
+                                ok: true,
+                                code: 200,
+                                message: 'Users Created',
+                                data: {
+                                    token: GentToken({
+                                        uid: uid,
+                                        name: name,
+                                        location: null,
+                                        email: email
+                                    })
+                                }
+                            });
+                        } else {
                             res.status(500).send({
                                 ok: false,
                                 code: 500,
                                 data: false,
                                 message: 'Internal Server Error',
-                                error: reject.message
                             });
-                        })
-                    }
-                }).catch((reject) => {
-                    res.status(500).send({
-                        ok: false,
-                        code: 500,
-                        data: false,
-                        message: 'Internal Server Error',
-                        error: reject.message
-                    });
-                });
-            } catch (error) {
-                res.status(400).json({
+                        }
+                    }).catch((reject) => {
+                        res.status(500).send({
+                            ok: false,
+                            code: 500,
+                            data: false,
+                            message: 'Internal Server Error',
+                            error: reject.message
+                        });
+                    })
+                }
+            }).catch((reject) => {
+                res.status(500).send({
                     ok: false,
-                    code: 400,
-                    messaqge: "Wrong Token"
+                    code: 500,
+                    data: false,
+                    message: 'Internal Server Error',
+                    error: reject.message
                 });
-            }
+            });
         } else {
             res.status(400).json({
                 ok: false,

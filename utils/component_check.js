@@ -17,12 +17,12 @@ const for_SignUp = (req) => {
 }
 
 const for_LoginorSignUpGoogle = (req, res) => {
-    let { Jtoken } = req.body;
-    if (Jtoken == null) {
+    let { name, email, verif, uid } = req.body;
+    if (name == null || email == null || verif == null || uid == null) {
         res.status(400).send({
             ok: false,
             code: 400,
-            message: "Jtoken required",
+            message: "Bad Request"
         });
         return false;
     } else {
