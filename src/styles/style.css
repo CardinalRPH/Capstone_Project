@@ -22,8 +22,6 @@ h3{
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
-  margin-top: 100px;
 }
 
 .headerLogin{
@@ -56,6 +54,7 @@ h3{
 }
 
 .jumbotron{
+    background-color: white;
     font-family: 'Inter';
     color: #018546;
     font-size: 50px;

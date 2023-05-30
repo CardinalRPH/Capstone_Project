@@ -5,9 +5,15 @@ const Signup_pg = () => {
         <>
             <h3 class=" headerLogin">Sign Up Account</h3>
             <form class="mx-3">
-                <div class="form-group mb-3 formFullName">
-                    <label for="inputFullName">Nama Lengkap</label>
-                    <input id="inputFullName" type="text" placeholder="" required autofocus="" class="form-control rounded border-0 shadow-sm px-4 my-2" />
+                <div class="row g-2">
+                    <div class="form-group col-sm mb-3 formFullName">
+                        <label for="inputFullName">Nama Depan</label>
+                        <input id="inputFullName" type="text" placeholder="" required autofocus="" class="form-control rounded border-0 shadow-sm px-4 my-2" />
+                    </div>
+                    <div class="form-group col-sm mb-3 formFullName">
+                        <label for="inputFullName">Nama Belakang</label>
+                        <input id="inputFullName" type="text" placeholder="" required autofocus="" class="form-control rounded border-0 shadow-sm px-4 my-2" />
+                    </div>
                 </div>
                 <div class="form-group mb-3 formEmail">
                     <label for="inputEmail">Email</label>
