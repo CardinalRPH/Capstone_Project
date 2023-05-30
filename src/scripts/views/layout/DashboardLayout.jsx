@@ -3,9 +3,12 @@ import { Outlet } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import { Link } from 'react-router-dom';
 const DashboardLayout = () => {
-    const getLocalStorage = localStorage.getItem("authentication");
-    const { token } = JSON.parse(getLocalStorage);
-    const decoded = jwtDecode(token);
+    const decoded=''
+    if (localStorage.getItem("authentication") != null) {  
+        const getLocalStorage = localStorage.getItem("authentication");
+        const { token } = JSON.parse(getLocalStorage);
+        decoded = jwtDecode(token);
+    }
 
     return (
         <div>
