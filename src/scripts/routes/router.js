@@ -66,9 +66,9 @@ const AppRouter = createBrowserRouter([
     {
         path: '/dashboard',
         element: (
-           // <PrivateRoute>
+        //    <PrivateRoute>
                 <Dash_Layout />
-            //</PrivateRoute>
+            // </PrivateRoute>
         ),
         children: [
             {
