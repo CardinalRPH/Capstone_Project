@@ -27,10 +27,10 @@ const Login_pg = () => {
 
     useEffect(() => {
         console.log(isAuthenticated);
-        if (isAuthenticated && token) { 
+        if (isAuthenticated && token) {
             navigate('/dashboard', { replace: true });
         }
-    },[isAuthenticated])
+    }, [isAuthenticated])
 
 
     const As_Google = (e) => {
@@ -93,11 +93,6 @@ const Login_pg = () => {
         let email = document.getElementById('inputEmail').value;
         let password = document.getElementById('passwordInput').value;
 
-        console.log({
-            email: email,
-            password: password
-        });
-
         if (PassEmailValidate(password, email)) {
             fetch(AuthVar.forLogin, {
                 method: 'POST',
@@ -109,14 +104,16 @@ const Login_pg = () => {
                     password: password
                 })
             }).then((response) => {
+                console.log(response);
                 if (!response.ok) {
                     document.getElementById('Loader').style.display = "none";
                     throw new Error('Fail Load With Status ' + response.status);
                 }
                 return response.json();
             }).then((data) => {
+                const { token } = data.data;
                 document.getElementById('Loader').style.display = "none";
-                console.log(data);
+                handleLogin(token);
             }).catch((error) => {
                 document.getElementById('Loader').style.display = "none";
                 console.log(error);

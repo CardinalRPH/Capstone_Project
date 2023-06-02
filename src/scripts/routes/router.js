@@ -16,6 +16,8 @@ import Calendar_pg from "../views/pages/Calendar";
 import Cuaca_pg from "../views/pages/Cuaca";
 import Tips_pg from "../views/pages/Tips";
 
+import PageNotFound from "../views/pages/PageNotFound";
+
 const AppRouter = createBrowserRouter([
     // {
     //     path: "/",
@@ -66,9 +68,9 @@ const AppRouter = createBrowserRouter([
     {
         path: '/dashboard',
         element: (
-        //    <PrivateRoute>
+           <PrivateRoute>
                 <Dash_Layout />
-            // </PrivateRoute>
+            </PrivateRoute>
         ),
         children: [
             {
@@ -94,7 +96,11 @@ const AppRouter = createBrowserRouter([
                 </Helmet><Tips_pg /></>)
             }
         ]
-    }
+    },
+    {
+        path: '*',
+        element: <PageNotFound />,
+    },
 ]);
 
 export default AppRouter;

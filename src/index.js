@@ -5,6 +5,7 @@ import reportWebVitals from './scripts/reportWebVitals';
 
 import './styles/index.css';
 import './styles/style.css';
+import 'jquery'
 import './styles/css/sb-admin-2.min.css';
 import './scripts/js/sb-admin-2.js';
 import 'bootstrap/dist/css/bootstrap.min.css';

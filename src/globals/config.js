@@ -10,7 +10,8 @@ const BackBaseURI = 'http://localhost:3000';
 const AuthVar = {
     forLogin: `${BackBaseURI}/login-email`,
     forLoginG: `${BackBaseURI}/login-google`,
-    forForgetPw:`${BackBaseURI}/forgot-pass`,
+    forForgetPw: `${BackBaseURI}/forgot-pass`,
+    forSignUp:`${BackBaseURI}/sign-up`,
 }
 
 export { g_variable, AuthVar };

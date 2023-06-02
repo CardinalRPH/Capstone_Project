@@ -23,7 +23,7 @@ const ForgetPw_pg = () => {
                 return response.json();
             }).then((data) => {
                 if (data.ok) {
-                    window.location.href = '/forget-send';
+                    window.location.href = '/forget-password/sended';
                 } else {
                     console.log("eroor 500");
                 }
