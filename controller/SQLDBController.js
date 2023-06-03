@@ -21,3 +21,11 @@ export const findOne = (data) => new Promise((resolve, reject) => {
     })
 });
 
+export const Update = (data, condition) => new Promise((resolve, reject) => {
+    Users.update(data, condition).then(() => {
+        resolve(true);
+    }).catch((error) => {
+        reject(error);
+    })
+});
+

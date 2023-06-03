@@ -18,6 +18,10 @@ const Users = sequelizes.define('Users', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     isGoogle: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

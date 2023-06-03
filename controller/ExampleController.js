@@ -1,6 +1,6 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { getDocs, where, getDoc, doc, updateDoc, query, setDoc, deleteDoc } from "firebase/firestore";
-import firebaseApp from "../globals/FirebaseConfig.js";
+import {firebaseApp} from "../globals/FirebaseConfig.js";
 import MODELS from "../models/FirebaseFireStore.model.js";
 
 const auth = getAuth(firebaseApp);
