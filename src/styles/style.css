@@ -5,15 +5,15 @@
 * ==========================================
 *
 */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@800&family=Roboto:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@800&family=Roboto:wght@300&display=swap");
 
 .login,
 .image {
   min-height: 100vh;
 }
 
-h3{
-  font-family: 'Inter';
+h3 {
+  font-family: "Inter";
 }
 
 .card {
@@ -24,41 +24,41 @@ h3{
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.headerLogin{
+.headerLogin {
   color: #018546;
   margin-bottom: 1.5rem;
   font-size: 24px;
 }
 
-.headerLupaPassword{
+.headerLupaPassword {
   color: #018546;
   margin-bottom: 1.5rem;
   font-size: 40px;
 }
 
 .bg-image-petani {
-  background-image: url('../public/images/orang-bertani.jpg');
+  background-image: url("../public/images/orang-bertani.jpg");
   background-size: cover;
   background-position: center center;
   filter: brightness(70%);
 }
 
 .bg-image-lupaPassword {
-  background-image: url('../public/images/Lupa-Password.jpg');
+  background-image: url("../public/images/Lupa-Password.jpg");
   background-size: cover;
   background-position: center center;
 }
 
 .google-btn:hover {
-    background-color: rgb(196, 196, 196) !important;
+  background-color: rgb(196, 196, 196) !important;
 }
 
-.jumbotron{
-    background-color: white;
-    font-family: 'Inter';
-    color: #018546;
-    font-size: 50px;
-    margin-bottom: 20px;
+.jumbotron {
+  background-color: white;
+  font-family: "Inter";
+  color: #018546;
+  font-size: 50px;
+  margin-bottom: 20px;
 }
 
 .password-toggle {
@@ -73,7 +73,7 @@ h3{
   text-decoration: none;
 }
 
-.buttonSkip:hover{
+.buttonSkip:hover {
   text-decoration: underline;
 }
 
@@ -81,3 +81,89 @@ h3{
   backdrop-filter: brightness(20%);
 }
 
+.frameCus {
+  position: absolute;
+  top: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-family: 'Open Sans', Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backdrop-filter: brightness(20%);
+}
+.modalCus {
+  position: absolute;
+  width: 280px;
+  height: 210px;
+  background: #fff;
+  border-radius: 3px;
+  box-shadow: 4px 8px 12px 0 rgba(0, 0, 0, 0.4);
+  text-align: center;
+  overflow: hidden;
+  animation: show-modal 0.7s ease-in-out;
+}
+.modalCus.hide {
+  animation: hide-modal 0.6s ease-in-out both;
+}
+.modalCus img {
+  margin-top: 24px;
+}
+.modalCus .titleCus {
+  display: block;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
+  margin: 14px 0 5px 0;
+}
+.modalCus p {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 19px;
+  margin: 0;
+  padding: 0 30px;
+}
+.modalCus .buttonCus {
+  position: absolute;
+  height: 40px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #f65656;
+  color: #fff;
+  line-height: 40px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+.modalCus .buttonCus:hover {
+  background: #ec3434;
+}
+@keyframes show-modal {
+  0% {
+    transform: scale(0);
+ }
+  60% {
+    transform: scale(1.1);
+ }
+  80% {
+    transform: scale(0.95);
+ }
+  100% {
+    transform: scale(1);
+ }
+}
+@keyframes hide-modal {
+  0% {
+    transform: scale(1);
+ }
+  20% {
+    transform: scale(1.1);
+ }
+  100% {
+    transform: scale(0);
+ }
+}

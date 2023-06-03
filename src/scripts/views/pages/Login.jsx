@@ -14,6 +14,13 @@ const auth = getAuth(firebaseApp);
 
 const Login_pg = () => {
 
+    const ErrorShow = (msg) => {
+        document.getElementById('errormsg').innerText=msg
+        document.querySelector('.modalCus').classList.remove('hide');
+        document.querySelector('.frameCus').style.display = "flex";
+    
+    }
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -53,6 +60,7 @@ const Login_pg = () => {
                     })
                 }).then((response) => {
                     if (!response.ok) {
+
                         document.getElementById('Loader').style.display = "none";
                         throw new Error('Fail Load With Status ' + response.status);
                     }
@@ -64,11 +72,13 @@ const Login_pg = () => {
 
                 }).catch((error) => {
                     document.getElementById('Loader').style.display = "none";
+                    ErrorShow('Internal Server Error');
                     console.log(error);
                 })
 
             }).catch((error) => {
                 document.getElementById('Loader').style.display = "none";
+                ErrorShow('Internal Server Error');
                 // Handle Errors here.
                 const errorCode = error.code;
                 const errorMessage = error.message;
@@ -107,6 +117,7 @@ const Login_pg = () => {
                 console.log(response);
                 if (!response.ok) {
                     document.getElementById('Loader').style.display = "none";
+                    ErrorShow('Internal Server Error');
                     throw new Error('Fail Load With Status ' + response.status);
                 }
                 return response.json();
@@ -116,21 +127,16 @@ const Login_pg = () => {
                 handleLogin(token);
             }).catch((error) => {
                 document.getElementById('Loader').style.display = "none";
+                ErrorShow('Incorect Email or Password');
                 console.log(error);
             })
         } else {
-
             console.log("Email or Pass Not Req minimum spec");
         }
 
     }
     return (
         <>
-            <div id="Loader" className="position-fixed top-50 start-50 translate-middle w-100 h-100 justify-content-center align-items-center" style={{ display: "none" }}>
-                <div className="spinner-border text-success" role="status" style={{ width: "100px", height: "100px" }}>
-                    <span className="sr-only">Loading...</span>
-                </div>
-            </div>
             <h3 className=" headerLogin">Sign In Account</h3>
             <form className="mx-3" onSubmit={(e) => { As_Email(e) }}>
                 <div className="form-group mb-3 formEmail">
