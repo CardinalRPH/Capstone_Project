@@ -10,6 +10,7 @@ import './styles/css/sb-admin-2.min.css';
 import './scripts/js/sb-admin-2.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import './scripts/main.js'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

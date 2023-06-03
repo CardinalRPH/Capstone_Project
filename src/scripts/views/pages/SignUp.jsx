@@ -31,6 +31,13 @@ const Signup_pg = () => {
         }
     }, [isAuthenticated])
 
+    const ErrorShow = (msg) => {
+        document.getElementById('errormsg').innerText=msg
+        document.querySelector('.modalCus').classList.remove('hide');
+        document.querySelector('.frameCus').style.display = "flex";
+    
+    }
+
     const As_Google = (e) => {
         e.preventDefault();
         signInWithPopup(auth, provider)
@@ -52,6 +59,7 @@ const Signup_pg = () => {
                 }).then((response) => {
                     if (!response.ok) {
                         document.getElementById('Loader').style.display = "none";
+                        ErrorShow('Internal Server Error');
                         throw new Error('Fail Load With Status ' + response.status);
                     }
                     return response.json();
@@ -62,11 +70,13 @@ const Signup_pg = () => {
 
                 }).catch((error) => {
                     document.getElementById('Loader').style.display = "none";
+                    ErrorShow('Internal Server Error');
                     console.log(error);
                 })
 
             }).catch((error) => {
                 document.getElementById('Loader').style.display = "none";
+                ErrorShow('Internal Server Error');
                 // Handle Errors here.
                 const errorCode = error.code;
                 const errorMessage = error.message;
@@ -107,6 +117,7 @@ const Signup_pg = () => {
             }).then((response) => {
                 if (!response.ok) {
                     document.getElementById('Loader').style.display = "none";
+                    ErrorShow('Internal Server Error');
                     throw new Error('Fail Load With Status ' + response.status);
                 }
                 return response.json();
@@ -116,6 +127,7 @@ const Signup_pg = () => {
                 handleLogin(token);
             }).catch((error) => {
                 document.getElementById('Loader').style.display = "none";
+                ErrorShow('Email Already Exist');
                 console.log(error);
             })
         } else {
