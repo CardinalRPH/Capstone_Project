@@ -16,6 +16,7 @@ import Calendar_pg from "../views/pages/Calendar";
 import Cuaca_pg from "../views/pages/Cuaca";
 import Tips_pg from "../views/pages/Tips";
 import Profile_pg from "../views/pages/Profile";
+import History_pg from "../views/pages/History";
 
 import PageNotFound from "../views/pages/PageNotFound";
 
@@ -95,7 +96,12 @@ const AppRouter = createBrowserRouter([
                 element: (<><Helmet>
                     <title>Tips</title>
                 </Helmet><Tips_pg /></>)
-            }, {
+            },{
+                path: 'history',
+                element: (<><Helmet>
+                    <title>History</title>
+                </Helmet><History_pg /></>)
+            },{
                 path: 'profile',
                 element: (<><Helmet>
                     <title>Profile</title>
