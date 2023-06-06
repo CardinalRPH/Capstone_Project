@@ -61,3 +61,31 @@ export const for_setLocation = (req, res) => {
     }
 
 }
+
+export const for_CheckWeather = (req, res) => {
+    let { weather } = req.params;
+    if (weather == null) {
+        res.status(400).send({
+            ok: false,
+            code: 400,
+            message: "weather required",
+        });
+        return false;
+    } else {
+        return true;
+    }
+}
+
+export const for_CreateEvent = (req, res) => {
+    let { name, plantId, date, uid } = req.body;
+    if (name == null || plantId == null || date == null || uid == null) {
+        res.status(400).send({
+            ok: false,
+            code: 400,
+            message: "Bad Request",
+        });
+        return false;
+    } else {
+        return true;
+    }
+}

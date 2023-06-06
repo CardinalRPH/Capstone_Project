@@ -3,7 +3,7 @@ import { firebaseApp, firebaseAdmin } from "../globals/FirebaseConfig.js";
 import cType from "../utils/general_check.js";
 import JWT_check from "../utils/jwt_checker.js";
 import { for_LoginEmail, for_SignUp, for_LoginorSignUpGoogle, for_UID } from "../utils/component_check.js";
-import { createUser, findOne, Update } from "./SQLDBController.js";
+import { createUser, findOneUser, UpdateUser } from "./SQLDBController.js";
 import GentToken from "../utils/generateJwt.js";
 import { g_variable } from "../globals/config.js";
 import { Hasher, comparer } from "../utils/HasherCompare.js";
@@ -12,18 +12,18 @@ const auth = getAuth(firebaseApp);
 const adminAuth = firebaseAdmin.auth();
 
 export const LoginEmail = (req, res, next) => {
-    if (cType(req)) {
+    if (cType(req, res)) {
         if (for_LoginEmail(req, res)) {
             let { email, password } = req.body;
-            console.log(email, password);
             signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
-                findOne({
+                findOneUser({
                     attributes: ['email', 'name', 'uid'],
                     where: {
                         uid: userCredential.user.uid
                     }
                 }).then((resolve) => {
                     if (resolve != false) {
+                        res.set('Access-Control-Allow-Origin', '*');
                         res.status(200).json({
                             ok: true,
                             code: 200,
@@ -75,7 +75,7 @@ export const LoginEmail = (req, res, next) => {
 
 
 export const SignUp = (req, res, next) => {
-    if (cType(req)) {
+    if (cType(req, res)) {
         if (for_SignUp(req)) {
             let { email, fullname, password } = req.body;
 
@@ -151,11 +151,11 @@ export const SignUp = (req, res, next) => {
 }
 
 export const Login_Google = (req, res) => {
-    if (cType(req)) {
+    if (cType(req, res)) {
         if (for_LoginorSignUpGoogle(req, res)) {
             let { name, email, verif, uid } = req.body;
 
-            findOne({
+            findOneUser({
                 attributes: ['email'],
                 where: {
                     uid: uid
@@ -237,7 +237,7 @@ export const Login_Google = (req, res) => {
 
 export const forgetPass = (req, res, next) => {
     const { email } = req.body;
-    findOne({
+    findOneUser({
         attributes: ['isGoogle'],
         where: {
             email: email
@@ -285,104 +285,106 @@ export const updateUserInfo = (req, res, next) => {
     let loc = true;
     let em = true;
     let ErrorOn = '';
-    if (JWT_check(req, res)) {
-        if (for_UID(id)) {
-            const { name, location, email } = req.body;
-            findOne({
-                attributes: ['email', 'location', 'name'],
-                where: {
-                    uid: id
-                }
-            }).then((resolve) => {
-                if (resolve != false) {
-                    if (resolve.name != name) {
-                        Update({ name: name }, {
-                            where: {
-                                uid: id
-                            }
-                        }).then(() => {
-                            nm = true;
-                        }).catch((reject) => {
-                            ErrorOn += ' Name ';
-                            nm = false;
-                            console.log(reject);
-                        });
+    if (cType(req, res)) {
+        if (JWT_check(req, res)) {
+            if (for_UID(id)) {
+                const { name, location, email } = req.body;
+                findOneUser({
+                    attributes: ['email', 'location', 'name'],
+                    where: {
+                        uid: id
                     }
-                    if (resolve.email != email) {
-                        adminAuth.updateUser(id, { email: email }).then(() => {
-                            Update({ email: email }, {
+                }).then((resolve) => {
+                    if (resolve != false) {
+                        if (resolve.name != name) {
+                            UpdateUser({ name: name }, {
                                 where: {
                                     uid: id
                                 }
                             }).then(() => {
-                                em = true;
+                                nm = true;
                             }).catch((reject) => {
-                                ErrorOn += ' Email ';
-                                em = false;
+                                ErrorOn += ' Name ';
+                                nm = false;
                                 console.log(reject);
                             });
-                        }).catch((error) => {
-                            ErrorOn += ' Email ';
-                            em = false;
-                            console.log(error);
-                        })
-                    }
-                    if (resolve.location != location) {
-                        Update({ location: location }, {
-                            where: {
-                                uid: id
-                            }
-                        }).then(() => {
-                            loc = true;
-                        }).catch((reject) => {
-                            ErrorOn += ' Location ';
-                            loc = false;
-                            console.log(reject);
-                        });
-                    }
+                        }
+                        if (resolve.email != email) {
+                            adminAuth.updateUser(id, { email: email }).then(() => {
+                                UpdateUser({ email: email }, {
+                                    where: {
+                                        uid: id
+                                    }
+                                }).then(() => {
+                                    em = true;
+                                }).catch((reject) => {
+                                    ErrorOn += ' Email ';
+                                    em = false;
+                                    console.log(reject);
+                                });
+                            }).catch((error) => {
+                                ErrorOn += ' Email ';
+                                em = false;
+                                console.log(error);
+                            })
+                        }
+                        if (resolve.location != location) {
+                            UpdateUser({ location: location }, {
+                                where: {
+                                    uid: id
+                                }
+                            }).then(() => {
+                                loc = true;
+                            }).catch((reject) => {
+                                ErrorOn += ' Location ';
+                                loc = false;
+                                console.log(reject);
+                            });
+                        }
 
-                    if (nm == false || em == false || loc == false) {
-                        res.status(500).send({
-                            ok: false,
-                            code: 500,
-                            data: false,
-                            message: 'Internal Server Error',
-                            error: ErrorOn
-                        });
+                        if (nm == false || em == false || loc == false) {
+                            res.status(500).send({
+                                ok: false,
+                                code: 500,
+                                data: false,
+                                message: 'Internal Server Error',
+                                error: ErrorOn
+                            });
+                        } else {
+                            res.status(200).send({
+                                ok: true,
+                                code: 201,
+                                data: false,
+                                message: 'Update Success'
+                            });
+                        }
                     } else {
-                        res.status(200).send({
-                            ok: true,
-                            code: 201,
+                        res.status(404).send({
+                            ok: false,
+                            code: 404,
                             data: false,
-                            message: 'Update Success'
+                            message: 'User Not Found',
                         });
                     }
-                } else {
-                    res.status(404).send({
+                }).catch((reject) => {
+                    res.status(500).send({
                         ok: false,
-                        code: 404,
+                        code: 500,
                         data: false,
-                        message: 'User Not Found',
+                        message: 'Internal Server Error',
+                        error: reject
                     });
-                }
-            }).catch((reject) => {
-                res.status(500).send({
+                })
+
+
+            } else {
+                res.status(400).json({
                     ok: false,
-                    code: 500,
+                    code: 400,
                     data: false,
-                    message: 'Internal Server Error',
-                    error: reject
+                    message: "Bad Request"
                 });
-            })
-
-
-        } else {
-            res.status(400).json({
-                ok: false,
-                code: 400,
-                data: false,
-                message: "Bad Request"
-            });
+            }
         }
     }
 
@@ -390,75 +392,77 @@ export const updateUserInfo = (req, res, next) => {
 
 export const updateUserPass = (req, res, next) => { //need add msg on fetch
     const { id } = req.params;
-    if (JWT_check(req, res)) {
-        if (for_UID(id)) {
-            const { oldPassword, newPassword } = req.body;
-            findOne({
-                attributes: ['password'],
-                where: {
-                    uid: id
-                }
-            }).then((resolve) => {
-                if (resolve) {
-                    comparer(newPassword, oldPassword).then((resolve) => {
-                        if (resolve == true) {
-                            adminAuth.updateUser(id, { password: newPassword }).then(() => {
-                                res.status(201).json({
+    if (cType(req, res)) {
+        if (JWT_check(req, res)) {
+            if (for_UID(id)) {
+                const { oldPassword, newPassword } = req.body;
+                findOneUser({
+                    attributes: ['password'],
+                    where: {
+                        uid: id
+                    }
+                }).then((resolve) => {
+                    if (resolve) {
+                        comparer(newPassword, oldPassword).then((resolve) => {
+                            if (resolve == true) {
+                                adminAuth.updateUser(id, { password: newPassword }).then(() => {
+                                    res.status(201).json({
+                                        ok: true,
+                                        code: 201,
+                                        data: false,
+                                        message: 'Update Success'
+                                    });
+                                }).catch((error) => {
+                                    res.status(500).send({
+                                        ok: false,
+                                        code: 500,
+                                        data: false,
+                                        message: 'Internal Server Error',
+                                        error: error
+                                    });
+                                });
+                            } else {
+                                res.status(401).json({
                                     ok: true,
                                     code: 201,
                                     data: false,
-                                    message: 'Update Success'
+                                    message: 'Password not match' //here need to be attention
                                 });
-                            }).catch((error) => {
-                                res.status(500).send({
-                                    ok: false,
-                                    code: 500,
-                                    data: false,
-                                    message: 'Internal Server Error',
-                                    error: error
-                                });
-                            });
-                        } else {
-                            res.status(401).json({
-                                ok: true,
-                                code: 201,
+                            }
+                        }).catch((reject) => {
+                            res.status(500).send({
+                                ok: false,
+                                code: 500,
                                 data: false,
-                                message: 'Password not match' //here need to be attention
+                                message: 'Internal Server Error',
+                                error: reject
                             });
-                        }
-                    }).catch((reject) => {
-                        res.status(500).send({
-                            ok: false,
-                            code: 500,
-                            data: false,
-                            message: 'Internal Server Error',
-                            error: reject
                         });
-                    })
-                } else {
-                    res.status(404).send({
+                    } else {
+                        res.status(404).send({
+                            ok: false,
+                            code: 404,
+                            data: false,
+                            message: 'User Not Found',
+                        });
+                    }
+                }).catch((reject) => {
+                    res.status(500).send({
                         ok: false,
-                        code: 404,
+                        code: 500,
                         data: false,
-                        message: 'User Not Found',
+                        message: 'Internal Server Error',
+                        error: reject
                     });
-                }
-            }).catch((reject) => {
-                res.status(500).send({
+                })
+            } else {
+                res.status(400).json({
                     ok: false,
-                    code: 500,
+                    code: 400,
                     data: false,
-                    message: 'Internal Server Error',
-                    error: reject
+                    message: "Bad Request"
                 });
-            })
-        } else {
-            res.status(400).json({
-                ok: false,
-                code: 400,
-                data: false,
-                message: "Bad Request"
-            });
+            }
         }
     }
 }
@@ -467,7 +471,7 @@ export const getUserInfo = (req, res) => {
     const { id } = req.params;
     if (JWT_check(req, res)) {
         if (for_UID(id)) {
-            findOne({
+            findOneUser({
                 attributes: ['name', 'location', 'email', 'verif'],
                 where: { uid: id }
             }).then((resolve) => {
