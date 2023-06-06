@@ -11,7 +11,19 @@ const AuthVar = {
     forLogin: `${BackBaseURI}/login-email`,
     forLoginG: `${BackBaseURI}/login-google`,
     forForgetPw: `${BackBaseURI}/forgot-pass`,
-    forSignUp:`${BackBaseURI}/sign-up`,
+    forSignUp: `${BackBaseURI}/sign-up`,
 }
 
-export { g_variable, AuthVar };
+const WeatherandPlant = (code) => {
+    const getPlant = () => {
+        return `${BackBaseURI}/weather/${code}`
+    }
+
+    const getAllPlant = () => {
+        return `${BackBaseURI}/getAllPlant`
+    }
+
+    return { getPlant, getAllPlant }
+}
+
+export { g_variable, AuthVar, WeatherandPlant };

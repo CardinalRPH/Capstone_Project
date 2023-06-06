@@ -8,6 +8,7 @@ import { AuthVar } from "../../../globals/config";
 import { useDispatch, useSelector } from "react-redux";
 import { authAction } from "../../stores/authReducer";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth(firebaseApp);
@@ -107,14 +108,14 @@ const Login_pg = () => {
             fetch(AuthVar.forLogin, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
+                // mode:'cors',
                 body: JSON.stringify({
                     email: email,
                     password: password
                 })
             }).then((response) => {
-                console.log(response);
                 if (!response.ok) {
                     document.getElementById('Loader').style.display = "none";
                     ErrorShow('Internal Server Error');

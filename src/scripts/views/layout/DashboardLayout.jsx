@@ -10,6 +10,11 @@ const DashboardLayout = () => {
         decoded = jwtDecode(token);
     }
 
+    const LogOut = () => {
+        localStorage.removeItem("authentication");
+        window.location.href = "/i/login";
+    }
+
     return (
         <div>
             {/* Page Wrapper */}
@@ -28,7 +33,7 @@ const DashboardLayout = () => {
                     {/* Nav Item - Dashboard */}
                     <li className="nav-item active">
                         <Link className="nav-link" to="/dashboard">
-                        <i class="fa-solid fa-chart-line"></i>
+                        <i className="fa-solid fa-chart-line"></i>
                             <span>Dashboard</span></Link>
                     </li>
                     {/* Divider */}
@@ -44,19 +49,19 @@ const DashboardLayout = () => {
                     {/* Nav Item - Charts */}
                     <li className="nav-item">
                         <Link className="nav-link" to="/dashboard/planner">
-                            <i class="fa-regular fa-calendar"></i>
+                            <i className="fa-regular fa-calendar"></i>
                             <span>Planner</span>
                         </Link>
                     </li>
                     {/* Nav Item - Tables */}
                     <li className="nav-item">
                         <Link className="nav-link" to="/dashboard/tips">
-                            <i class="fa-regular fa-lightbulb"></i>
+                            <i className="fa-regular fa-lightbulb"></i>
                             <span>Tips & Trick</span></Link>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/dashboard/history">
-                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <i className="fa-solid fa-clock-rotate-left"></i>
                             <span>History</span></Link>
                     </li>
                     {/* Divider */}
@@ -286,7 +291,7 @@ const DashboardLayout = () => {
                         <div className="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                         <div className="modal-footer">
                             <button className="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a className="btn btn-primary" href="login.html">Logout</a>
+                            <a className="btn btn-primary" onClick={LogOut}>Logout</a>
                         </div>
                     </div>
                 </div>
