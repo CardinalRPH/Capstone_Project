@@ -7,10 +7,10 @@ import { Op } from "sequelize";
 export const GetPlant = (req, res, next) => {
     if (cType(req, res)) {
         if (JWT_check(req, res)) {
-            if (for_CheckWeather) {
+            if (for_CheckWeather(req, res)) {
                 let { weather } = req.params;
                 findAllPlant({
-                    attributes: ['id', 'name'],
+                    attributes: ['plantId', 'name'],
                     where: {
                         inWeatherFrom: {
                             [Op.lte]: weather
@@ -51,7 +51,7 @@ export const GetPlant = (req, res, next) => {
 export const GetAllPlant = (req, res, next) => {
     if (cType(req, res)) {
         findAllPlant({
-            attributes: ['id', 'name']
+            attributes: ['plantId', 'name']
         }).then((resolve) => {
             if (resolve != false) {
                 res.status(200).json({

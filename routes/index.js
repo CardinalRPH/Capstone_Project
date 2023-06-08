@@ -4,7 +4,8 @@ const router = express.Router();
 
 import { LoginEmail, Login_Google, SignUp, forgetPass } from '../controller/AuthController.js';
 import { GetPlant, GetAllPlant } from '../controller/PlantWeatherController.js';
-import { TestEvent, CreateNewEvent } from '../controller/EventController.js';
+import { TestEvent, CreateNewEvent, GetAllEvent, getOneEvent, UpdateOneEvent, DeleteOneEvent } from '../controller/EventController.js';
+import { createNewHistory, getAllHistory } from '../controller/HistoryController.js';
 // import { weatherData } from '../controller/WeatherController.js';
 // import oa2 from '../utils/generateJwt.js';
 
@@ -20,11 +21,12 @@ router.get('/', function (req, res, next) {
 // router.post('/forgots-pass', forgot_pass);
 // router.get('/login-google', loginGoogle);
 router.get('/testevent', TestEvent);
+router.get('/testevent2/:id', GetAllEvent);
 // router.get('/gen-token', oa2);
 //basic CRUD
 
 //for real
-
+// for AUTH
 router.post('/login-email', LoginEmail);
 router.post('/login-google', Login_Google);
 router.post('/sign-up', SignUp);
@@ -37,6 +39,14 @@ router.get('/getAllPlant', GetAllPlant);
 
 // for event
 router.post('/create-event', CreateNewEvent);
+router.get('/getOneEvent/:id', getOneEvent);
+router.get('/getAllEvent', GetAllEvent);
+router.put('/updateEvent', UpdateOneEvent);
+router.delete('/deleteEvent/:id', DeleteOneEvent);
+
+// for History
+router.post('/create-history', createNewHistory);
+router.get('/getAllHistory', getAllHistory);
 
 
 

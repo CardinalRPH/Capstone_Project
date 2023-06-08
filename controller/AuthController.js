@@ -2,7 +2,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, se
 import { firebaseApp, firebaseAdmin } from "../globals/FirebaseConfig.js";
 import cType from "../utils/general_check.js";
 import JWT_check from "../utils/jwt_checker.js";
-import { for_LoginEmail, for_SignUp, for_LoginorSignUpGoogle, for_UID } from "../utils/component_check.js";
+import { for_LoginEmail, for_SignUp, for_LoginorSignUpGoogle, for_getValue } from "../utils/component_check.js";
 import { createUser, findOneUser, UpdateUser } from "./SQLDBController.js";
 import GentToken from "../utils/generateJwt.js";
 import { g_variable } from "../globals/config.js";
@@ -287,7 +287,7 @@ export const updateUserInfo = (req, res, next) => {
     let ErrorOn = '';
     if (cType(req, res)) {
         if (JWT_check(req, res)) {
-            if (for_UID(id)) {
+            if (for_getValue(id)) {
                 const { name, location, email } = req.body;
                 findOneUser({
                     attributes: ['email', 'location', 'name'],
@@ -394,7 +394,7 @@ export const updateUserPass = (req, res, next) => { //need add msg on fetch
     const { id } = req.params;
     if (cType(req, res)) {
         if (JWT_check(req, res)) {
-            if (for_UID(id)) {
+            if (for_getValue(id)) {
                 const { oldPassword, newPassword } = req.body;
                 findOneUser({
                     attributes: ['password'],
@@ -470,7 +470,7 @@ export const updateUserPass = (req, res, next) => { //need add msg on fetch
 export const getUserInfo = (req, res) => {
     const { id } = req.params;
     if (JWT_check(req, res)) {
-        if (for_UID(id)) {
+        if (for_getValue(id)) {
             findOneUser({
                 attributes: ['name', 'location', 'email', 'verif'],
                 where: { uid: id }

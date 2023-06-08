@@ -17,7 +17,7 @@ export const getWatering = (targetDate, plusRef, harvestDate, title, color, idEv
         currentDate.setDate(currentDate.getDate() + parseInt(plusRef));
         const result = currentDate.toISOString().split('T')[0];
         Watering.push({
-            id: idEvent,
+            id: `2${idEvent}`,
             groupId: idEvent,
             title: `Watering: ${title}`,
             start: result,
@@ -39,7 +39,7 @@ export const getFertilization = (targetDate, plusRef, harvestDate, title, color,
         currentDate.setDate(currentDate.getDate() + parseInt(plusRef));
         const result = currentDate.toISOString().split('T')[0];
         Fertilization.push({
-            id: idEvent,
+            id: `3${idEvent}`,
             groupId: idEvent,
             title: `Fertilization: ${title}`,
             start: result,
