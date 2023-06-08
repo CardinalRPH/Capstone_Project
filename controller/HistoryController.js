@@ -3,6 +3,7 @@ import cType from "../utils/general_check.js";
 import JWT_check from "../utils/jwt_checker.js";
 import { for_createHistory } from "../utils/component_check.js";
 import Plant from "../models/plantModel.js";
+import UID_JWT from "../utils/UID_jwt.js";
 
 export const createNewHistory = (req, res, next) => {
     if (cType(req, res)) {
@@ -10,20 +11,22 @@ export const createNewHistory = (req, res, next) => {
             const uid = UID_JWT(req);
             if (for_createHistory(req, res)) {
                 const { id, result } = req.body;
+                
                 findOneEvent({
-                    atributes: ['tanam', 'panen'],
+                    attributes: ['tanam', 'panen'],
                     include: [{
                         model: Plant,
-                        atributes: ['name'],
+                        required:true,
+                        attributes: ['name'],
                         where: {
                             eventId: id
                         }
                     }]
                 }).then((resolve) => {
+                    console.log('kasdjuyavvduaywd');
                     if (resolve != false) {
                         const tanam = JSON.parse(resolve.tanam);
                         const panen = JSON.parse(resolve.panen);
-
                         findMaxIdHistory().then((idHistory) => {
                             if (idHistory != false) {
                                 let HistoryId = 0;

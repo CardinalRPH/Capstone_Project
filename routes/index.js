@@ -46,7 +46,7 @@ router.delete('/deleteEvent/:id', DeleteOneEvent);
 
 // for History
 router.post('/create-history', createNewHistory);
-router.get('/getAllHistory', getAllHistory);
+router.get('/getHistory', getAllHistory);
 
 
 
