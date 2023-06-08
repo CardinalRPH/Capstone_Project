@@ -26,4 +26,26 @@ const WeatherandPlant = (code) => {
     return { getPlant, getAllPlant }
 }
 
-export { g_variable, AuthVar, WeatherandPlant };
+const EventURI = (code) => {
+    const getOneEvent = () => {
+        return `${BackBaseURI}/getOneEvent/${code}`;
+    }
+
+    const createEvent = () => {
+        return `${BackBaseURI}/create-event`;
+    }
+
+    const getAllEvent = () => {
+        return `${BackBaseURI}/getAllEvent`;
+    }
+    const updateEvent = () => {
+        return `${BackBaseURI}/updateEvent`;
+    }
+    const deleteEvent = () => {
+        return `${BackBaseURI}/deleteEvent/${code}`;
+    }
+
+    return { getOneEvent, createEvent, getAllEvent, updateEvent, deleteEvent }
+}
+
+export { g_variable, AuthVar, WeatherandPlant, EventURI };

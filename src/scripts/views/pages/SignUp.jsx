@@ -144,37 +144,37 @@ const Signup_pg = () => {
                     <span className="sr-only">Loading...</span>
                 </div>
             </div>
-            <h3 class=" headerLogin">Sign Up Account</h3>
-            <form class="mx-3" onSubmit={(e) => { As_UpEmail(e) }}>
-                <div class="row g-2">
-                    <div class="form-group col-sm mb-3 formFullName">
+            <h3 className=" headerLogin">Sign Up Account</h3>
+            <form className="mx-3" onSubmit={(e) => { As_UpEmail(e) }}>
+                <div className="row g-2">
+                    <div className="form-group col-sm mb-3 formFullName">
                         <label for="inputFirstName">Nama Depan</label>
-                        <input id="inputFirstName" type="text" placeholder="" required autofocus="" class="form-control rounded border-0 shadow-sm px-4 my-2" />
+                        <input id="inputFirstName" type="text" placeholder="" required autofocus="" className="form-control rounded border-0 shadow-sm px-4 my-2" />
                     </div>
-                    <div class="form-group col-sm mb-3 formFullName">
+                    <div className="form-group col-sm mb-3 formFullName">
                         <label for="inputLastName">Nama Belakang</label>
-                        <input id="inputLastName" type="text" placeholder="" required autofocus="" class="form-control rounded border-0 shadow-sm px-4 my-2" />
+                        <input id="inputLastName" type="text" placeholder="" required autofocus="" className="form-control rounded border-0 shadow-sm px-4 my-2" />
                     </div>
                 </div>
-                <div class="form-group mb-3 formEmail">
+                <div className="form-group mb-3 formEmail">
                     <label for="inputEmail">Email</label>
-                    <input id="inputEmail" type="email" placeholder="" required autofocus="" class="form-control rounded border-0 shadow-sm px-4 my-2" />
+                    <input id="inputEmail" type="email" placeholder="" required autofocus="" className="form-control rounded border-0 shadow-sm px-4 my-2" />
                 </div>
-                <div class="form-group mb-3 formPassword">
+                <div className="form-group mb-3 formPassword">
                     <label for="inputPassword">Password</label>
-                    <input id="passwordInput" type="password" placeholder="" required="" class="form-control rounded border-0 shadow-sm px-4 mt-2" /><span class="password-toggle" onmousedown="showPassword()" onmouseup="hidePassword()" onmouseout="hidePassword()">&#x1f441;</span>
+                    <input id="passwordInput" type="password" placeholder="" required="" className="form-control rounded border-0 shadow-sm px-4 mt-2" /><span className="password-toggle" onmousedown="showPassword()" onmouseup="hidePassword()" onmouseout="hidePassword()">&#x1f441;</span>
                 </div>
-                <div class="form-group mb-3 formPassword">
+                <div className="form-group mb-3 formPassword">
                     <label for="inputReTypePassword">Re-type Password</label>
-                    <input id="passwordInput" type="password" placeholder="" required="" class="form-control rounded border-0 shadow-sm px-4 mt-2" />
+                    <input id="passwordInput" type="password" placeholder="" required="" className="form-control rounded border-0 shadow-sm px-4 mt-2" />
                 </div>
-                <div class="d-flex flex-column align-items-center">
-                    <button type="submit" class="btn bg-success btn-block text-uppercase my-2 py-2 text-white rounded-pill w-100 shadow-sm buttonSignIn">Sign up</button>
-                    <button onClick={(e) => { As_Google(e) }} class="btn bg-white shadow btn-block text-uppercase my-2 py-2 rounded-pill shadow-sm w-100 google-btn">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="23px" class="mx-1" />
+                <div className="d-flex flex-column align-items-center">
+                    <button type="submit" className="btn bg-success btn-block text-uppercase my-2 py-2 text-white rounded-pill w-100 shadow-sm buttonSignIn">Sign up</button>
+                    <button onClick={(e) => { As_Google(e) }} className="btn bg-white shadow btn-block text-uppercase my-2 py-2 rounded-pill shadow-sm w-100 google-btn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="23px" className="mx-1" />
                         Sign up With Google
                     </button>
-                    <small class="text-secondary">Already have an account? <a href="/i/login" class="text-decoration-none text-success">Sign in.</a></small>
+                    <small className="text-secondary">Already have an account? <a href="/i/login" className="text-decoration-none text-success">Sign in.</a></small>
                 </div>
             </form>
             <CookieConsent>This website uses cookies to enhance the user experience.</CookieConsent>

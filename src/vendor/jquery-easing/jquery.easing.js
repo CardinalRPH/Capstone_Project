@@ -5,7 +5,7 @@
  * All rights reserved.
  * https://raw.github.com/gdsmith/jquery-easing/master/LICENSE
 */
-
+import '../jquery/jquery.js'
 (function (factory) {
 	if (typeof define === "function" && define.amd) {
 		define(['jquery'], function ($) {

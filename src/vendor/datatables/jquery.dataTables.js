@@ -4215,7 +4215,7 @@
 		var language = settings.oLanguage;
 		var previousSearch = settings.oPreviousSearch;
 		var features = settings.aanFeatures;
-		var input = '<input type="search" class="'+classes.sFilterInput+'"/>';
+		var input = '<input type="search" className="'+classes.sFilterInput+'"/>';
 	
 		var str = language.sSearch;
 		str = str.match(/_INPUT_/) ?
@@ -5417,7 +5417,7 @@
 		// both match, but we want to hide it completely. We want to also fix their
 		// width to what they currently are
 		_fnApplyToChildren( function(nSizer, i) {
-			nSizer.innerHTML = '<div class="dataTables_sizing">'+headerContent[i]+'</div>';
+			nSizer.innerHTML = '<div className="dataTables_sizing">'+headerContent[i]+'</div>';
 			nSizer.childNodes[0].style.height = "0";
 			nSizer.childNodes[0].style.overflow = "hidden";
 			nSizer.style.width = headerWidths[i];
@@ -5426,7 +5426,7 @@
 		if ( footer )
 		{
 			_fnApplyToChildren( function(nSizer, i) {
-				nSizer.innerHTML = '<div class="dataTables_sizing">'+footerContent[i]+'</div>';
+				nSizer.innerHTML = '<div className="dataTables_sizing">'+footerContent[i]+'</div>';
 				nSizer.childNodes[0].style.height = "0";
 				nSizer.childNodes[0].style.overflow = "hidden";
 				nSizer.style.width = footerWidths[i];
@@ -14621,7 +14621,7 @@
 	
 							switch ( button ) {
 								case 'ellipsis':
-									container.append('<span class="ellipsis">&#x2026;</span>');
+									container.append('<span className="ellipsis">&#x2026;</span>');
 									break;
 	
 								case 'first':

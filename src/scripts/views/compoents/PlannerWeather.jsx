@@ -6,10 +6,10 @@ import { WeatherandPlant } from '../../../globals/config';
 const WeatherPlan = () => {
 
     let [weather, setWeather] = useState('');
-    let [plant, setPlant] = useState('');
+    let [plant, setPlant] = useState([]);
 
     useEffect(() => {
-        const fetchingData = () => {     
+        const fetchingData = () => {
             weatherFetcher().then((resolve) => {
                 for (let i in weatherCode) {
                     if (weatherCode[i].code == resolve) {
@@ -23,21 +23,23 @@ const WeatherPlan = () => {
                         'Content-Type': 'application/json',
                         'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
                     }
-                }).then((resolve) => {
-                    if (resolve.ok && (resolve.data != false)) {
-                        setPlant(resolve.data.name);
-                    } else {
-                        setPlant('Data Not Found')
-                    }
-                }).catch(() => {
-                    setPlant('Something Error')
                 })
+                    .then((response) => response.json())
+                    .then((resolve) => {
+                        if (resolve.ok && (resolve.data != false)) {
+                            setPlant(resolve.data);
+                        } else {
+                            setPlant('Data Not Found')
+                        }
+                    }).catch(() => {
+                        setPlant('Something Error')
+                    })
             }).catch(() => {
                 setWeather("Eksternal Error");
             })
         }
         fetchingData();
-    },[])
+    }, [])
 
     return (
         <div className="courses-container">
@@ -48,8 +50,7 @@ const WeatherPlan = () => {
                 </div>
                 <div className="course-info">
                     <h6>Tanaman Hari ini</h6>
-                    <h2>{plant}</h2>
-                    {/* 			add right here */}
+                    {plant.slice(0, 3).map((plants) => (<li>{plants.name}</li>))}
                 </div>
             </div>
         </div>

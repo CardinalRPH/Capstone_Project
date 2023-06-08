@@ -2,16 +2,22 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { authAction } from '../../stores/authReducer';
 const DashboardLayout = () => {
     let decoded=''
-    if (localStorage.getItem("authentication") != null) {  
+    const { isAuthenticated } = useSelector((state) => state.auth)
+
+    if (isAuthenticated) {  
         const getLocalStorage = localStorage.getItem("authentication");
         const { token } = JSON.parse(getLocalStorage);
         decoded = jwtDecode(token);
     }
 
+    const dispatch = useDispatch();
+
     const LogOut = () => {
-        localStorage.removeItem("authentication");
+        dispatch(authAction.logout());
         window.location.href = "/i/login";
     }
 
