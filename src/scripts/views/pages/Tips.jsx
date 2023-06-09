@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "../compoents/card";
+import Articlemodal from "../compoents/ArticleModal";
 import { TipsURI } from "../../../globals/config";
 import { useSelector } from "react-redux";
 
@@ -34,12 +35,11 @@ const Tips_pg = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            getTipsTrick();
+            getTipsTrick();   //for Design Front End  Jangan Dihapus !
         }
     }, []);
     return (
         <>
-
             <div className="d-sm-flex align-items-center justify-content-center mb-4">
                 <h1 className="h3 mb-0 text-gray-800">Kategori</h1>
             </div>
@@ -83,6 +83,7 @@ const Tips_pg = () => {
                     </div>
                 </div>
             </div>
+
             <div className="d-sm-flex align-items-center justify-content-center mb-4">
                 <h1 className="h3 mb-0 text-gray-800">Tips & Trick</h1>
             </div>
@@ -97,6 +98,7 @@ const Tips_pg = () => {
             <div id="TipsNotFound" className="text-center" style={{ display: 'none' }}>
                 <h1>Not Found</h1>
             </div>
+            <Articlemodal />
         </>
     )
 }
