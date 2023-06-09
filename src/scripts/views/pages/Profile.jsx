@@ -68,9 +68,38 @@ const Profile_pg = () => {
             </select>
           </div>
           <div className="mt-5 text-center">
-            <button className="btn btn-info profile-button mx-1 plus plus float-right" type="button">Change Password</button>
             <button className="btn btn-success profile-button mx-1 plus float-right" type="button">Save</button>
             <button className="btn btn-primary profile-button mx-1 plus float-right" type="button">Back</button>
+            <div>
+  <div className="modal fade" id="modalSubscriptionForm" tabIndex={-1} role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div className="modal-dialog" role="document">
+      <div className="modal-content">
+        <div className="modal-header text-center">
+          <h4 className="modal-title w-100 font-weight-bold">Change Password</h4>
+          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div className="modal-body mx-3">
+          <div className="md-form mb-5">
+            <i className="fas fa-lock prefix grey-text"/>
+            <input type="password" id="form3" className="form-control validate" placeholder="Current Password"/>
+          </div>
+          <div className="md-form mb-4">
+            <i className="fas fa-lock prefix grey-text"/>
+            <input type="password" id="form2" className="form-control validate" placeholder="New Password" />
+          </div>
+        </div>
+        <div className="modal-footer d-flex justify-content-center">
+          <button className="btn btn-success profile-button mx-1">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div className="text-center">
+    <a href className="btn btn-info profile-button mx-1 plus plus float-right" data-toggle="modal" data-target="#modalSubscriptionForm">Change Password</a>
+  </div>
+</div>
           </div>
         </div>
       </div>
