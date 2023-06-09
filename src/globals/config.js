@@ -12,7 +12,8 @@ const AuthVar = {
     forLoginG: `${BackBaseURI}/login-google`,
     forForgetPw: `${BackBaseURI}/forgot-pass`,
     forSignUp: `${BackBaseURI}/sign-up`,
-    forGetUserInfo:`${BackBaseURI}/user-info`,
+    forGetUserInfo: `${BackBaseURI}/user-info`,
+    forUpdateUserInfo: `${BackBaseURI}/user-info`,
 }
 
 const WeatherandPlant = (code) => {

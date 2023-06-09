@@ -72,30 +72,44 @@ const Profile_pg = () => {
             <h6 className="m-0 font-weight-bold text-primary">Detail Profile</h6>
           </div>
           <div className="card-body">
-            <div className="text-center"></div>
-            <label>Full Name</label>
-            <input className="form-control" type="text" placeholder />
-            <label>Email</label>
-            <input className="form-control" type="text" placeholder />
-            <label>Provinsi</label>
-            <select className="form-control" name="provinsi" id="provinsi" required>
-              <option value="">-- Pilih Provinsi --</option>
-              {provinces.map(provinsi => (
-                <option key={provinsi.id} value={provinsi.id}>{provinsi.name}</option>
-              ))}
-            </select>
-            <label>Kabupaten</label>
-            <select className="form-control" name="kabupaten" id="kabupaten" required>
-              <option value="">-- Pilih Kabupaten --</option>
-              {regencies.map(kabupaten => (
-                <option key={kabupaten.id} value={kabupaten.id}>{kabupaten.name}</option>
-              ))}
-            </select>
-          </div>
-          <div className="mt-5 text-center">
-            <button className="btn btn-info profile-button mx-1 plus plus float-right" type="button">Change Password</button>
-            <button className="btn btn-success profile-button mx-1 plus float-right" type="button">Save</button>
-            <button className="btn btn-primary profile-button mx-1 plus float-right" type="button">Back</button>
+            <form>
+              <div className="d-flex">
+                <div className="w-50 m-2">
+                  <label>First Name</label>
+                  <input className="form-control" id="Fname" type="text" placeholder='First Name' required/>
+                </div>
+                <div className="w-50 m-2">
+                  <label>Last Name</label>
+                  <input className="form-control" id="Lname" type="text" placeholder='Last Name' required/>
+                </div>
+              </div>
+              <div className="m-2">
+                <label>Email</label>
+                <input className="form-control" id="Email" type="text" placeholder='example@cc.com' required/>
+              </div>
+              <div className="m-2">
+                <label>Provinsi</label>
+                <select className="form-control" name="provinsi" id="provinsi" onChange={(e) => { setRegenC(e.target.value) }} required>
+                  <option value="">-- Pilih Provinsi --</option>
+                  {province.map(provinsi => (
+                    <option value={provinsi.id}>{provinsi.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="m-2">
+                <label>Kabupaten</label>
+                <select className="form-control" name="kabupaten" id="kabupaten" required>
+                  <option value="">-- Pilih Kabupaten/Kota --</option>
+                  {regencies.map(kabupaten => (
+                    <option value={kabupaten.name}>{kabupaten.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="mt-5 text-center">
+                <button className="btn btn-info profile-button mx-1 plus plus float-right" type="button">Change Password</button>
+                <button className="btn btn-success profile-button mx-1 plus float-right" type="submit">Save</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
