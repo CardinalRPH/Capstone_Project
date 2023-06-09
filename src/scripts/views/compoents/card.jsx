@@ -14,7 +14,7 @@ class Card extends React.Component {
             <small>{date}</small>
             <small>{catG}</small>
             <p className="card-text">{subsText}</p>
-            <a href={idx} className="btn btn-primary">Visit</a>
+            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#modalRelatedContent">Visit</button>
           </div>
         </div>
       </div>
