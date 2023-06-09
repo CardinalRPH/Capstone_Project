@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import CookieConsent from "react-cookie-consent";
 import firebaseApp from "../../../globals/FirebaseConfig";
@@ -25,17 +25,16 @@ const Signup_pg = () => {
     }
 
     useEffect(() => {
-        console.log(isAuthenticated);
         if (isAuthenticated && token) {
             navigate('/dashboard', { replace: true });
         }
     }, [isAuthenticated])
 
     const ErrorShow = (msg) => {
-        document.getElementById('errormsg').innerText=msg
+        document.getElementById('errormsg').innerText = msg
         document.querySelector('.modalCus').classList.remove('hide');
         document.querySelector('.frameCus').style.display = "flex";
-    
+
     }
 
     const As_Google = (e) => {
@@ -110,7 +109,7 @@ const Signup_pg = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    fullname:firstName,
+                    fullname: firstName,
                     email: email,
                     password: password
                 })
@@ -137,6 +136,37 @@ const Signup_pg = () => {
 
     }
 
+    const checkMatch = () => {
+        const pw1 = document.getElementById('passwordInput');
+        const pw2 = document.getElementById('inputReTypePassword');
+        const subBtn = document.getElementById('submBtn');
+        if (pw1.value == pw2.value) {
+            subBtn.disabled = false;
+            pw1.style.border = '';
+            pw2.style.border = '';
+        } else {
+            subBtn.disabled = true;
+            pw1.style.cssText = 'border: red 1px solid !important';
+            pw2.style.cssText = 'border: red 1px solid !important';
+        }
+    }
+
+    const showPass = (e, id) => {
+        const password = document.getElementById(id);
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        if (type === 'password') {
+            e.classList.remove('fa-eye-slash');
+            e.classList.add('fa-eye');
+        } else {
+            e.classList.add('fa-eye-slash');
+            e.classList.remove('fa-eye');
+        }
+    }
+    // const HidePass = (target) => {
+
+    // }
+
     return (
         <>
             <div id="Loader" className="position-fixed top-50 start-50 translate-middle w-100 h-100 justify-content-center align-items-center" style={{ display: "none" }}>
@@ -162,14 +192,20 @@ const Signup_pg = () => {
                 </div>
                 <div className="form-group mb-3 formPassword">
                     <label for="inputPassword">Password</label>
-                    <input id="passwordInput" type="password" placeholder="" required="" className="form-control rounded border-0 shadow-sm px-4 mt-2" /><span className="password-toggle" onmousedown="showPassword()" onmouseup="hidePassword()" onmouseout="hidePassword()">&#x1f441;</span>
+                    <div className="position-relative">
+                        <input id="passwordInput" type="password" placeholder="" required="" className="form-control rounded border-0 shadow-sm px-4 mt-2" />
+                        <i class="fa-regular fa-eye password-toggle position-absolute" onClick={(e) => { showPass(e.target, "passwordInput") }}></i>
+                    </div>
                 </div>
                 <div className="form-group mb-3 formPassword">
                     <label for="inputReTypePassword">Re-type Password</label>
-                    <input id="passwordInput" type="password" placeholder="" required="" className="form-control rounded border-0 shadow-sm px-4 mt-2" />
+                    <div className="position-relative">
+                        <input id="inputReTypePassword" type="password" placeholder="" required="" onKeyUp={checkMatch} className="form-control rounded border-0 shadow-sm px-4 mt-2" />
+                        <i class="fa-regular fa-eye password-toggle position-absolute" onClick={(e) => { showPass(e.target, "inputReTypePassword") }}></i>
+                    </div>
                 </div>
                 <div className="d-flex flex-column align-items-center">
-                    <button type="submit" className="btn bg-success btn-block text-uppercase my-2 py-2 text-white rounded-pill w-100 shadow-sm buttonSignIn">Sign up</button>
+                    <button type="submit" className="btn bg-success btn-block text-uppercase my-2 py-2 text-white rounded-pill w-100 shadow-sm buttonSignIn" id="submBtn" >Sign up</button>
                     <button onClick={(e) => { As_Google(e) }} className="btn bg-white shadow btn-block text-uppercase my-2 py-2 rounded-pill shadow-sm w-100 google-btn">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="23px" className="mx-1" />
                         Sign up With Google

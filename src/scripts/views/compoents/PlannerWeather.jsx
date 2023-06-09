@@ -29,10 +29,14 @@ const WeatherPlan = () => {
                         if (resolve.ok && (resolve.data != false)) {
                             setPlant(resolve.data);
                         } else {
-                            setPlant('Data Not Found')
+                            setPlant([{
+                                name: "Data Not Found"
+                            }]);
                         }
                     }).catch(() => {
-                        setPlant('Something Error')
+                        setPlant([{
+                            name: "Something Error"
+                        }]);
                     })
             }).catch(() => {
                 setWeather("Eksternal Error");
@@ -50,7 +54,8 @@ const WeatherPlan = () => {
                 </div>
                 <div className="course-info">
                     <h6>Tanaman Hari ini</h6>
-                    {plant.slice(0, 3).map((plants) => (<li>{plants.name}</li>))}
+                    {/* <li>{plant.name}</li> */}
+                    {plant.slice(0,3).map((plants) => (<li>{plants.name}</li>))}
                 </div>
             </div>
         </div>
