@@ -1,39 +1,64 @@
 import React, { useEffect, useState } from "react";
+import province from '../../data/provinces.json'
+import regencie from '../../data/regencies.json'
+import { useSelector } from "react-redux";
+import { AuthVar } from "../../../globals/config";
 
 const Profile_pg = () => {
-  const [provinces, setProvinces] = useState([]);
+  const { isAuthenticated } = useSelector((state) => state.auth)
   const [regencies, setRegencies] = useState([]);
 
-  useEffect(() => {
-    // Mengambil data provinsi dari file JSON
-    fetch('../../data/provinces.json')
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Something went wrong');
-      })
-      .then(responseJson => {
-        setProvinces(responseJson);
-      })
-      .catch(error => {
-        console.error('Terjadi kesalahan:', error);
-      });
 
-    // Mengambil data kabupaten dari file JSON
-    fetch('../../data/regencies.json')
-      .then(response => {
-        if (response.ok) {
-          return response.json();
+  const setProvinC = (provCVal) => {  //this wil get string name not ID
+    if (!provCVal) {
+      document.getElementById('provinsi').value = '';
+    } else {
+      const provC = province.filter((provCFilter) => provCFilter.name === provCVal)[0];
+      document.getElementById('provinsi').value = provC.id;
+      setRegenC(provC.id);
+    }
+  }
+
+  const setBooth = async (provC, regC) => {
+    await setProvinC(provC);
+    document.getElementById('kabupaten').value = regC;
+  }
+
+  const setRegenC = (regCVal) => {
+    if (!regCVal) {
+      setRegencies([]);
+    } else {
+      const regC = regencie.filter((regenCFilter) => regenCFilter.province_id === regCVal);
+      document.getElementById('kabupaten').value = '';
+      setRegencies(regC);
+    }
+  }
+
+  const getUserInfo = () => {
+    fetch(AuthVar.forGetUserInfo, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+      }
+    })
+      .then((response) => response.json())
+      .then((resolve) => {
+        if (resolve.ok && (resolve.data != false)) {
+          document.getElementById('Fname').value=resolve.data.Fname
+          document.getElementById('Lname').value=resolve.data.Lname
+          document.getElementById('Email').value=resolve.data.email
+          setBooth(resolve.data.province, resolve.data.regence)
         }
-        throw new Error('Something went wrong');
+      }).catch((error) => {
+        console.log(error);
       })
-      .then(responseJson => {
-        setRegencies(responseJson);
-      })
-      .catch(error => {
-        console.error('Terjadi kesalahan:', error);
-      });
+  }
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      getUserInfo()
+    }
   }, []);
 
   return (
@@ -68,38 +93,9 @@ const Profile_pg = () => {
             </select>
           </div>
           <div className="mt-5 text-center">
+            <button className="btn btn-info profile-button mx-1 plus plus float-right" type="button">Change Password</button>
             <button className="btn btn-success profile-button mx-1 plus float-right" type="button">Save</button>
             <button className="btn btn-primary profile-button mx-1 plus float-right" type="button">Back</button>
-            <div>
-  <div className="modal fade" id="modalSubscriptionForm" tabIndex={-1} role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div className="modal-dialog" role="document">
-      <div className="modal-content">
-        <div className="modal-header text-center">
-          <h4 className="modal-title w-100 font-weight-bold">Change Password</h4>
-          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div className="modal-body mx-3">
-          <div className="md-form mb-5">
-            <i className="fas fa-lock prefix grey-text"/>
-            <input type="password" id="form3" className="form-control validate" placeholder="Current Password"/>
-          </div>
-          <div className="md-form mb-4">
-            <i className="fas fa-lock prefix grey-text"/>
-            <input type="password" id="form2" className="form-control validate" placeholder="New Password" />
-          </div>
-        </div>
-        <div className="modal-footer d-flex justify-content-center">
-          <button className="btn btn-success profile-button mx-1">Save</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div className="text-center">
-    <a href className="btn btn-info profile-button mx-1 plus plus float-right" data-toggle="modal" data-target="#modalSubscriptionForm">Change Password</a>
-  </div>
-</div>
           </div>
         </div>
       </div>

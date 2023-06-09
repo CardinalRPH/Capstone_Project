@@ -5,8 +5,8 @@ import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import WeatherPlan from "../compoents/PlannerWeather";
-import { WeatherandPlant, EventURI } from "../../../globals/config";
-import { for_planner_Save, for_planner_update } from "../../utils/component_check";
+import { WeatherandPlant, EventURI, HistoryURI } from "../../../globals/config";
+import { for_planner_Save, for_planner_update, for_submit_panen } from "../../utils/component_check";
 import { useSelector } from "react-redux";
 
 const Calendar_pg = () => {
@@ -31,7 +31,7 @@ const Calendar_pg = () => {
                     setEvents(resolve.data);
                 }
             }).catch((error) => {
-                setOption('');
+                setOption([]);
                 console.log(error);
             })
     }
@@ -179,6 +179,8 @@ const Calendar_pg = () => {
                     id: EventId
                 })
             }).then(() => {
+                fetchAllEvent();
+                modalHide();
                 console.log('Success Update');
             }).catch((error) => {
                 console.log(error);
@@ -197,10 +199,41 @@ const Calendar_pg = () => {
                 'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
             }
         }).then(() => {
+            fetchAllEvent();
+            modalHide();
             console.log('Success Delete');
         }).catch((error) => {
             console.log(error);
         });
+    }
+
+    const SubmitPanen = () => {
+        const Panen = document.getElementById('Panen-value').value;
+        if (for_submit_panen(Panen)) {
+            fetch(HistoryURI().createHistory(), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+                },
+                body: JSON.stringify({
+                    result: Panen,
+                    id: EventId
+                })
+            }).then((result) => {
+                if (result.ok == true) {
+                    fetchAllEvent();
+                    modalHide();
+                    console.log('Success Create History');
+                    //add here for success
+                }
+            }).catch((error) => {
+                console.log(error);
+            })
+        } else {
+            console.log('Is bad req');
+            //component is null
+        }
     }
 
     return (
@@ -255,10 +288,10 @@ const Calendar_pg = () => {
                                         <button type="button" onClick={DeleteButton} className="btn btn-danger mx-1">Delete</button>
 
                                         <div className="input-group my-3">
-                                            <input type="number" className="form-control" onFocus={OnFocusP} onBlur={OnBlurP} placeholder="Sudah Panen?" aria-label="Sudah Panen?" aria-describedby="basic-addon2" />
+                                            <input type="number" className="form-control" min={0} id="Panen-value" onFocus={OnFocusP} onBlur={OnBlurP} placeholder="Sudah Panen?" aria-label="Sudah Panen?" aria-describedby="basic-addon2" />
                                             <div className="input-group-append">
                                                 <span className="input-group-text">ton</span>
-                                                <button className="btn btn-outline-secondary" type="button">Submit Panen</button>
+                                                <button className="btn btn-outline-secondary" onClick={SubmitPanen} type="button">Submit Panen</button>
                                             </div>
                                         </div>
 

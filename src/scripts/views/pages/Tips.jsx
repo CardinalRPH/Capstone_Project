@@ -1,91 +1,98 @@
-import React from "react";
-import Cards from "../compoents/card";
+import React, { useEffect, useState } from "react";
+import Card from "../compoents/card";
+import { TipsURI } from "../../../globals/config";
+import { useSelector } from "react-redux";
+
 const Tips_pg = () => {
+    const [Tips, setTips] = useState([]);
+    const { isAuthenticated } = useSelector((state) => state.auth)
+
+    const getTipsTrick = () => {
+        fetch(TipsURI().getTips(), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).then((response) => response.json())
+            .then((resolve) => {
+                if (resolve.ok && (resolve.data != '')) {
+                    console.log(resolve.data);
+                    document.getElementById('TipsList').style.display = 'block';
+                    document.getElementById('TipsNotFound').style.display = 'none';
+                    setTips(resolve.data);
+                } else {
+                    document.getElementById('TipsList').style.display = 'none';
+                    document.getElementById('TipsNotFound').style.display = 'block';
+                }
+            }).catch((error) => {
+                setTips([]);
+                console.log(error);
+            })
+    }
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            getTipsTrick();
+        }
+    }, []);
     return (
         <>
 
-            <div className="row no-gutter ">
-                <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800">Kategori</h1>
-                </div>
-                <div className="container">
-                  <div className="row">
-                    <div className="col-3">
-                        <div className="row">
-                            <div className="col-12">
-                                <button className="btn btn-outline-success w-100">
-                                <img src="gambar1.png" alt="Gambar 1" className="mr-2"/>
-                                <h6 className="h6 mb-0 text-black">Tips Menanam Padi</h6>
-                                </button>
-                            </div>
-                            <div className="col-12">
-                                <button className="btn btn-outline-success w-100">
-                                <img src="gambar2.png" alt="Gambar 2" className="mr-2"/>
-                                <h6 className="h6 mb-0 text-black">Tips Menanam Jagung</h6>
-                                </button>
-                            </div>
+            <div className="d-sm-flex align-items-center justify-content-center mb-4">
+                <h1 className="h3 mb-0 text-gray-800">Kategori</h1>
+            </div>
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="custom-card bg-primary position-relative m-3 rounded">
+                        <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
+                        <div className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center rounded text-container">
+                            <h4>ajgtsdfu</h4>
                         </div>
                     </div>
-                    <div className="col-3">
-                        <div className="row">
-                            <div className="col-12">
-                                <button className="btn btn-outline-success w-100">
-                                <img src="gambar3.png" alt="Gambar 3" className="mr-2"/>
-                                <h6 className="h6 mb-0 text-black">Tips Menanam Cabai</h6>
-                                </button>
-                            </div>
-                            <div className="col-12">
-                              <button className="btn btn-outline-success w-100">
-                                <img src="gambar4.png" alt="Gambar 4" className="mr-2"/>
-                                <h6 className="h6 mb-0 text-black">Tips Menanam Tomat</h6>
-                              </button>
-                            </div>
+                    <div className="custom-card bg-primary position-relative m-3 rounded">
+                        <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
+                        <div className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center rounded text-container">
+                            <h4>ajgtsdfu</h4>
                         </div>
                     </div>
-                    <div className="col-3">
-                    <div className="row">
-                        <div className="col-12">
-                        <button className="btn btn-outline-success w-100">
-                            <img src="gambar5.png" alt="Gambar 5" className="mr-2"/>
-                                <h6 className="h6 mb-0 text-black">Tips Menanam Lobak</h6>
-                        </button>
-                        </div>
-                        <div className="col-12">
-                        <button className="btn btn-outline-success w-100">
-                            <img src="gambar6.png" alt="Gambar 6" className="mr-2"/>
-                                <h6 className="h6 mb-0 text-black">Tips Menanam Ubi</h6>
-                        </button>
+                    <div className="custom-card bg-primary position-relative m-3 rounded">
+                        <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
+                        <div className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center rounded text-container">
+                            <h4>ajgtsdfu</h4>
                         </div>
                     </div>
+                    <div className="custom-card bg-primary position-relative m-3 rounded">
+                        <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
+                        <div className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center rounded text-container">
+                            <h4>ajgtsdfu</h4>
+                        </div>
+                    </div>
+                    <div className="custom-card bg-primary position-relative m-3 rounded">
+                        <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
+                        <div className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center rounded text-container">
+                            <h4>ajgtsdfu</h4>
+                        </div>
+                    </div>
+                    <div className="custom-card bg-primary position-relative m-3 rounded">
+                        <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
+                        <div className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center rounded text-container">
+                            <h4>ajgtsdfu</h4>
+                        </div>
                     </div>
                 </div>
-                </div>
-
-                <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 className="h3 mb-0 text-gray-800">Berita Terkini</h1>
-                </div>
+            </div>
+            <div className="d-sm-flex align-items-center justify-content-center mb-4">
+                <h1 className="h3 mb-0 text-gray-800">Tips & Trick</h1>
+            </div>
+            <div className="container" id="TipsList">
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col-12 col-md-4 mb-4">
-                            <Cards/>
-                        </div>
-                        <div className="col-12 col-md-4 mb-4">
-                            <Cards/>
-                        </div>
-                        <div className="col-12 col-md-4 mb-4">
-                            <Cards/>
-                        </div>
-                        <div className="col-12 col-md-4 mb-4">
-                            <Cards/>
-                        </div>
-                        <div className="col-12 col-md-4 mb-4">
-                            <Cards/>
-                        </div>
-                        <div className="col-12 col-md-4 mb-4">
-                            <Cards/>
-                        </div>
+                        {Tips.map((tips) => (<Card imgUri={tips.Imguri} text={tips.article} date={tips.date} titlex={tips.title} catG={tips.categories} />))}
                     </div>
-                </div>       
+                </div>
+            </div>
+            <div id="TipsNotFound" className="text-center" style={{ display: 'none' }}>
+                <h1>Not Found</h1>
             </div>
         </>
     )

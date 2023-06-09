@@ -8,7 +8,6 @@ import { AuthVar } from "../../../globals/config";
 import { useDispatch, useSelector } from "react-redux";
 import { authAction } from "../../stores/authReducer";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth(firebaseApp);

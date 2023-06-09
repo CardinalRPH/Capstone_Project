@@ -12,6 +12,7 @@ const AuthVar = {
     forLoginG: `${BackBaseURI}/login-google`,
     forForgetPw: `${BackBaseURI}/forgot-pass`,
     forSignUp: `${BackBaseURI}/sign-up`,
+    forGetUserInfo:`${BackBaseURI}/user-info`,
 }
 
 const WeatherandPlant = (code) => {
@@ -48,4 +49,21 @@ const EventURI = (code) => {
     return { getOneEvent, createEvent, getAllEvent, updateEvent, deleteEvent }
 }
 
-export { g_variable, AuthVar, WeatherandPlant, EventURI };
+const HistoryURI = (code) => {
+    const createHistory = () => {
+        return `${BackBaseURI}/create-history`;
+    }
+    const getHistory = () => {
+        return `${BackBaseURI}/getHistory`;
+    }
+    return { createHistory, getHistory }
+}
+
+const TipsURI = (code) => {
+    const getTips = () => {
+        return `${BackBaseURI}/tips-trick`;
+    }
+    return { getTips }
+}
+
+export { g_variable, AuthVar, WeatherandPlant, EventURI, HistoryURI, TipsURI };
