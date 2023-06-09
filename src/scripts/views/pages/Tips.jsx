@@ -26,6 +26,8 @@ const Tips_pg = () => {
                 }
             }).catch((error) => {
                 setTips([]);
+                document.getElementById('TipsList').style.display = 'none';
+                document.getElementById('TipsNotFound').style.display = 'block';
                 console.log(error);
             })
     }
