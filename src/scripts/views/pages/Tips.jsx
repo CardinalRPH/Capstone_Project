@@ -90,6 +90,7 @@ const Tips_pg = () => {
                 <div className="container">
                     <div className="row justify-content-center">
                         {Tips.map((tips) => (<Card imgUri={tips.Imguri} text={tips.article} date={tips.date} titlex={tips.title} catG={tips.categories} />))}
+                    <Card/>
                     </div>
                 </div>
             </div>

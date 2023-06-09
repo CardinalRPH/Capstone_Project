@@ -3,6 +3,7 @@ import province from '../../data/provinces.json'
 import regencie from '../../data/regencies.json'
 import { useSelector } from "react-redux";
 import { AuthVar } from "../../../globals/config";
+import Change from "./Change_pw";
 
 const Profile_pg = () => {
   const { isAuthenticated } = useSelector((state) => state.auth)
@@ -45,9 +46,9 @@ const Profile_pg = () => {
       .then((response) => response.json())
       .then((resolve) => {
         if (resolve.ok && (resolve.data != false)) {
-          document.getElementById('Fname').value=resolve.data.Fname
-          document.getElementById('Lname').value=resolve.data.Lname
-          document.getElementById('Email').value=resolve.data.email
+          document.getElementById('Fname').value = resolve.data.Fname
+          document.getElementById('Lname').value = resolve.data.Lname
+          document.getElementById('Email').value = resolve.data.email
           setBooth(resolve.data.province, resolve.data.regence)
         }
       }).catch((error) => {
@@ -76,16 +77,16 @@ const Profile_pg = () => {
               <div className="d-flex">
                 <div className="w-50 m-2">
                   <label>First Name</label>
-                  <input className="form-control" id="Fname" type="text" placeholder='First Name' required/>
+                  <input className="form-control" id="Fname" type="text" placeholder='First Name' required />
                 </div>
                 <div className="w-50 m-2">
                   <label>Last Name</label>
-                  <input className="form-control" id="Lname" type="text" placeholder='Last Name' required/>
+                  <input className="form-control" id="Lname" type="text" placeholder='Last Name' required />
                 </div>
               </div>
               <div className="m-2">
                 <label>Email</label>
-                <input className="form-control" id="Email" type="text" placeholder='example@cc.com' required/>
+                <input className="form-control" id="Email" type="text" placeholder='example@cc.com' required />
               </div>
               <div className="m-2">
                 <label>Provinsi</label>
@@ -106,8 +107,11 @@ const Profile_pg = () => {
                 </select>
               </div>
               <div className="mt-5 text-center">
-                <button className="btn btn-info profile-button mx-1 plus plus float-right" type="button">Change Password</button>
                 <button className="btn btn-success profile-button mx-1 plus float-right" type="submit">Save</button>
+                <button className="btn btn-info profile-button mx-1 plus plus float-right" data-toggle="modal" data-target="#modalSubscriptionForm">
+                Change Password
+            </button>
+            <Change/>
               </div>
             </form>
           </div>
