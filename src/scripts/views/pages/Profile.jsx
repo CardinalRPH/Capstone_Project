@@ -3,7 +3,6 @@ import province from '../../data/provinces.json'
 import regencie from '../../data/regencies.json'
 import { useSelector } from "react-redux";
 import { AuthVar } from "../../../globals/config";
-import Change from "./Change_pw";
 
 const Profile_pg = () => {
   const { isAuthenticated } = useSelector((state) => state.auth)
@@ -106,12 +105,16 @@ const Profile_pg = () => {
                   ))}
                 </select>
               </div>
+              <div className="m-2">
+                <label htmlFor="currentPassword">Current Password</label>
+                <input type="password" className="form-control validate" id="currentPassword" placeholder="Current Password" required />
+              </div>
+              <div className="m-2">
+                <label htmlFor="newPassword">New Password</label>
+                <input type="password" className="form-control validate" id="newPassword" placeholder="New Password" required />
+              </div>
               <div className="mt-5 text-center">
                 <button className="btn btn-success profile-button mx-1 plus float-right" type="submit">Save</button>
-                <button className="btn btn-info profile-button mx-1 plus plus float-right" data-toggle="modal" data-target="#modalSubscriptionForm">
-                Change Password
-            </button>
-            <Change/>
               </div>
             </form>
           </div>
