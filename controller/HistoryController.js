@@ -11,98 +11,87 @@ export const createNewHistory = (req, res, next) => {
             const uid = UID_JWT(req);
             if (for_createHistory(req, res)) {
                 const { id, result } = req.body;
-                
+
                 findOneEvent({
                     attributes: ['tanam', 'panen'],
                     include: [{
                         model: Plant,
-                        required:true,
+                        required: true,
                         attributes: ['name'],
-                        where: {
-                            eventId: id
-                        }
-                    }]
+                    }],
+                    where: {
+                        eventId: id
+                    }
                 }).then((resolve) => {
                     console.log('kasdjuyavvduaywd');
                     if (resolve != false) {
                         const tanam = JSON.parse(resolve.tanam);
                         const panen = JSON.parse(resolve.panen);
                         findMaxIdHistory().then((idHistory) => {
-                            if (idHistory != false) {
-                                let HistoryId = 0;
+                            let HistoryId = 0;
 
-                                if (idHistory == null) {
-                                    HistoryId = 1;
-                                } else {
-                                    HistoryId = parseInt(idHistory) + 1;
-                                }
-
-                                AddHistory({
-                                    historyId: idHistory,
-                                    jenisTanaman: resolve.name,
-                                    onPlant: tanam.start,
-                                    onHarvest: panen.start,
-                                    harvestResult: result,
-                                    uid: uid
+                            if (idHistory == null) {
+                                HistoryId = 1;
+                            } else {
+                                HistoryId = parseInt(idHistory) + 1;
+                            }
+                            AddHistory({
+                                historyId: HistoryId,
+                                jenisTanaman: resolve.plant.name,
+                                onPlant: tanam.start,
+                                onHarvest: panen.start,
+                                harvestResult: result,
+                                uid: uid
+                            }).then(() => {
+                                deleteOneEvent({
+                                    where: {
+                                        eventId: id
+                                    }
                                 }).then(() => {
-                                    deleteOneEvent({
+                                    res.status(201).json({
+                                        ok: true,
+                                        code: 201,
+                                        data: false,
+                                        message: 'Success Create History'
+                                    });
+                                }).catch((rejectEvent) => {
+                                    DeleteOneHistory({
                                         where: {
-                                            eventId: id
+                                            historyId: idHistory
                                         }
                                     }).then(() => {
-                                        res.status(201).json({
-                                            ok: true,
-                                            code: 201,
+                                        res.status(500).json({
+                                            ok: false,
+                                            code: 500,
                                             data: false,
-                                            message: 'Success Create History'
+                                            message: 'Internal Server Error 1',
+                                            error: rejectEvent
                                         });
-                                    }).catch((rejectEvent) => {
-                                        DeleteOneHistory({
-                                            where: {
-                                                historyId: idHistory
-                                            }
-                                        }).then(() => {
-                                            res.status(500).json({
-                                                ok: false,
-                                                code: 500,
-                                                data: false,
-                                                message: 'Internal Server Error',
-                                                error: rejectEvent
-                                            });
-                                        }).catch((reject) => {
-                                            res.status(500).json({
-                                                ok: false,
-                                                code: 500,
-                                                data: false,
-                                                message: 'Internal Server Error',
-                                                error: reject
-                                            });
-                                        })
+                                    }).catch((reject) => {
+                                        res.status(500).json({
+                                            ok: false,
+                                            code: 500,
+                                            data: false,
+                                            message: 'Internal Server Error 2',
+                                            error: reject
+                                        });
                                     })
-                                }).catch((reject) => {
-                                    res.status(500).json({
-                                        ok: false,
-                                        code: 500,
-                                        data: false,
-                                        message: 'Internal Server Error',
-                                        error: reject
-                                    });
                                 })
-
-                            } else {
-                                res.status(404).json({
+                            }).catch((reject) => {
+                                res.status(500).json({
                                     ok: false,
-                                    code: 404,
+                                    code: 500,
                                     data: false,
-                                    message: 'Data Not Found',
+                                    message: 'Internal Server Error 3',
+                                    error: reject
                                 });
-                            }
+                            });
                         }).catch((reject) => {
                             res.status(500).json({
                                 ok: false,
                                 code: 500,
                                 data: false,
-                                message: 'Internal Server Error',
+                                message: 'Internal Server Error 4',
                                 error: reject
                             });
                         });
@@ -119,7 +108,7 @@ export const createNewHistory = (req, res, next) => {
                         ok: false,
                         code: 500,
                         data: false,
-                        message: 'Internal Server Error',
+                        message: 'Internal Server Error 5',
                         error: reject
                     });
                 });
@@ -132,7 +121,7 @@ export const getAllHistory = (req, res, next) => {
     if (cType(req, res)) {
         if (JWT_check(req, res)) {
             const uid = UID_JWT(req);
-           
+
             GetHistory({
                 where: {
                     uid: uid

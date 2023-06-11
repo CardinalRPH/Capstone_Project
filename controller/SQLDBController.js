@@ -2,6 +2,22 @@ import Users from "../models/userModel.js";
 import Event from "../models/eventModel.js";
 import Plant from "../models/plantModel.js";
 import History from "../models/historyModel.js";
+import TipsTrick from "../models/tipsTrickModel.js";
+
+import sequelizes from "../libs/db.config.js";
+
+Event.belongsTo(Users, { foreignKey: 'uid' });
+Event.belongsTo(Plant, { foreignKey: 'plantId' });
+History.belongsTo(Users, { foreignKey: 'uid' });
+Plant.hasMany(Event, { foreignKey: 'plantId' });
+Users.hasMany(History, { foreignKey: 'uid' });
+Users.hasMany(Event, { foreignKey: 'uid' });
+
+sequelizes.sync().then(() => {
+    console.log("Create All Tablest Success");
+}).catch((error) => {
+    console.error('Unable to create All Tables: ', error);
+});
 
 export const createUser = (data) => new Promise((resolve, reject) => {
     Users.create(data).then(() => {
@@ -152,6 +168,15 @@ export const DeleteOneHistory = (data) => new Promise((resolve, reject) => {
 
 export const findMaxIdHistory = () => new Promise((resolve, reject) => {
     History.max('historyId').then((result) => {
+        resolve(result)
+    }).catch((error) => {
+        reject(error);
+    })
+});
+
+//for tips trick
+export const GetAllTipsTrick = (data) => new Promise((resolve, reject) => {
+    TipsTrick.findAll(data).then((result) => {
         if ((result != null) || (result != '')) {
             resolve(result);
         } else {
@@ -159,7 +184,18 @@ export const findMaxIdHistory = () => new Promise((resolve, reject) => {
         }
     }).catch((error) => {
         reject(error);
-    })
+    });
 });
 
+export const GetOneTipsTricks = (data) => new Promise((resolve, reject) => {
+    TipsTrick.findOne(data).then((result) => {
+        if ((result != null) || (result != '')) {
+            resolve(result);
+        } else {
+            resolve(false);
+        }
+    }).catch((error) => {
+        reject(error);
+    });
+});
 

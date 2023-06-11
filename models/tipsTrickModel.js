@@ -1,37 +1,45 @@
 import sequelizes from "../libs/db.config.js";
 import { Model, DataTypes } from "sequelize";
 
-class History extends Model { }
-History.init({
-    historyId: {
+class TipsTrick extends Model { }
+TipsTrick.init({
+    tipsId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: false,
         primaryKey: true
     },
-    jenisTanaman: {
+    title: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    onPlant: {
+    article: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    date: {
+        type: DataTypes.DATEONLY,
+        allowNull: false
+    },
+    Imguri: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    onHarvest: {
+    ImgRef: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    harvestResult: {
+    categories: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull:false
     },
-    uid: {
+    Author: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull:false
     }
 }, {
     sequelize: sequelizes,
-    modelName: 'history'
+    modelName: 'tipstrick'
 });
 
-export default History;
+export default TipsTrick;

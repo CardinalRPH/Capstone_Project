@@ -1,15 +1,16 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
-import { firebaseApp, firebaseAdmin } from "../globals/FirebaseConfig.js";
+import firebaseApp from "../libs/FirebaseConfig.js";
+import FirebaseAdmin from "../libs/FirebaseAdminConfig.js";
 import cType from "../utils/general_check.js";
 import JWT_check from "../utils/jwt_checker.js";
 import { for_LoginEmail, for_SignUp, for_LoginorSignUpGoogle, for_getValue } from "../utils/component_check.js";
 import { createUser, findOneUser, UpdateUser } from "./SQLDBController.js";
 import GentToken from "../utils/generateJwt.js";
 import { g_variable } from "../globals/config.js";
-import { Hasher, comparer } from "../utils/HasherCompare.js";
+import UID_JWT from "../utils/UID_jwt.js";
 
 const auth = getAuth(firebaseApp);
-const adminAuth = firebaseAdmin.auth();
+const adminAuth = FirebaseAdmin.auth();
 
 export const LoginEmail = (req, res, next) => {
     if (cType(req, res)) {
@@ -17,7 +18,7 @@ export const LoginEmail = (req, res, next) => {
             let { email, password } = req.body;
             signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
                 findOneUser({
-                    attributes: ['email', 'name', 'uid'],
+                    attributes: ['email', 'Fname', 'Lname', 'uid'],
                     where: {
                         uid: userCredential.user.uid
                     }
@@ -30,7 +31,8 @@ export const LoginEmail = (req, res, next) => {
                             data: {
                                 token: GentToken({
                                     uid: resolve.uid,
-                                    name: resolve.name,
+                                    fname: resolve.Fname,
+                                    lname: resolve.Lname,
                                     email: resolve.email,
                                     xth: g_variable.jwt_key
                                 })
@@ -77,66 +79,58 @@ export const LoginEmail = (req, res, next) => {
 export const SignUp = (req, res, next) => {
     if (cType(req, res)) {
         if (for_SignUp(req)) {
-            let { email, fullname, password } = req.body;
+            let { email, fname, lname, password } = req.body;
 
-            Hasher(password).then((passwordHash) => {
-                createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
-                    createUser({
-                        uid: userCredential.user.uid,
-                        name: fullname,
-                        location: null,
-                        email: userCredential.user.email,
-                        password: passwordHash,
-                        isGoogle: false,
-                        verif: userCredential.user.emailVerified,
+            createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+                createUser({
+                    uid: userCredential.user.uid,
+                    Fname: fname,
+                    Lname: lname,
+                    regence: null,
+                    province: null,
+                    email: userCredential.user.email,
+                    isGoogle: false,
+                    verif: userCredential.user.emailVerified,
 
-                    }).then((resolve) => {
-                        if (resolve == true) {
-                            res.status(200).json({
-                                ok: true,
-                                code: 200,
-                                data: {
-                                    token: GentToken({
-                                        uid: userCredential.user.uid,
-                                        name: fullname,
-                                        email: userCredential.user.email,
-                                        xth: g_variable.jwt_key
-                                    })
-                                }
-                            });
-                        } else {
-                            res.status(500).send({
-                                ok: false,
-                                code: 500,
-                                data: false,
-                                message: 'Internal Server Error',
-                            });
-                        }
-                    }).catch((reject) => {
+                }).then((resolve) => {
+                    if (resolve == true) {
+                        res.status(200).json({
+                            ok: true,
+                            code: 200,
+                            data: {
+                                token: GentToken({
+                                    uid: userCredential.user.uid,
+                                    fname: fname,
+                                    lname: lname,
+                                    email: userCredential.user.email,
+                                    xth: g_variable.jwt_key
+                                })
+                            }
+                        });
+                    } else {
                         res.status(500).send({
                             ok: false,
                             code: 500,
                             data: false,
                             message: 'Internal Server Error',
-                            error: reject
                         });
-                    })
-                }).catch((error) => {
-                    res.status(200).send({
+                    }
+                }).catch((reject) => {
+                    res.status(500).send({
                         ok: false,
-                        code: 200,
+                        code: 500,
                         data: false,
-                        message: 'Email already exist',
-                    })
+                        message: 'Internal Server Error',
+                        error: reject
+                    });
                 })
-            }).catch((reject) => {
-                res.status(500).send({
+            }).catch((error) => {
+                res.status(200).send({
                     ok: false,
-                    code: 500,
+                    code: 200,
                     data: false,
-                    message: 'Internal Server Error',
-                    error: reject
-                });
+                    message: 'Email already exist',
+                })
             })
 
         } else {
@@ -168,7 +162,8 @@ export const Login_Google = (req, res) => {
                         data: {
                             token: GentToken({
                                 uid: uid,
-                                name: name,
+                                fname: name,
+                                lname: name,
                                 email: email,
                                 xth: g_variable.jwt_key
                             })
@@ -177,8 +172,10 @@ export const Login_Google = (req, res) => {
                 } else {
                     createUser({
                         uid: uid,
-                        name: name,
-                        location: null,
+                        Fname: name,
+                        Lname: name,
+                        regence: null,
+                        province: null,
                         email: email,
                         isGoogle: true,
                         verif: verif
@@ -192,7 +189,8 @@ export const Login_Google = (req, res) => {
                                 data: {
                                     token: GentToken({
                                         uid: uid,
-                                        name: name,
+                                        fname: name,
+                                        lname: name,
                                         email: email,
                                         xth: g_variable.jwt_key
                                     })
@@ -261,9 +259,9 @@ export const forgetPass = (req, res, next) => {
                 });
             })
         } else {
-            res.status(200).json({
+            res.status(403).json({
                 ok: false,
-                code: 200,
+                code: 403,
                 data: false,
                 message: 'Google Account Cant Reset Password'
             });
@@ -280,32 +278,78 @@ export const forgetPass = (req, res, next) => {
 }
 
 export const updateUserInfo = (req, res, next) => {
-    const { id } = req.params;
-    let nm = true;
-    let loc = true;
+    let fm = true;
+    let lm = true;
+    let regc = true;
+    let prov = true;
     let em = true;
     let ErrorOn = '';
+    let Debug = 'Debug : ';
     if (cType(req, res)) {
         if (JWT_check(req, res)) {
+            const id = UID_JWT(req);
             if (for_getValue(id)) {
-                const { name, location, email } = req.body;
+                const { fname, lname, province, regence, email } = req.body;
                 findOneUser({
-                    attributes: ['email', 'location', 'name'],
+                    attributes: ['email', 'province', 'regence', 'Fname', 'Lname'],
                     where: {
                         uid: id
                     }
                 }).then((resolve) => {
                     if (resolve != false) {
-                        if (resolve.name != name) {
-                            UpdateUser({ name: name }, {
+                        if (resolve.Fname != fname) {
+                            UpdateUser({ Fname: fname }, {
                                 where: {
                                     uid: id
                                 }
                             }).then(() => {
-                                nm = true;
+                                fm = true;
+                                Debug += ' FName ';
                             }).catch((reject) => {
-                                ErrorOn += ' Name ';
-                                nm = false;
+                                ErrorOn += ' FName ';
+                                fm = false;
+                                console.log(reject);
+                            });
+                        }
+                        if (resolve.Lname != lname) {
+                            UpdateUser({ Lname: lname }, {
+                                where: {
+                                    uid: id
+                                }
+                            }).then(() => {
+                                lm = true;
+                                Debug += ' LName ';
+                            }).catch((reject) => {
+                                ErrorOn += ' LName ';
+                                lm = false;
+                                console.log(reject);
+                            });
+                        }
+                        if (resolve.province != province) {
+                            UpdateUser({ province: province }, {
+                                where: {
+                                    uid: id
+                                }
+                            }).then(() => {
+                                prov = true;
+                                Debug += ' province ';
+                            }).catch((reject) => {
+                                ErrorOn += ' province ';
+                                prov = false;
+                                console.log(reject);
+                            });
+                        }
+                        if (resolve.regence != regence) {
+                            UpdateUser({ regence: regence }, {
+                                where: {
+                                    uid: id
+                                }
+                            }).then(() => {
+                                regc = true;
+                                Debug += ' regence ';
+                            }).catch((reject) => {
+                                ErrorOn += ' regence ';
+                                regc = false;
                                 console.log(reject);
                             });
                         }
@@ -317,6 +361,7 @@ export const updateUserInfo = (req, res, next) => {
                                     }
                                 }).then(() => {
                                     em = true;
+                                    Debug += ' EMail ';
                                 }).catch((reject) => {
                                     ErrorOn += ' Email ';
                                     em = false;
@@ -328,21 +373,8 @@ export const updateUserInfo = (req, res, next) => {
                                 console.log(error);
                             })
                         }
-                        if (resolve.location != location) {
-                            UpdateUser({ location: location }, {
-                                where: {
-                                    uid: id
-                                }
-                            }).then(() => {
-                                loc = true;
-                            }).catch((reject) => {
-                                ErrorOn += ' Location ';
-                                loc = false;
-                                console.log(reject);
-                            });
-                        }
-
-                        if (nm == false || em == false || loc == false) {
+                        console.log(Debug);
+                        if (fm == false || em == false || regc == false || lm == false || prov == false) {
                             res.status(500).send({
                                 ok: false,
                                 code: 500,
@@ -391,51 +423,31 @@ export const updateUserInfo = (req, res, next) => {
 }
 
 export const updateUserPass = (req, res, next) => { //need add msg on fetch
-    const { id } = req.params;
     if (cType(req, res)) {
+        const id = UID_JWT(req);
         if (JWT_check(req, res)) {
             if (for_getValue(id)) {
-                const { oldPassword, newPassword } = req.body;
+                const { newPassword } = req.body;
                 findOneUser({
-                    attributes: ['password'],
                     where: {
                         uid: id
                     }
                 }).then((resolve) => {
                     if (resolve) {
-                        comparer(newPassword, oldPassword).then((resolve) => {
-                            if (resolve == true) {
-                                adminAuth.updateUser(id, { password: newPassword }).then(() => {
-                                    res.status(201).json({
-                                        ok: true,
-                                        code: 201,
-                                        data: false,
-                                        message: 'Update Success'
-                                    });
-                                }).catch((error) => {
-                                    res.status(500).send({
-                                        ok: false,
-                                        code: 500,
-                                        data: false,
-                                        message: 'Internal Server Error',
-                                        error: error
-                                    });
-                                });
-                            } else {
-                                res.status(401).json({
-                                    ok: true,
-                                    code: 201,
-                                    data: false,
-                                    message: 'Password not match' //here need to be attention
-                                });
-                            }
-                        }).catch((reject) => {
+                        adminAuth.updateUser(id, { password: newPassword }).then(() => {
+                            res.status(201).json({
+                                ok: true,
+                                code: 201,
+                                data: false,
+                                message: 'Update Success'
+                            });
+                        }).catch((error) => {
                             res.status(500).send({
                                 ok: false,
                                 code: 500,
                                 data: false,
                                 message: 'Internal Server Error',
-                                error: reject
+                                error: error
                             });
                         });
                     } else {
@@ -468,34 +480,84 @@ export const updateUserPass = (req, res, next) => { //need add msg on fetch
 }
 
 export const getUserInfo = (req, res) => {
-    const { id } = req.params;
-    if (JWT_check(req, res)) {
-        if (for_getValue(id)) {
-            findOneUser({
-                attributes: ['name', 'location', 'email', 'verif'],
-                where: { uid: id }
-            }).then((resolve) => {
-                if (resolve != false) {
-                    res.status(200).json({
-                        ok: true,
-                        code: 200,
-                        data: resolve
-                    });
-                } else {
-                    res.status(404).send({
-                        ok: false,
-                        code: 404,
-                        data: false,
-                        message: 'User Not Found',
-                    });
-                }
-            })
-        } else {
-            res.status(400).json({
-                ok: false,
-                code: 400,
-                data: false,
-                message: "Bad Request"
+    if (cType(req, res)) {
+        if (JWT_check(req, res)) {
+            const id = UID_JWT(req);
+            if (for_getValue(id)) {
+                findOneUser({
+                    attributes: ['Fname', 'Lname', 'province', 'regence', 'email', 'verif', 'isGoogle'],
+                    where: { uid: id }
+                }).then((resolve) => {
+                    if (resolve != false) {
+                        res.status(200).json({
+                            ok: true,
+                            code: 200,
+                            data: resolve
+                        });
+                    } else {
+                        res.status(404).send({
+                            ok: false,
+                            code: 404,
+                            data: false,
+                            message: 'User Not Found',
+                        });
+                    }
+                })
+            } else {
+                res.status(400).json({
+                    ok: false,
+                    code: 400,
+                    data: false,
+                    message: "Bad Request"
+                });
+            }
+        }
+    }
+}
+
+export const getUserLoaction = (req, res) => {
+    if (cType(req, res)) {
+        if (JWT_check(req, res)) {
+            const id = UID_JWT(req);
+            if (for_getValue(id)) {
+                findOneUser({
+                    attributes: ['province', 'regence'],
+                    where: { uid: id }
+                }).then((resolve) => {
+                    if (resolve != false) {
+                        res.status(200).json({
+                            ok: true,
+                            code: 200,
+                            data: resolve
+                        });
+                    } else {
+                        res.status(404).send({
+                            ok: false,
+                            code: 404,
+                            data: false,
+                            message: 'User Not Found',
+                        });
+                    }
+                })
+            } else {
+                res.status(400).json({
+                    ok: false,
+                    code: 400,
+                    data: false,
+                    message: "Bad Request"
+                });
+            }
+        }
+    }
+}
+
+export const CheckJwt = (req, res) => {
+    if (cType(req, res)) {        
+        if (JWT_check(req, res)) {
+            res.status(200).send({
+                ok: true,
+                code: 200,
+                message: "Token Active"
             });
         }
     }

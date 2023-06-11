@@ -1,12 +1,13 @@
-import { sequelizes, DataTypes } from "../libs/db.config.js";
+import sequelizes from "../libs/db.config.js";
+import { Model, DataTypes } from "sequelize";
 
-
-const Plant = sequelizes.define('plant', {
+class Plant extends Model { }
+Plant.init({
     plantId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
-        primaryKey:true
+        primaryKey: true
     },
     name: {
         type: DataTypes.STRING,
@@ -32,12 +33,9 @@ const Plant = sequelizes.define('plant', {
         type: DataTypes.INTEGER,
         allowNull: false
     }
-});
-
-sequelizes.sync().then(() => {
-    console.log("Create Plant Success");
-}).catch((error) => {
-    console.error('Unable to create table Plant : ', error);
+}, {
+    sequelize: sequelizes,
+    modelName: 'plant'
 });
 
 export default Plant;

@@ -17,4 +17,4 @@ sequelizes.authenticate().then(() => {
     console.error('Unable to connect to the database: ', error);
 });
 
-export {sequelizes, DataTypes}
+export default sequelizes

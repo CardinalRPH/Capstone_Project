@@ -1,8 +1,8 @@
-import { sequelizes, DataTypes } from "../libs/db.config.js";
-import Users from "./userModel.js";
-import Plant from "./plantModel.js";
+import sequelizes from "../libs/db.config.js";
+import { Model, DataTypes } from "sequelize";
 
-const Event = sequelizes.define('Event', {
+class Event extends Model { }
+Event.init({
     eventId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -37,18 +37,9 @@ const Event = sequelizes.define('Event', {
         type: DataTypes.STRING,
         allowNull: false
     }
-});
-
-Users.hasMany(Event, { foreignKey: 'uid' });
-Event.belongsTo(Users, { foreignKey: 'uid' });
-
-Plant.hasMany(Event, { foreignKey: 'plantId' });
-Event.belongsTo(Users, { foreignKey: 'plantId' });
-
-sequelizes.sync().then(() => {
-    console.log("Create Event Success");
-}).catch((error) => {
-    console.error('Unable to create table Event : ', error);
+}, {
+    sequelize: sequelizes,
+    modelName: 'Event'
 });
 
 export default Event;

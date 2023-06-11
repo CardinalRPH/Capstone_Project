@@ -1,26 +1,33 @@
-import { sequelizes, DataTypes } from "../libs/db.config.js";
+import sequelizes from "../libs/db.config.js";
+import { Model, DataTypes } from "sequelize";
 
-const Users = sequelizes.define('Users', {
+class Users extends Model { }
+
+Users.init({
     uid: {
         type: DataTypes.STRING,
         allowNull: false,
         primaryKey: true
     },
-    name: {
+    Fname: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    location: {
+    Lname: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    province: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    regence: {
         type: DataTypes.STRING,
         allowNull: true,
     },
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: true,
     },
     isGoogle: {
         type: DataTypes.BOOLEAN,
@@ -32,14 +39,9 @@ const Users = sequelizes.define('Users', {
         allowNull: false,
         defaultValue: false
     },
-});
-
-
-
-sequelizes.sync().then(() => {
-    console.log("Create User Success");
-}).catch((error) => {
-    console.error('Unable to create table user : ', error);
+}, {
+    sequelize: sequelizes,
+    modelName: 'users'
 });
 
 export default Users;
