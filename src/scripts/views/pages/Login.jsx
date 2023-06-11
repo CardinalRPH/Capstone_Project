@@ -15,7 +15,7 @@ const auth = getAuth(firebaseApp);
 const Login_pg = () => {
 
     const ErrorShow = (msg) => {
-        document.getElementById('errormsg').innerText=msg
+        document.getElementById('errormsg').innerText = msg;
         document.querySelector('.modalCus').classList.remove('hide');
         document.querySelector('.frameCus').style.display = "flex";
     

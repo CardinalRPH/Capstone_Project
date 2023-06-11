@@ -229,3 +229,27 @@ h3 {
 .custom-card:hover > img {
   filter: brightness(50%);
 }
+
+.article-top-Component {
+  bottom: 0;
+  background-color: #00000092;
+}
+
+.article-top-Component h1 {
+  color: white;
+  font-size: 4vw;
+}
+
+.article-top-Component h6 {
+  color: chocolate;
+  font-size: 2vw;
+}
+
+.article-main-img{
+  filter: brightness(80%);
+  min-height: 1em;
+}
+
+.top-level-article {
+  padding: 0  !important;
+}

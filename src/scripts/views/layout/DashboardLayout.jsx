@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { authAction } from '../../stores/authReducer';
+import { AuthVar } from '../../../globals/config';
+import ErrorModal from '../compoents/ErrorModal';
 const DashboardLayout = () => {
-    let decoded=''
+    let decoded = ''
     const { isAuthenticated } = useSelector((state) => state.auth)
 
-    if (isAuthenticated) {  
+    if (isAuthenticated) {
         const getLocalStorage = localStorage.getItem("authentication");
         const { token } = JSON.parse(getLocalStorage);
         decoded = jwtDecode(token);
@@ -16,10 +18,45 @@ const DashboardLayout = () => {
 
     const dispatch = useDispatch();
 
+    const CheckToken = () => {
+        fetch(AuthVar.checkJwt, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+            }
+        })
+            .then((response) => response.json())
+            .then((resolve) => {
+                if (resolve.ok == false) {
+                    ErrorShow('Token Expired');
+                }
+            }).catch((error) => {
+                console.log(error);
+            })
+    }
+
+    const ErrorShow = (msg) => {
+        document.getElementById('errormsg').innerText = msg;
+        document.querySelector('.modalCus').classList.remove('hide');
+        document.querySelector('.frameCus').style.display = "flex";
+
+    }
+
     const LogOut = () => {
         dispatch(authAction.logout());
         window.location.href = "/i/login";
     }
+
+    const TExpired = () => {
+        dispatch(authAction.logout());
+    }
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            CheckToken();
+        }
+    }, []);
 
     return (
         <div>
@@ -39,7 +76,7 @@ const DashboardLayout = () => {
                     {/* Nav Item - Dashboard */}
                     <li className="nav-item active">
                         <Link className="nav-link" to="/dashboard">
-                        <i className="fa-solid fa-chart-line"></i>
+                            <i className="fa-solid fa-chart-line"></i>
                             <span>Dashboard</span></Link>
                     </li>
                     {/* Divider */}
@@ -67,7 +104,7 @@ const DashboardLayout = () => {
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/dashboard/history">
-                        <i className="fa-solid fa-clock-rotate-left"></i>
+                            <i className="fa-solid fa-clock-rotate-left"></i>
                             <span>History</span></Link>
                     </li>
                     {/* Divider */}
@@ -299,6 +336,7 @@ const DashboardLayout = () => {
             {/* Custom scripts for all pages*/}
             {/* Page level plugins */}
             {/* Page level custom scripts */}
+            <ErrorModal FuClick={TExpired} />
         </div>
 
 

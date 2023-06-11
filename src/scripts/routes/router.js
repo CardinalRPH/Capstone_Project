@@ -13,7 +13,7 @@ import ForgetPw_pg from "../views/pages/Forget_pw";
 import ForgetPwSend_pg from "../views/pages/Forget_pw_scs";
 import Dashboard_pg from "../views/pages/Dashboard";
 import Calendar_pg from "../views/pages/Calendar";
-import Cuaca_pg from "../views/pages/Cuaca";
+import Article_pg from "../views/pages/Article";
 import Tips_pg from "../views/pages/Tips";
 import Profile_pg from "../views/pages/Profile";
 import History_pg from "../views/pages/History";
@@ -70,9 +70,9 @@ const AppRouter = createBrowserRouter([
     {
         path: '/dashboard',
         element: (
-           //<PrivateRoute>
+           <PrivateRoute>
                 <Dash_Layout />
-            //</PrivateRoute>
+            </PrivateRoute>
         ),
         children: [
             {
@@ -87,10 +87,10 @@ const AppRouter = createBrowserRouter([
                     <title>Planner</title>
                 </Helmet><Calendar_pg /></>)
             }, {
-                path: 'cuaca',
+                path: 'Article/:id',
                 element: (<><Helmet>
-                    <title>Cuaca</title>
-                </Helmet><Cuaca_pg /></>)
+                    <title>Article</title>
+                </Helmet><Article_pg /></>)
             }, {
                 path: 'tips',
                 element: (<><Helmet>

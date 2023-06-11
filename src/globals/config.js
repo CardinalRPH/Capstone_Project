@@ -13,38 +13,43 @@ const AuthVar = {
     forForgetPw: `${BackBaseURI}/forgot-pass`,
     forSignUp: `${BackBaseURI}/sign-up`,
     forGetUserInfo: `${BackBaseURI}/user-info`,
-    forUpdateUserInfo: `${BackBaseURI}/update-user-info`,
+    forUpdateUserInfo: `${BackBaseURI}/user-info`,
+    checkJwt:`${BackBaseURI}/checkJwt`,
 }
 
 const WeatherandPlant = (code) => {
     const getPlant = () => {
-        return `${BackBaseURI}/weather/${code}`
+        return `${BackBaseURI}/weather/${code}`;
     }
 
     const getAllPlant = () => {
-        return `${BackBaseURI}/getAllPlant`
+        return `${BackBaseURI}/getAllPlant`;
     }
 
-    return { getPlant, getAllPlant }
+    const getUserLocation = () => {
+        return `${BackBaseURI}/user-location`;
+    }
+
+    return { getPlant, getAllPlant, getUserLocation }
 }
 
 const EventURI = (code) => {
     const getOneEvent = () => {
-        return `${BackBaseURI}/getOneEvent/${code}`;
+        return `${BackBaseURI}/event/${code}`;
     }
 
     const createEvent = () => {
-        return `${BackBaseURI}/create-event`;
+        return `${BackBaseURI}/event`;
     }
 
     const getAllEvent = () => {
         return `${BackBaseURI}/getAllEvent`;
     }
     const updateEvent = () => {
-        return `${BackBaseURI}/updateEvent`;
+        return `${BackBaseURI}/event`;
     }
     const deleteEvent = () => {
-        return `${BackBaseURI}/deleteEvent/${code}`;
+        return `${BackBaseURI}/event/${code}`;
     }
 
     return { getOneEvent, createEvent, getAllEvent, updateEvent, deleteEvent }
@@ -52,10 +57,10 @@ const EventURI = (code) => {
 
 const HistoryURI = (code) => {
     const createHistory = () => {
-        return `${BackBaseURI}/create-history`;
+        return `${BackBaseURI}/history`;
     }
     const getHistory = () => {
-        return `${BackBaseURI}/getHistory`;
+        return `${BackBaseURI}/history`;
     }
     return { createHistory, getHistory }
 }
@@ -64,7 +69,10 @@ const TipsURI = (code) => {
     const getTips = () => {
         return `${BackBaseURI}/tips-trick`;
     }
-    return { getTips }
+    const getTipsOne = () => {
+        return `${BackBaseURI}/tips-trick/${code}`;
+    }
+    return { getTips, getTipsOne }
 }
 
 export { g_variable, AuthVar, WeatherandPlant, EventURI, HistoryURI, TipsURI };

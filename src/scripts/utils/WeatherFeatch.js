@@ -1,20 +1,22 @@
-const weatherFetcher = () => new Promise((resolve, reject) => {
+import {modifyProvince, modifyRegence} from "./modifyString";
+const weatherFetcher = (province, regence) => new Promise((resolve, reject) => {
     const currentDate = new Date();
 
-    fetch('https://api.codetabs.com/v1/proxy/?quest=https://data.bmkg.go.id/DataMKG/MEWS/DigitalForecast/DigitalForecast-DKIJakarta.xml', {
+    fetch(`https://api.codetabs.com/v1/proxy/?quest=https://data.bmkg.go.id/DataMKG/MEWS/DigitalForecast/DigitalForecast-${modifyProvince(province)}.xml`, {
     })
         .then(response => response.text())
         .then(data => {
             let parser = new DOMParser();
             let xmlDoc = parser.parseFromString(data, "application/xml");
             let masterEl = xmlDoc.querySelector("data[source='meteofactory']")
-            let dx = "Jakarta Selatan"
             let mindex = 0;
             let timeIndex = 0;
 
             //findIdArea
             masterEl.querySelectorAll("area").forEach((area, index) => {
-                if (area.getAttribute("description") == dx) {
+                console.log('Test');
+                if (area.querySelectorAll('name')[1].innerHTML === modifyRegence(regence)) {
+                    console.log('Yess');
                     mindex = index;
                 }
             });
