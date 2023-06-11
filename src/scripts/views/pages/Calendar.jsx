@@ -272,8 +272,8 @@ const Calendar_pg = () => {
                                                 <label className="input-group-text px-2" htmlFor="inputGroupSelect01">Type of Plant</label>
                                             </div>
                                             <select className="custom-select" id="inputGroupSelect01">
-                                                <option selected>Choose...</option>
-                                                {Option.map((option) => (<option value={option.plantId}>{option.name}</option>))}
+                                                <option value=''>Choose...</option>
+                                                {Option.map((option, i) => (<option key={i} value={option.plantId}>{option.name}</option>))}
                                             </select>
                                         </div>
                                         <div className="input-group mb-3">

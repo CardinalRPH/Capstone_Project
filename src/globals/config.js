@@ -13,7 +13,7 @@ const AuthVar = {
     forForgetPw: `${BackBaseURI}/forgot-pass`,
     forSignUp: `${BackBaseURI}/sign-up`,
     forGetUserInfo: `${BackBaseURI}/user-info`,
-    forUpdateUserInfo: `${BackBaseURI}/user-info`,
+    forUpdateUserInfo: `${BackBaseURI}/update-user-info`,
 }
 
 const WeatherandPlant = (code) => {

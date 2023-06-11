@@ -55,7 +55,7 @@ const WeatherPlan = () => {
                 <div className="course-info">
                     <h6>Tanaman Hari ini</h6>
                     {/* <li>{plant.name}</li> */}
-                    {plant.slice(0,3).map((plants) => (<li>{plants.name}</li>))}
+                    {plant.slice(0,3).map((plants,i) => (<li key={i}>{plants.name}</li>))}
                 </div>
             </div>
         </div>

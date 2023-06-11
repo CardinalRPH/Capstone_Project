@@ -45,10 +45,43 @@ const Profile_pg = () => {
       .then((response) => response.json())
       .then((resolve) => {
         if (resolve.ok && (resolve.data != false)) {
-          document.getElementById('Fname').value=resolve.data.Fname
-          document.getElementById('Lname').value=resolve.data.Lname
-          document.getElementById('Email').value=resolve.data.email
+          document.getElementById('Fname').value = resolve.data.Fname
+          document.getElementById('Lname').value = resolve.data.Lname
+          document.getElementById('Email').value = resolve.data.email
           setBooth(resolve.data.province, resolve.data.regence)
+          if (resolve.data.isGoogle == true) {
+            document.getElementById('changePassword').disabled = true;
+          } else {
+            document.getElementById('changePassword').disabled = false;
+          }
+        }
+      }).catch((error) => {
+        console.log(error);
+      })
+  }
+
+  const UpdateUserInfo = (e) => {
+    e.preventDefault();
+    fetch(AuthVar.forUpdateUserInfo, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+      },
+      body: JSON.stringify({
+        fname: document.getElementById('Fname').value,
+        lname: document.getElementById('Lname').value,
+        province: province.filter((provCFilter) => provCFilter.id === document.getElementById('provinsi').value)[0].name,
+        regence: document.getElementById('kabupaten').value,
+        email: document.getElementById('Email').value
+      })
+    })
+      .then((response) => response.json())
+      .then((resolve) => {
+        console.log(resolve);
+        if (resolve.ok) {
+          console.log('Update Success');
+          // window.location.reload();
         }
       }).catch((error) => {
         console.log(error);
@@ -72,27 +105,27 @@ const Profile_pg = () => {
             <h6 className="m-0 font-weight-bold text-primary">Detail Profile</h6>
           </div>
           <div className="card-body">
-            <form>
+            <form onSubmit={(e) => { UpdateUserInfo(e) }}>
               <div className="d-flex">
                 <div className="w-50 m-2">
                   <label>First Name</label>
-                  <input className="form-control" id="Fname" type="text" placeholder='First Name' required/>
+                  <input className="form-control" id="Fname" type="text" placeholder='First Name' required />
                 </div>
                 <div className="w-50 m-2">
                   <label>Last Name</label>
-                  <input className="form-control" id="Lname" type="text" placeholder='Last Name' required/>
+                  <input className="form-control" id="Lname" type="text" placeholder='Last Name' required />
                 </div>
               </div>
               <div className="m-2">
                 <label>Email</label>
-                <input className="form-control" id="Email" type="text" placeholder='example@cc.com' required/>
+                <input className="form-control" id="Email" type="email" placeholder='example@cc.com' required />
               </div>
               <div className="m-2">
                 <label>Provinsi</label>
                 <select className="form-control" name="provinsi" id="provinsi" onChange={(e) => { setRegenC(e.target.value) }} required>
                   <option value="">-- Pilih Provinsi --</option>
-                  {province.map(provinsi => (
-                    <option value={provinsi.id}>{provinsi.name}</option>
+                  {province.map((provinsi, i) => (
+                    <option key={i} value={provinsi.id}>{provinsi.name}</option>
                   ))}
                 </select>
               </div>
@@ -100,14 +133,14 @@ const Profile_pg = () => {
                 <label>Kabupaten</label>
                 <select className="form-control" name="kabupaten" id="kabupaten" required>
                   <option value="">-- Pilih Kabupaten/Kota --</option>
-                  {regencies.map(kabupaten => (
-                    <option value={kabupaten.name}>{kabupaten.name}</option>
+                  {regencies.map((kabupaten,i) => (
+                    <option key={i} value={kabupaten.name}>{kabupaten.name}</option>
                   ))}
                 </select>
               </div>
               <div className="mt-5 text-center">
-                <button className="btn btn-info profile-button mx-1 plus plus float-right" type="button">Change Password</button>
-                <button className="btn btn-success profile-button mx-1 plus float-right" type="submit">Save</button>
+                <button className="btn btn-info profile-button mx-1 plus plus float-right" id="changePassword" type="button">Change Password</button>
+                <button className="btn btn-success profile-button mx-1 plus float-right" type="submit">Update</button>
               </div>
             </form>
           </div>
