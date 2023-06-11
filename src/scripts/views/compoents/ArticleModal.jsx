@@ -5,7 +5,7 @@ class Articlemodal extends React.Component {
     render() {
         return (
             <div className="modal fade right" id="modalRelatedContent" tabIndex={-1} role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false">
-                <div className="modal-dialog modal-side modal-bottom-right modal-notify modal-info" role="document">
+                <div className="modal-dialog modal-side modal-bottom-right modal-notify modal-info modal-lg" role="document">
                     {/*Content*/}
                     <div className="modal-content">
                         {/*Header*/}
@@ -34,6 +34,7 @@ class Articlemodal extends React.Component {
                     {/*/.Content*/}
                 </div>
             </div>
+            
         )
     }
 }

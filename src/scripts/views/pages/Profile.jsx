@@ -138,6 +138,14 @@ const Profile_pg = () => {
                   ))}
                 </select>
               </div>
+              <div className="m-2">
+                <label htmlFor="currentPassword">Current Password</label>
+                <input type="password" className="form-control validate" id="currentPassword" placeholder="Current Password" required />
+              </div>
+              <div className="m-2">
+                <label htmlFor="newPassword">New Password</label>
+                <input type="password" className="form-control validate" id="newPassword" placeholder="New Password" required />
+              </div>
               <div className="mt-5 text-center">
                 <button className="btn btn-info profile-button mx-1 plus plus float-right" id="changePassword" type="button">Change Password</button>
                 <button className="btn btn-success profile-button mx-1 plus float-right" type="submit">Update</button>
