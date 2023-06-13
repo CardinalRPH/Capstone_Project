@@ -14,9 +14,7 @@ const weatherFetcher = (province, regence) => new Promise((resolve, reject) => {
 
             //findIdArea
             masterEl.querySelectorAll("area").forEach((area, index) => {
-                console.log('Test');
                 if (area.querySelectorAll('name')[1].innerHTML === modifyRegence(regence)) {
-                    console.log('Yess');
                     mindex = index;
                 }
             });

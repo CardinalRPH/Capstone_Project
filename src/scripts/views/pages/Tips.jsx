@@ -18,7 +18,6 @@ const Tips_pg = () => {
         }).then((response) => response.json())
             .then((resolve) => {
                 if (resolve.ok && (resolve.data != '')) {
-                    console.log(resolve.data);
                     document.getElementById('TipsList').style.display = 'block';
                     document.getElementById('TipsNotFound').style.display = 'none';
                     setTips(resolve.data);

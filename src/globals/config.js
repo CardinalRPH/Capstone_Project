@@ -14,7 +14,7 @@ const AuthVar = {
     forSignUp: `${BackBaseURI}/sign-up`,
     forGetUserInfo: `${BackBaseURI}/user-info`,
     forUpdateUserInfo: `${BackBaseURI}/user-info`,
-    checkJwt:`${BackBaseURI}/checkJwt`,
+    checkJwt: `${BackBaseURI}/checkJwt`,
 }
 
 const WeatherandPlant = (code) => {
@@ -75,4 +75,40 @@ const TipsURI = (code) => {
     return { getTips, getTipsOne }
 }
 
-export { g_variable, AuthVar, WeatherandPlant, EventURI, HistoryURI, TipsURI };
+
+const EditorURI = (code) => {
+    const getAllUsers = () => {
+        return `${BackBaseURI}/e/AllUser`;
+    }
+    const EnableUser = () => {
+        return `${BackBaseURI}/e/EnableUser/${code}`;
+    }
+    const DisableUser = () => {
+        return `${BackBaseURI}/e/DisableUser/${code}`;
+    }
+    const DeleteUser = () => {
+        return `${BackBaseURI}/e/Deleteuser/${code}`;
+    }
+    const CreatePlant = () => {
+        return `${BackBaseURI}/e/CreatePlant`;
+    }
+    const UpdatePlant = () => {
+        return `${BackBaseURI}/e/UpdatePlant/${code}`;
+    }
+    const DeletePlant = () => {
+        return `${BackBaseURI}/e/DeletePlant/${code}`;
+    }
+    const CreateTips = () => {
+        return `${BackBaseURI}/e/CreateTips`;
+    }
+    const UpdateTips = () => {
+        return `${BackBaseURI}/e/UpdateTips/${code}`;
+    }
+    const DeleteTips = () => {
+        return `${BackBaseURI}/e/DeleteTips/${code}`;
+    }
+
+    return { getAllUsers, CreatePlant, UpdatePlant, DeletePlant, CreateTips, UpdateTips, DeleteTips, EnableUser, DisableUser, DeleteUser }
+}
+
+export { g_variable, AuthVar, WeatherandPlant, EventURI, HistoryURI, TipsURI, EditorURI };

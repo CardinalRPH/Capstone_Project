@@ -3,10 +3,10 @@ import { Outlet } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { authAction } from '../../stores/authReducer';
-import { AuthVar } from '../../../globals/config';
-import ErrorModal from '../compoents/ErrorModal';
-const DashboardLayout = () => {
+import { authAction } from '../../../stores/authReducer';
+import { AuthVar } from '../../../../globals/config';
+import ErrorModal from '../../compoents/ErrorModal';
+const ADXDashboardLayout = () => {
     const [decoded, setDecoded] = useState([]);
     const { isAuthenticated } = useSelector((state) => state.auth)
 
@@ -62,17 +62,18 @@ const DashboardLayout = () => {
                 {/* Sidebar */}
                 <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
                     {/* Sidebar - Brand */}
-                    <a className="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                    <a className="sidebar-brand d-flex align-items-center justify-content-center" href="/e/dashboard">
                         <div className="sidebar-brand-icon rotate-n-15">
                             {/* <i className="fas fa-laugh-wink" /> */}
                         </div>
                         <div className="sidebar-brand-text mx-3" style={{ width: '18rem' }}>CropPlanner</div>
                     </a>
                     {/* Divider */}
+                    <h6 className='text-center text-warning'>Editor Panel</h6>
                     <hr className="sidebar-divider my-0" />
                     {/* Nav Item - Dashboard */}
                     <li className="nav-item active">
-                        <Link className="nav-link" to="/dashboard">
+                        <Link className="nav-link" to="/e/dashboard">
                             <i className="fa-solid fa-chart-line"></i>
                             <span>Dashboard</span></Link>
                     </li>
@@ -88,21 +89,21 @@ const DashboardLayout = () => {
                     {/* Heading */}
                     {/* Nav Item - Charts */}
                     <li className="nav-item">
-                        <Link className="nav-link" to="/dashboard/planner">
-                            <i className="fa-regular fa-calendar"></i>
-                            <span>Planner</span>
+                        <Link className="nav-link" to="/e/dashboard/users">
+                            <i className="fa-solid fa-users"></i>
+                            <span>Users</span>
                         </Link>
                     </li>
                     {/* Nav Item - Tables */}
                     <li className="nav-item">
-                        <Link className="nav-link" to="/dashboard/tips">
-                            <i className="fa-regular fa-lightbulb"></i>
-                            <span>Tips & Trick</span></Link>
+                        <Link className="nav-link" to="/e/dashboard/content">
+                            <i className="fa-solid fa-newspaper"></i>
+                            <span>Content</span></Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to="/dashboard/history">
-                            <i className="fa-solid fa-clock-rotate-left"></i>
-                            <span>History</span></Link>
+                        <Link className="nav-link" to="/e/dashboard/plants">
+                            <i className="fa-solid fa-seedling"></i>
+                            <span>Plants</span></Link>
                     </li>
                     {/* Divider */}
                     <hr className="sidebar-divider d-none d-md-block" />
@@ -271,4 +272,4 @@ const DashboardLayout = () => {
 
 }
 
-export default DashboardLayout;
+export default ADXDashboardLayout;

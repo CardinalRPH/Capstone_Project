@@ -2,6 +2,8 @@ import { Navigate, createBrowserRouter, Route } from "react-router-dom"
 import { Helmet } from "react-helmet";
 
 import PrivateRoute from "../utils/PrivateRoute";
+import NegPrivateRoute from "../utils/NegPrivateRoute";
+import ADXPrivateRoute from "../utils/ADXPrivateRoute";
 
 import LnSuLayout from "../views/layout/LnSuLayout";
 import Forget_Layout from "../views/layout/ForgetPwLayout";
@@ -19,6 +21,16 @@ import Profile_pg from "../views/pages/Profile";
 import History_pg from "../views/pages/History";
 
 import PageNotFound from "../views/pages/PageNotFound";
+
+import ADXLnSuLayout from "../views/layout/Editor/ADXLnSuLayout";
+import ADXDashboardLayout from "../views/layout/Editor/ADXDashboardLayout";
+
+import ADXLogin_pg from "../views/pages/Editor/ADXLogin";
+import ADXDashboard_pg from "../views/pages/Editor/ADXDashboard";
+import ADXUsers_pg from "../views/pages/Editor/ADXUsers";
+import ADXPlants_pg from "../views/pages/Editor/ADXPlants";
+import ADXArticle from "../views/pages/Editor/ADXArticle";
+import ADXContent from "../views/pages/Editor/ADXContent1";
 
 const AppRouter = createBrowserRouter([
     // {
@@ -50,7 +62,10 @@ const AppRouter = createBrowserRouter([
     },
     {
         path: '/forget-password',
-        element: <Forget_Layout />,
+        element: (
+            <NegPrivateRoute>
+                <Forget_Layout />
+            </NegPrivateRoute>),
         children: [
             {
                 path: '',
@@ -70,7 +85,7 @@ const AppRouter = createBrowserRouter([
     {
         path: '/dashboard',
         element: (
-           <PrivateRoute>
+            <PrivateRoute>
                 <Dash_Layout />
             </PrivateRoute>
         ),
@@ -96,18 +111,80 @@ const AppRouter = createBrowserRouter([
                 element: (<><Helmet>
                     <title>Tips</title>
                 </Helmet><Tips_pg /></>)
-            },{
+            }, {
                 path: 'history',
                 element: (<><Helmet>
                     <title>History</title>
                 </Helmet><History_pg /></>)
-            },{
+            }, {
                 path: 'profile',
                 element: (<><Helmet>
                     <title>Profile</title>
                 </Helmet><Profile_pg /></>)
             }
         ]
+    },
+
+    //Editor
+    {
+        path: '/e',
+        element: <ADXLnSuLayout />,
+        children: [
+            {
+                path: "login",
+                element: (<><Helmet>
+                    <title>Editor Login</title>
+                </Helmet><ADXLogin_pg /></>)
+            }
+        ]
+
+    },
+
+    {
+        path: '/e/dashboard',
+        element: (
+            // <ADXPrivateRoute>
+            <ADXDashboardLayout />
+            //</ADXPrivateRoute>
+        ),
+        children: [
+            {
+                path: '',
+                element: (<><Helmet>
+                    <title>Dashboard</title>
+                </Helmet><ADXDashboard_pg /></>)
+            },
+            {
+                path: 'users',
+                element: (<><Helmet>
+                    <title>Users</title>
+                </Helmet><ADXUsers_pg /></>)
+            }, {
+                path: 'content',
+                element: (<><Helmet>
+                    <title>Article</title>
+                </Helmet><ADXContent/></>)
+            }, {
+                path: 'plants',
+                element: (<><Helmet>
+                    <title>Plants</title>
+                </Helmet><ADXPlants_pg /></>)
+            }, {
+                path: 'profile',
+                element: (<><Helmet>
+                    <title>Profile</title>
+                </Helmet><Profile_pg /></>)
+            },{
+                path: 'article/:id',
+                element: (<><Helmet>
+                    <title>Article</title>
+                </Helmet><ADXArticle/></>)
+            }
+        ]
+    },
+    {
+        path: '/404NOTFOUND',
+        element: <PageNotFound />,
     },
     {
         path: '*',

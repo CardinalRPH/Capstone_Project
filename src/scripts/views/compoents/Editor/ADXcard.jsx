@@ -1,24 +1,24 @@
 import React from "react";
-
-class Card extends React.Component {
+import { Link } from "react-router-dom";
+class ADXCard extends React.Component {
   render() {
     const { imgUri, text, date, idx, titlex, catG, Author } = this.props || null;
 
     const subsText = `${text.substring(0, 100)} ...`;
     return (
-      <div className="col-24 mb-4">
-        <div className="card" style={{ width: '18rem' }}>
-          <img className="card-img-top" src={imgUri} alt="Card image cap" />
+      <div className="col-24 mb-4 mx-2">
+        <div className="card cusCard" style={{ width: '18rem' }}>
+          <img className="card-img-top" src={imgUri} height={'180px'} alt="Card image cap" />
           <div className="card-body">
             <h5 className="card-title">{titlex}</h5>
             <h6>{catG}</h6>
             <small>{date} / {Author}</small>
             <p className="card-text">{subsText}</p>
-            <a href={`/dashboard/article/${idx}`} className="btn btn-primary">Visit</a>
+            <Link to={`/e/dashboard/article/${idx}`} className="btn btn-primary">Visit/Edit/Delete</Link>
           </div>
         </div>
       </div>
     )
   }
 }
-export default Card;
+export default ADXCard;

@@ -21,3 +21,9 @@ export const for_submit_panen = (hasil) => {
         return true;
     }
 }
+
+export const Check_Object = (object) => {
+    const hasNullValue = Object.values(object).some(value => value === '');
+    const isAllNotNull = !hasNullValue;
+    return isAllNotNull
+}

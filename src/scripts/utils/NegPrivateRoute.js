@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const PrivateRoute = ({ children }) => {
+const NegPrivateRoute = ({ children }) => {
 
 
     const { isAuthenticated } = useSelector((state) => state.auth);
@@ -10,10 +10,10 @@ const PrivateRoute = ({ children }) => {
 
 
     useEffect(() => {
-        !isAuthenticated && navigate("/i/login")
+        isAuthenticated && navigate("/dashboard")
     }, [isAuthenticated, navigate])
 
     return <>{children}</>
 };
 
-export default PrivateRoute;
+export default NegPrivateRoute;

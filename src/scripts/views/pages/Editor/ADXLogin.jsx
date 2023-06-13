@@ -2,17 +2,17 @@ import React, { useEffect } from "react"
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import CookieConsent from "react-cookie-consent";
 
-import firebaseApp from "../../../globals/FirebaseConfig";
-import { PassEmailValidate } from "../../utils/EmailPassValidate";
-import { AuthVar } from "../../../globals/config";
+import firebaseApp from "../../../../globals/FirebaseConfig";
+import { PassEmailValidate } from "../../../utils/EmailPassValidate";
+import { AuthVar } from "../../../../globals/config";
 import { useDispatch, useSelector } from "react-redux";
-import { authAction } from "../../stores/authReducer";
+import { authAction } from "../../../stores/authReducer";
 import { useNavigate } from "react-router-dom";
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth(firebaseApp);
 
-const Login_pg = () => {
+const ADXLogin_pg = () => {
 
     const ErrorShow = (msg) => {
         document.getElementById('errormsg').innerText = msg;
@@ -32,19 +32,19 @@ const Login_pg = () => {
         }));
     }
 
-    useEffect(() => {
-        console.log(isAuthenticated);
-        if (isAuthenticated && token) {
-            navigate('/dashboard', { replace: true });
-        }
-    }, [isAuthenticated])
+    // useEffect(() => {
+    //     console.log(isAuthenticated);
+    //     if (isAuthenticated && token) {
+    //         navigate('/dashboard', { replace: true });
+    //     }
+    // }, [isAuthenticated])
 
 
     const As_Google = (e) => {
         e.preventDefault();
         signInWithPopup(auth, provider)
             .then((result) => {
-                let { uid, email, displayName } = result.user;
+                let { uid, email, emailVerified, displayName } = result.user;
                 document.getElementById('Loader').style.display = "flex";
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 fetch(AuthVar.forLoginG, {
@@ -56,6 +56,7 @@ const Login_pg = () => {
                         name: displayName,
                         email: email,
                         uid: uid,
+                        verif: emailVerified
                     })
                 }).then((response) => {
                     if (!response.ok) {
@@ -149,16 +150,10 @@ const Login_pg = () => {
                 </div>
                 <div className="d-flex flex-column align-items-center">
                     <button type="submit" className="btn bg-success btn-block text-uppercase my-2 py-2 text-white rounded-pill w-100 shadow-sm buttonSignIn">Sign in</button>
-                    <button onClick={(e) => { As_Google(e) }} className="btn bg-white shadow btn-block text-uppercase my-2 py-2 rounded-pill shadow-sm w-100 google-btn">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" width="23px" className="mx-1" />
-                        Sign in With Google
-                    </button>
-                    <small className="text-secondary">Dont have account <a href="sign-up" className="text-decoration-none text-success">Sign Up</a></small>
                 </div>
             </form>
-            <CookieConsent>This website uses cookies to enhance the user experience.</CookieConsent>
         </>
     )
 }
 
-export default Login_pg
+export default ADXLogin_pg;

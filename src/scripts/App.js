@@ -4,10 +4,12 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import AppRouter from "./routes/router";
 import { RouterProvider } from "react-router"
+import ADXauthReducer from "./stores/ADXauthReducer";
 
 const store = configureStore({
   reducer: {
-    auth:authReducer
+    auth: authReducer,
+    authADX: ADXauthReducer
   }
 })
 

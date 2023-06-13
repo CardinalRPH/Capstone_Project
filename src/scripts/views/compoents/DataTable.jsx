@@ -29,7 +29,6 @@ class DataTables extends React.Component {
                 selector: (row) => row.harvestResult
             },
         ];
-        console.log(dataX);
 
         return (
             <div>
