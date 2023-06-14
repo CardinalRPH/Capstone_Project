@@ -108,3 +108,34 @@ export const for_createHistory = (req, res) => {
         return true;
     }
 }
+
+export const for_UpdateCreatePlant = (req, res) => {
+    let { result, id } = req.body;
+    if (result == null || id == null) {
+        res.status(400).send({
+            ok: false,
+            code: 400,
+            message: "Bad Request",
+        });
+        return false;
+    } else {
+        return true;
+    }
+}
+
+
+export const checkIsValued = (req, res) => {
+    const theObj = req.body;
+    const hasNullValue = Object.values(theObj).includes('');
+    if (hasNullValue) {
+        res.status(400).send({
+            ok: false,
+            code: 400,
+            message: "Bad Request",
+        });
+        return false;
+    } else {
+        return true;
+    }
+
+}

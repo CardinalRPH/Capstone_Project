@@ -39,6 +39,18 @@ export const findOneUser = (data) => new Promise((resolve, reject) => {
     })
 });
 
+export const findAllUser = (data) => new Promise((resolve, reject) => {
+    Users.findAll(data).then((result) => {
+        if (result != null) {
+            resolve(result);
+        } else {
+            resolve(false);
+        }
+    }).catch((error) => {
+        reject(error);
+    })
+});
+
 export const UpdateUser = (data, condition) => new Promise((resolve, reject) => {
     Users.update(data, condition).then(() => {
         resolve(true);
@@ -47,6 +59,21 @@ export const UpdateUser = (data, condition) => new Promise((resolve, reject) => 
     })
 });
 
+export const SQLDeleteUser = (data) => new Promise((resolve, reject) => {
+    Users.destroy(data).then(() => {
+        resolve(true);
+    }).catch((error) => {
+        reject(error);
+    })
+});
+
+export const SQLCountUser = () => new Promise((resolve, reject) => {
+    Users.count().then((result) => {
+        resolve(result);
+    }).catch((error) => {
+        reject(error);
+    })
+});
 
 
 //for plant and weather
@@ -74,6 +101,39 @@ export const findAllPlant = (data) => new Promise((resolve, reject) => {
         reject(error);
     })
 });
+
+export const SQLCreatePlant = (data) => new Promise((resolve, reject) => {
+    Plant.create(data).then(() => {
+        resolve(true);
+    }).catch((error) => {
+        reject(error);
+    });
+});
+
+export const SQLUpdatePlant = (data, condition) => new Promise((resolve, reject) => {
+    Plant.update(data, condition).then(() => {
+        resolve(true);
+    }).catch((error) => {
+        reject(error);
+    });
+});
+
+export const SQLDeletePlant = (data) => new Promise((resolve, reject) => {
+    Plant.destroy(data).then(() => {
+        resolve(true);
+    }).catch((error) => {
+        reject(error);
+    });
+});
+
+export const SQLCountPlant = () => new Promise((resolve, reject) => {
+    Plant.count().then((result) => {
+        resolve(result);
+    }).catch((error) => {
+        reject(error);
+    })
+});
+
 
 //for event
 export const createEvent = (data) => new Promise((resolve, reject) => {
@@ -198,4 +258,38 @@ export const GetOneTipsTricks = (data) => new Promise((resolve, reject) => {
         reject(error);
     });
 });
+
+export const SQLCreateTips = (data) => new Promise((resolve, reject) => {
+    TipsTrick.create(data).then(() => {
+        resolve(true);
+    }).catch((error) => {
+        reject(error);
+    });
+});
+
+export const SQLUpdateTIps = (data, condition) => new Promise((resolve, reject) => {
+    TipsTrick.update(data, condition).then(() => {
+        resolve(true);
+    }).catch((error) => {
+        reject(error);
+    });
+});
+
+export const SQLDeleteTips = (data) => new Promise((resolve, reject) => {
+    TipsTrick.destroy(data).then(() => {
+        resolve(true);
+    }).catch((error) => {
+        reject(error);
+    });
+});
+
+export const SQLCountTips = () => new Promise((resolve, reject) => {
+    TipsTrick.count().then((result) => {
+        resolve(result);
+    }).catch((error) => {
+        reject(error);
+    })
+});
+
+
 

@@ -1,6 +1,6 @@
 import { createEvent, findOnePlant, findAllEvent, findMaxId, findOneEvent, updateOneEvent, deleteOneEvent } from "./SQLDBController.js";
 import cType from "../utils/general_check.js";
-import JWT_check from "../utils/jwt_checker.js";
+import {JWT_check} from "../utils/jwt_checker.js";
 import { for_CreateEvent, for_getValue, for_updateEvent } from "../utils/component_check.js";
 import { getFertilization, getHarvest, getWatering } from "../utils/dateCalculator.js";
 import genColor from "../utils/colorGenerator.js";

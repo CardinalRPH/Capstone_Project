@@ -34,7 +34,12 @@ Users.init({
         allowNull: false,
         defaultValue: false
     },
-    verif: {
+    role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue:'user'
+    },
+    disabled: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false

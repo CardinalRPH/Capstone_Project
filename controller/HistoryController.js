@@ -1,6 +1,6 @@
 import { AddHistory, DeleteOneHistory, GetHistory, deleteOneEvent, findMaxIdHistory, findOneEvent } from "./SQLDBController.js";
 import cType from "../utils/general_check.js";
-import JWT_check from "../utils/jwt_checker.js";
+import {JWT_check} from "../utils/jwt_checker.js";
 import { for_createHistory } from "../utils/component_check.js";
 import Plant from "../models/plantModel.js";
 import UID_JWT from "../utils/UID_jwt.js";

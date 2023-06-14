@@ -6,7 +6,7 @@ TipsTrick.init({
     tipsId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        autoIncrement: false,
+        autoIncrement: true,
         primaryKey: true
     },
     title: {
