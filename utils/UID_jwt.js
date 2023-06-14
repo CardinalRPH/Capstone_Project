@@ -1,5 +1,6 @@
-import { g_variable } from "../globals/config.js"
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv'
+dotenv.config()
 
 const UID_JWT = (req) => {
     let token = req.header("x-auth-token");
@@ -7,7 +8,7 @@ const UID_JWT = (req) => {
         return false;
     } else {
         try {
-            const decoded = jwt.verify(token, g_variable.jwt_code);
+            const decoded = jwt.verify(token, process.env.JWT_CODE);
             return decoded.uid;
         } catch (error) {
             return false

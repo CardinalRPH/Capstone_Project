@@ -1,12 +1,13 @@
-import { g_variable } from "../globals/config.js"
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv'
+dotenv.config()
 
 export const GentToken = (payload) => {
-    const token = jwt.sign(payload, g_variable.jwt_code, { expiresIn: "10h" });
+    const token = jwt.sign(payload, process.env.JWT_CODE, { expiresIn: "10h" });
     return token;
 }
 
 export const GentTokenEditor = (payload) => {
-    const token = jwt.sign(payload, g_variable.jwt_codeEditor, { expiresIn: "10h" });
+    const token = jwt.sign(payload, process.env.JWT_CODE_EDITOR, { expiresIn: "10h" });
     return token;
 }

@@ -1,5 +1,7 @@
 import { g_variable } from "../globals/config.js"
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv'
+dotenv.config()
 
 export const JWT_check = (req, res) => {
     let token = req.header("x-auth-token");
@@ -12,7 +14,7 @@ export const JWT_check = (req, res) => {
         return false;
     } else {
         try {
-            const decoded = jwt.verify(token, g_variable.jwt_code);
+            const decoded = jwt.verify(token, process.env.JWT_CODE);
             if (decoded.xth == g_variable.jwt_key) {
                 return true;
             }
@@ -37,7 +39,7 @@ export const JWT_checkEditor = (req, res) => {
         return false;
     } else {
         try {
-            const decoded = jwt.verify(token, g_variable.jwt_codeEditor);
+            const decoded = jwt.verify(token, process.env.JWT_CODE_EDITOR);
             if (decoded.xth == g_variable.jwt_key) {
                 return true;
             }
