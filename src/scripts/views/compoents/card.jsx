@@ -6,9 +6,9 @@ class Card extends React.Component {
 
     const subsText = `${text.substring(0, 100)} ...`;
     return (
-      <div className="col-24 mb-4">
-        <div className="card" style={{ width: '18rem' }}>
-          <img className="card-img-top" src={imgUri} alt="Card image cap" />
+      <div className="col-24 mb-4 mx-2">
+        <div className="card cusCard" style={{ width: '18rem' }}>
+          <img className="card-img-top" height={'180px'} src={imgUri} alt="Card image cap" />
           <div className="card-body">
             <h5 className="card-title">{titlex}</h5>
             <h6>{catG}</h6>

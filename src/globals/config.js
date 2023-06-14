@@ -14,7 +14,10 @@ const AuthVar = {
     forSignUp: `${BackBaseURI}/sign-up`,
     forGetUserInfo: `${BackBaseURI}/user-info`,
     forUpdateUserInfo: `${BackBaseURI}/user-info`,
+    forUpdateUserPassword:`${BackBaseURI}/user-update-password`,
     checkJwt: `${BackBaseURI}/checkJwt`,
+    checkJwtEditor: `${BackBaseURI}/checkJwtEditor`,
+    forLoginEditor:`${BackBaseURI}/e/login-email-editor`,
 }
 
 const WeatherandPlant = (code) => {
@@ -108,7 +111,23 @@ const EditorURI = (code) => {
         return `${BackBaseURI}/e/DeleteTips/${code}`;
     }
 
-    return { getAllUsers, CreatePlant, UpdatePlant, DeletePlant, CreateTips, UpdateTips, DeleteTips, EnableUser, DisableUser, DeleteUser }
+    const CountUser = () => {
+        return `${BackBaseURI}/e/CountUser`;
+    }
+    const CountTips = () => {
+        return `${BackBaseURI}/e/CountTips`;
+    }
+    const CountPlant = () => {
+        return `${BackBaseURI}/e/CountPlant`;
+    }
+    const MakeItEditor = () => {
+        return `${BackBaseURI}/e/MakeEditor/${code}`;
+    }
+    const MakeItUser = () => {
+        return `${BackBaseURI}/e/MakeUser/${code}`;
+    }
+
+    return { getAllUsers, CreatePlant, UpdatePlant, DeletePlant, CreateTips, UpdateTips, DeleteTips, EnableUser, DisableUser, DeleteUser, CountTips, CountUser, CountPlant, MakeItEditor, MakeItUser }
 }
 
 export { g_variable, AuthVar, WeatherandPlant, EventURI, HistoryURI, TipsURI, EditorURI };

@@ -6,7 +6,7 @@ class News extends React.Component {
 
         const subsText = `${text.substring(0, 100)} ...`;
         return (
-            <div className="d-flex align-items-center widget-news">
+            <div className="d-flex align-items-center widget-news my-3">
                 <img src={imgUri} className="rounded" alt="" />
                 <div className="mx-3">
                     <h6>

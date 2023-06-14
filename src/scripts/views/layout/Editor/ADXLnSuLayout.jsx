@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import ErrorModal from '../../compoents/ErrorModal';
+import ErrorModal2 from '../../compoents/ErrorModal2';
+
 const ADXLnSuLayout = () => {
     return (<>
         <div id="Loader" className="position-fixed w-100 h-100 justify-content-center align-items-center" style={{ display: "none", zIndex: 1 }}>
@@ -34,7 +35,7 @@ const ADXLnSuLayout = () => {
 
             </div>
         </div>
-        <ErrorModal/>
+        <ErrorModal2/>
     </>
     );
 }

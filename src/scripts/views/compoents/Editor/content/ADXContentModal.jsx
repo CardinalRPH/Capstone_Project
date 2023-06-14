@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import weatherCode from "../../../../../globals/WeatherCode";
 import { Check_Object } from "../../../../utils/component_check";
 import { EditorURI } from "../../../../../globals/config";
@@ -27,7 +27,7 @@ const ADXcontent_modal = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+                    'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
                 },
                 body: JSON.stringify(inputState)
             }).then(() => {
@@ -38,10 +38,6 @@ const ADXcontent_modal = () => {
             });
         }
     }
-
-    useEffect(() => {
-    }, []);
-
 
     const modalHide = () => {
         const myModal = document.getElementById('contentModal');

@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router";
 import { EditorURI, TipsURI } from "../../../../globals/config";
 import { Check_Object } from "../../../utils/component_check";
 const ADXArticle = () => {
-    const { isAuthenticated } = useSelector((state) => state.auth);
+    const { isAuthenticatedADX } = useSelector((state) => state.authADX);
     const { id } = useParams();
     const navigate = useNavigate();
     const [Article, setArticle] = useState({
@@ -23,7 +23,7 @@ const ADXArticle = () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+                'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
             }
         }).then((response) => response.json())
             .then((resolve) => {
@@ -51,7 +51,7 @@ const ADXArticle = () => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+                    'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
                 },
                 body: JSON.stringify(Article)
             }).then(() => {
@@ -68,7 +68,7 @@ const ADXArticle = () => {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
-              'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+              'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
             },
           }).then(() => {
               console.log('Success Delete');
@@ -82,7 +82,7 @@ const ADXArticle = () => {
       }
 
     useEffect(() => {
-        if (isAuthenticated) {
+        if (isAuthenticatedADX) {
             getOneTIps();
         }
     }, []);

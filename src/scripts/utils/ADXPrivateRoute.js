@@ -8,7 +8,7 @@ const ADXPrivateRoute = ({ children }) => {
 
 
     useEffect(() => {
-        !isAuthenticatedADX && navigate("/utyf")
+        !isAuthenticatedADX && navigate("/e/login")
     }, [isAuthenticatedADX, navigate])
 
     return <>{children}</>

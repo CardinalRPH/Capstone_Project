@@ -42,7 +42,7 @@ const ADXplant_modalEdit = (props) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+                    'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
                 },
                 body: JSON.stringify(inputState)
             }).then(() => {

@@ -5,12 +5,22 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { authAction } from '../../stores/authReducer';
 import { AuthVar } from '../../../globals/config';
-import ErrorModal from '../compoents/ErrorModal';
+import ErrorModal1 from '../compoents/ErrorModal1';
+import SuccessModal from '../compoents/SuccessModal';
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"
+import ErrorModal2 from '../compoents/ErrorModal2';
+import Loader from '../compoents/Loader';
+
 const DashboardLayout = () => {
     const [decoded, setDecoded] = useState([]);
     const { isAuthenticated } = useSelector((state) => state.auth)
 
     const dispatch = useDispatch();
+
+    const ExpiredShow = () => {
+        const myModal = new Modal(document.getElementById('ErrorModal1'));
+        myModal.show();
+    }
 
     const CheckToken = () => {
         fetch(AuthVar.checkJwt, {
@@ -23,7 +33,7 @@ const DashboardLayout = () => {
             .then((response) => response.json())
             .then((resolve) => {
                 if (resolve.ok == false) {
-                    ErrorShow('Token Expired');
+                    ExpiredShow();
                 }
             }).catch((error) => {
                 console.log(error);
@@ -263,7 +273,10 @@ const DashboardLayout = () => {
             {/* Custom scripts for all pages*/}
             {/* Page level plugins */}
             {/* Page level custom scripts */}
-            <ErrorModal FuClick={TExpired} />
+            <ErrorModal1 FuClick={TExpired} />
+            <SuccessModal />
+            <ErrorModal2 />
+            <Loader/>
         </div>
 
 
