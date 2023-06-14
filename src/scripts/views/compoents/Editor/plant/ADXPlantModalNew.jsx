@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import weatherCode from "../../../../../globals/WeatherCode";
 import { Check_Object } from "../../../../utils/component_check";
 import { EditorURI } from "../../../../../globals/config";
@@ -20,16 +20,13 @@ const ADXplant_modalNew = () => {
         }));
     };
 
-    useEffect(() => {
-    }, []);
-
     const onSave = () => {
         if (Check_Object(inputState)) {
             fetch(EditorURI().CreatePlant(), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+                    'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
                 },
                 body: JSON.stringify(inputState)
             }).then(() => {

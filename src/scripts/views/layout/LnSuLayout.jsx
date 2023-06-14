@@ -1,13 +1,10 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import ErrorModal from '../compoents/ErrorModal';
+import Loader from '../compoents/Loader';
+import ErrorModal2 from '../compoents/ErrorModal2';
 const LnSuLayout = () => {
     return (<>
-        <div id="Loader" className="position-fixed w-100 h-100 justify-content-center align-items-center" style={{ display: "none", zIndex: 1 }}>
-            <div className="spinner-border text-success" role="status" style={{ width: "100px", height: "100px" }}>
-                <span className="sr-only">Loading...</span>
-            </div>
-        </div>
+        <Loader/>
         {/* <ErrorModal/> */}
         <div className="container-fluid">
             <div className="row no-gutter">
@@ -33,7 +30,7 @@ const LnSuLayout = () => {
 
             </div>
         </div>
-        <ErrorModal/>
+        <ErrorModal2/>
     </>
     );
 }

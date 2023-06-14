@@ -7,7 +7,7 @@ import ADXplant_modalEdit from "../../compoents/Editor/plant/ADXPlantModalEdit";
 import ADXplant_modalNew from "../../compoents/Editor/plant/ADXPlantModalNew";
 
 const ADXPlants_pg = () => {
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticatedADX } = useSelector((state) => state.authADX);
   const [plants, setPlants] = useState([]);
   const [data_plants, setdata_plants] = useState([]);
 
@@ -67,7 +67,7 @@ const ADXPlants_pg = () => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+          'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
         },
       }).then(() => {
         console.log('Success Delete');
@@ -75,7 +75,7 @@ const ADXPlants_pg = () => {
         console.log(error);
       });
     } else {
-      
+
     }
   }
 
@@ -105,9 +105,8 @@ const ADXPlants_pg = () => {
 
 
   useEffect(() => {
-    GetAllPlants();
-    if (isAuthenticated) {
-
+    if (isAuthenticatedADX) {
+      GetAllPlants();
     }
   }, []);
 

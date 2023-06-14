@@ -3,52 +3,51 @@ import { Outlet } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { authAction } from '../../../stores/authReducer';
 import { AuthVar } from '../../../../globals/config';
-import ErrorModal from '../../compoents/ErrorModal';
+import ErrorModal1 from '../../compoents/ErrorModal1';
+import { authActionADX } from '../../../stores/ADXauthReducer';
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"
+
 const ADXDashboardLayout = () => {
     const [decoded, setDecoded] = useState([]);
-    const { isAuthenticated } = useSelector((state) => state.auth)
+    const { isAuthenticatedADX } = useSelector((state) => state.authADX)
 
     const dispatch = useDispatch();
 
     const CheckToken = () => {
-        fetch(AuthVar.checkJwt, {
+        fetch(AuthVar.checkJwtEditor, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+                'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
             }
         })
             .then((response) => response.json())
             .then((resolve) => {
                 if (resolve.ok == false) {
-                    ErrorShow('Token Expired');
+                    ExpiredShow();
                 }
             }).catch((error) => {
                 console.log(error);
             })
     }
-
-    const ErrorShow = (msg) => {
-        document.getElementById('errormsg').innerText = msg;
-        document.querySelector('.modalCus').classList.remove('hide');
-        document.querySelector('.frameCus').style.display = "flex";
-
+    const ExpiredShow = () => {
+        const myModal = new Modal(document.getElementById('ErrorModal2'));
+        myModal.show();
     }
 
     const LogOut = () => {
-        dispatch(authAction.logout());
-        window.location.href = "/i/login";
+        dispatch(authActionADX.logout());
+        window.location.href = "/e/login";
     }
 
     const TExpired = () => {
-        dispatch(authAction.logout());
+        dispatch(authActionADX.logout());
     }
 
     useEffect(() => {
-        if (isAuthenticated) {
-            const getLocalStorage = localStorage.getItem("authentication");
+        if (isAuthenticatedADX) {
+            const getLocalStorage = localStorage.getItem("ADXauthentication");
             const { token } = JSON.parse(getLocalStorage);
             setDecoded(jwtDecode(token));
             CheckToken();
@@ -202,10 +201,6 @@ const ADXDashboardLayout = () => {
                                     </a>
                                     {/* Dropdown - User Information */}
                                     <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                        <Link className="dropdown-item" to="/dashboard/profile">
-                                            <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400" />
-                                            Profile
-                                        </Link>
                                         <div className="dropdown-divider" />
                                         <a className="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                             <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" />
@@ -264,7 +259,7 @@ const ADXDashboardLayout = () => {
             {/* Custom scripts for all pages*/}
             {/* Page level plugins */}
             {/* Page level custom scripts */}
-            <ErrorModal FuClick={TExpired} />
+            <ErrorModal1 FuClick={TExpired} />
         </div>
 
 

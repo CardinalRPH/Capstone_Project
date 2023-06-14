@@ -22,6 +22,14 @@ export const for_submit_panen = (hasil) => {
     }
 }
 
+export const Check_single_Vaalue = (value) => {
+    if (value == '') {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 export const Check_Object = (object) => {
     const hasNullValue = Object.values(object).some(value => value === '');
     const isAllNotNull = !hasNullValue;

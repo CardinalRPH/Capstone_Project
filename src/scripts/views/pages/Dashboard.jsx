@@ -6,6 +6,7 @@ import { HistoryURI, TipsURI, WeatherandPlant } from "../../../globals/config";
 import weatherFetcher from "../../utils/WeatherFeatch";
 import weatherCode from "../../../globals/WeatherCode";
 import { useSelector } from "react-redux";
+import provinces from '../../data/provinces.json'
 
 const Dashboard_pg = () => {
   const { isAuthenticated } = useSelector((state) => state.auth)
@@ -65,8 +66,11 @@ const Dashboard_pg = () => {
       .then((response) => response.json())
       .then((resolve) => {
         if (resolve.ok && (resolve.data != false)) {
-          setLocation(resolve.data)
-          fetchingData(resolve.data.province, resolve.data.regence);
+          setLocation({
+            province: provinces.filter((provCFilter) => provCFilter.id === resolve.data.province)[0].name,
+            regence: resolve.data.regence
+          })
+          fetchingData(provinces.filter((provCFilter) => provCFilter.id === resolve.data.province)[0].name, resolve.data.regence);
         }
       }).catch((error) => {
         console.log(error);

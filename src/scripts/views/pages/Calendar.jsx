@@ -17,6 +17,25 @@ const Calendar_pg = () => {
     const [EventId, setEventId] = useState('')
 
 
+    const toggleLoader = (show) => {
+        const loaderElement = document.getElementById('Loader');
+        if (show) {
+            loaderElement.style.display = 'flex';
+        } else {
+            loaderElement.style.display = 'none';
+        }
+    };
+    const toggleBadReq = (show) => {
+        const loaderElement = document.getElementById('BadReq');
+        if (show) {
+            loaderElement.style.display = 'block';
+        } else {
+            loaderElement.style.display = 'none';
+        }
+    };
+
+
+
     const fetchAllEvent = () => {
         fetch(EventURI().getAllEvent(), {
             method: 'GET',
@@ -64,12 +83,14 @@ const Calendar_pg = () => {
 
     const modalSave = (info) => {
         NewItem();
+        toggleBadReq(false);
         console.log(info.dateStr);
         const myModal = new Modal(document.getElementById('calendarModal'));
         document.getElementById('date-input').value = info.dateStr;
         myModal.show();
     }
     const modalUpdate = (info) => {
+        toggleBadReq(false);
         setEventId(info.event.groupId);
         fetch(EventURI(info.event.groupId).getOneEvent(), {
             method: 'GET',
@@ -133,6 +154,7 @@ const Calendar_pg = () => {
     }
 
     const SaveButton = () => {
+        toggleLoader(true);
         const Name = document.getElementById('nameOfPlant').value;
         const Type = document.getElementById('inputGroupSelect01').value;
         const Date = document.getElementById('date-input').value;
@@ -153,6 +175,7 @@ const Calendar_pg = () => {
                 if (result.ok == true) {
                     fetchAllEvent();
                     modalHide();
+                    toggleLoader(false);
                     console.log('Success Create');
                     //add here for success
                 }
@@ -160,7 +183,7 @@ const Calendar_pg = () => {
                 console.log(error);
             })
         } else {
-            console.log('Is bad req');
+            toggleBadReq(true);
             //component is null
         }
     }
@@ -186,7 +209,7 @@ const Calendar_pg = () => {
                 console.log(error);
             });
         } else {
-            console.log('Is bad req');
+            toggleBadReq(true);
             //component is null
         }
     }
@@ -282,6 +305,7 @@ const Calendar_pg = () => {
                                             </div>
                                             <input type="Date" className="form-control" id="date-input" aria-describedby="basic-addon1" readOnly />
                                         </div>
+                                        <p id="BadReq" className="text-danger">All Field Must Filled</p>
                                     </div>
                                     <div id="forUpdate" style={{ display: 'none' }}>
                                         <button type="button" onClick={UpdateButton} className="btn btn-primary mx-1">Update</button>

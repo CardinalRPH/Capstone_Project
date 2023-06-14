@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 class ADXDashCard extends React.Component {
     render() {
         const { value, color, icon, name } = this.props || null;

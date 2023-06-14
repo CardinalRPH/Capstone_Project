@@ -33,7 +33,6 @@ const Login_pg = () => {
     }
 
     useEffect(() => {
-        console.log(isAuthenticated);
         if (isAuthenticated && token) {
             navigate('/dashboard', { replace: true });
         }

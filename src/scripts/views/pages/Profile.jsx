@@ -3,34 +3,41 @@ import province from '../../data/provinces.json'
 import regencie from '../../data/regencies.json'
 import { useSelector } from "react-redux";
 import { AuthVar } from "../../../globals/config";
+import { Check_Object, Check_single_Vaalue } from "../../utils/component_check";
 
 const Profile_pg = () => {
   const { isAuthenticated } = useSelector((state) => state.auth)
   const [regencies, setRegencies] = useState([]);
+  const [newPassword, setNewPassword] = useState('');
+  const [inputState, setInputState] = useState({
+    Fname: '',
+    Lname: '',
+    province: '',
+    regence: '',
+    email: '',
+  });
 
+  const handleChange = (event) => {
+    setInputState((prevInputState) => ({
+      ...prevInputState,
+      [event.target.name]: event.target.value,
+    }));
+    console.log(inputState);
+  };
 
-  const setProvinC = (provCVal) => {  //this wil get string name not ID
-    if (!provCVal) {
-      document.getElementById('provinsi').value = '';
-    } else {
-      const provC = province.filter((provCFilter) => provCFilter.name === provCVal)[0];
-      document.getElementById('provinsi').value = provC.id;
-      setRegenC(provC.id);
-    }
-  }
+  // const setProvinC = (provCVal) => {  //this wil get string name not ID
+  //   if (!provCVal) {
+  //     document.getElementById('provinsi').value = '';
+  //   } else {
+  //     const provC = province.filter((provCFilter) => provCFilter.name === provCVal)[0];
+  //     document.getElementById('provinsi').value = provC.id;
+  //     setRegenC(provC.id);
+  //   }
+  // }
 
-  const setBooth = async (provC, regC) => {
-    await setProvinC(provC);
-    document.getElementById('kabupaten').value = regC;
-  }
-
-  const setRegenC = (regCVal) => {
-    if (!regCVal) {
-      setRegencies([]);
-    } else {
-      const regC = regencie.filter((regenCFilter) => regenCFilter.province_id === regCVal);
-      document.getElementById('kabupaten').value = '';
-      setRegencies(regC);
+  const setRegenC = () => {
+    if (inputState.province != '') {
+      setRegencies(regencie.filter((regFilter) => regFilter.province_id === inputState.province));
     }
   }
 
@@ -45,14 +52,11 @@ const Profile_pg = () => {
       .then((response) => response.json())
       .then((resolve) => {
         if (resolve.ok && (resolve.data != false)) {
-          document.getElementById('Fname').value = resolve.data.Fname
-          document.getElementById('Lname').value = resolve.data.Lname
-          document.getElementById('Email').value = resolve.data.email
-          setBooth(resolve.data.province, resolve.data.regence)
+          setInputState(resolve.data)
           if (resolve.data.isGoogle == true) {
-            document.getElementById('changePassword').disabled = true;
+            document.getElementById('passField').style.display = 'none';
           } else {
-            document.getElementById('changePassword').disabled = false;
+            document.getElementById('passField').style.display = 'block';
           }
         }
       }).catch((error) => {
@@ -60,32 +64,56 @@ const Profile_pg = () => {
       })
   }
 
-  const UpdateUserInfo = (e) => {
-    e.preventDefault();
-    fetch(AuthVar.forUpdateUserInfo, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
-      },
-      body: JSON.stringify({
-        fname: document.getElementById('Fname').value,
-        lname: document.getElementById('Lname').value,
-        province: province.filter((provCFilter) => provCFilter.id === document.getElementById('provinsi').value)[0].name,
-        regence: document.getElementById('kabupaten').value,
-        email: document.getElementById('Email').value
+  const UpdateUserInfo = () => {
+    if (Check_Object(inputState)) {
+      fetch(AuthVar.forUpdateUserInfo, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+        },
+        body: JSON.stringify(inputState)
       })
-    })
-      .then((response) => response.json())
-      .then((resolve) => {
-        console.log(resolve);
-        if (resolve.ok) {
-          console.log('Update Success');
-          // window.location.reload();
-        }
-      }).catch((error) => {
-        console.log(error);
+        .then((response) => response.json())
+        .then((resolve) => {
+          console.log(resolve);
+          if (resolve.ok) {
+            console.log('Update Success');
+            // window.location.reload();
+          }
+        }).catch((error) => {
+          console.log(error);
+        })
+    } else {
+      console.log('Bad Input');
+    }
+  }
+
+  const UpdateUserPassword = () => {
+    if (Check_single_Vaalue(newPassword)) {
+      fetch(AuthVar.forUpdateUserPassword, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+        },
+        body: JSON.stringify({
+          newPassword: newPassword
+        })
       })
+        .then((response) => response.json())
+        .then((resolve) => {
+          console.log(resolve);
+          if (resolve.ok) {
+            console.log('Update Pass Success');
+            // window.location.reload();
+          }
+        }).catch((error) => {
+          console.log(error);
+        })
+    } else {
+      console.log('Bad Input');
+    }
   }
 
   useEffect(() => {
@@ -93,6 +121,11 @@ const Profile_pg = () => {
       getUserInfo()
     }
   }, []);
+
+  useEffect(() => {
+    setRegenC();
+  }, [inputState]);
+
 
   return (
     <>
@@ -105,52 +138,50 @@ const Profile_pg = () => {
             <h6 className="m-0 font-weight-bold text-primary">Detail Profile</h6>
           </div>
           <div className="card-body">
-            <form onSubmit={(e) => { UpdateUserInfo(e) }}>
-              <div className="d-flex">
-                <div className="w-50 m-2">
-                  <label>First Name</label>
-                  <input className="form-control" id="Fname" type="text" placeholder='First Name' required />
+            <div className="d-flex">
+              <div className="w-50 m-2">
+                <label>First Name</label>
+                <input className="form-control" name="Fname" value={inputState.Fname} onChange={handleChange} type="text" placeholder='First Name' required />
+              </div>
+              <div className="w-50 m-2">
+                <label>Last Name</label>
+                <input className="form-control" name="Lname" value={inputState.Lname} onChange={handleChange} id="Lname" type="text" placeholder='Last Name' required />
+              </div>
+            </div>
+            <div className="m-2">
+              <label>Email</label>
+              <input className="form-control" name="email" value={inputState.email} onChange={handleChange} id="Email" type="email" placeholder='example@cc.com' required />
+            </div>
+            <div className="m-2">
+              <label>Provinsi</label>
+              <select className="form-control" name="province" id="provinsi" value={inputState.province} onChange={(e) => { handleChange(e); }} required>
+                <option value="">-- Pilih Provinsi --</option>
+                {province.map((provinsi, i) => (
+                  <option key={i} value={provinsi.id}>{provinsi.name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="m-2">
+              <label>Kabupaten</label>
+              <select className="form-control" value={inputState.regence} name="regence" onChange={(e) => { handleChange(e); setRegenC() }} id="kabupaten" required>
+                <option value="">-- Pilih Kabupaten/Kota --</option>
+                {regencies.map((kabupaten, i) => (
+                  <option key={i} value={kabupaten.name}>{kabupaten.name}</option>
+                ))}
+              </select>
+            </div>
+            <div className="m-2" id="passField">
+              <label htmlFor="newPassword">New Password</label>
+              <div className="input-group">
+                <input type="password" className="form-control" placeholder="New Password" onChange={(e) => { setNewPassword(e.target.value) }} aria-label="New Password" aria-describedby="basic-addon2" />
+                <div className="input-group-append">
+                  <button className="btn btn-outline-secondary" onClick={UpdateUserPassword} type="button">Change Password</button>
                 </div>
-                <div className="w-50 m-2">
-                  <label>Last Name</label>
-                  <input className="form-control" id="Lname" type="text" placeholder='Last Name' required />
-                </div>
               </div>
-              <div className="m-2">
-                <label>Email</label>
-                <input className="form-control" id="Email" type="email" placeholder='example@cc.com' required />
-              </div>
-              <div className="m-2">
-                <label>Provinsi</label>
-                <select className="form-control" name="provinsi" id="provinsi" onChange={(e) => { setRegenC(e.target.value) }} required>
-                  <option value="">-- Pilih Provinsi --</option>
-                  {province.map((provinsi, i) => (
-                    <option key={i} value={provinsi.id}>{provinsi.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="m-2">
-                <label>Kabupaten</label>
-                <select className="form-control" name="kabupaten" id="kabupaten" required>
-                  <option value="">-- Pilih Kabupaten/Kota --</option>
-                  {regencies.map((kabupaten,i) => (
-                    <option key={i} value={kabupaten.name}>{kabupaten.name}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="m-2">
-                <label htmlFor="currentPassword">Current Password</label>
-                <input type="password" className="form-control validate" id="currentPassword" placeholder="Current Password" required />
-              </div>
-              <div className="m-2">
-                <label htmlFor="newPassword">New Password</label>
-                <input type="password" className="form-control validate" id="newPassword" placeholder="New Password" required />
-              </div>
-              <div className="mt-5 text-center">
-                <button className="btn btn-info profile-button mx-1 plus plus float-right" id="changePassword" type="button">Change Password</button>
-                <button className="btn btn-success profile-button mx-1 plus float-right" type="submit">Update</button>
-              </div>
-            </form>
+            </div>
+            <div className="mt-5 text-center">
+              <button className="btn btn-success profile-button mx-1 plus float-right" onClick={UpdateUserInfo} type="submit">Update</button>
+            </div>
           </div>
         </div>
       </div>

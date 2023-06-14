@@ -143,9 +143,9 @@ const AppRouter = createBrowserRouter([
     {
         path: '/e/dashboard',
         element: (
-            // <ADXPrivateRoute>
-            <ADXDashboardLayout />
-            //</ADXPrivateRoute>
+           <ADXPrivateRoute>
+                <ADXDashboardLayout />
+           </ADXPrivateRoute>
         ),
         children: [
             {
@@ -163,7 +163,7 @@ const AppRouter = createBrowserRouter([
                 path: 'content',
                 element: (<><Helmet>
                     <title>Article</title>
-                </Helmet><ADXContent/></>)
+                </Helmet><ADXContent /></>)
             }, {
                 path: 'plants',
                 element: (<><Helmet>
@@ -174,11 +174,11 @@ const AppRouter = createBrowserRouter([
                 element: (<><Helmet>
                     <title>Profile</title>
                 </Helmet><Profile_pg /></>)
-            },{
+            }, {
                 path: 'article/:id',
                 element: (<><Helmet>
                     <title>Article</title>
-                </Helmet><ADXArticle/></>)
+                </Helmet><ADXArticle /></>)
             }
         ]
     },

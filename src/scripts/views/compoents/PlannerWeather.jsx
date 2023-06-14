@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import weatherFetcher from '../../utils/WeatherFeatch';
 import weatherCode from '../../../globals/WeatherCode';
 import { WeatherandPlant } from '../../../globals/config';
+import provinces from '../../data/provinces.json'
 
 const WeatherPlan = () => {
 
@@ -20,7 +21,7 @@ const WeatherPlan = () => {
             .then((response) => response.json())
             .then((resolve) => {
                 if (resolve.ok && (resolve.data != false)) {
-                    fetchingData(resolve.data.province, resolve.data.regence);
+                    fetchingData(provinces.filter((provCFilter) => provCFilter.id === resolve.data.province)[0].name, resolve.data.regence);
                 }
             }).catch((error) => {
                 console.log(error);

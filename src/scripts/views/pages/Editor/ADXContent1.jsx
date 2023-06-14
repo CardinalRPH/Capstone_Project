@@ -6,7 +6,7 @@ import ADXcontent_modal from "../../compoents/Editor/content/ADXContentModal";
 import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"
 
 const ADXContent = () => {
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticatedADX } = useSelector((state) => state.authADX);
   const [Tips, setTips] = useState([]);
 
 
@@ -15,7 +15,7 @@ const ADXContent = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+        'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
       }
     }).then((response) => response.json())
       .then((resolve) => {
@@ -41,8 +41,8 @@ const ADXContent = () => {
   }
 
   useEffect(() => {
-    getTipsTrick();
-    if (isAuthenticated) {
+    if (isAuthenticatedADX) {
+      getTipsTrick();
 
     }
   }, []);
