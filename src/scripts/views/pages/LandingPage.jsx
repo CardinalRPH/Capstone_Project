@@ -1,5 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import dava from '../../../public/images/team/dava.jpg';
+import rayhan from '../../../public/images/team/rayhan.jpg';
+import mila from '../../../public/images/team/mila.JPG';
+import selvi from '../../../public/images/team/selvi.jpg';
+
 const LandingPage = () => {
     return (<>
 
@@ -131,30 +136,30 @@ const LandingPage = () => {
                 <div className="container">
                     <div className="text-center">
                         <h2 className="section-heading text-uppercase">Our Amazing Team</h2>
-                        <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                        <h3 className="section-subheading text-muted">A good team is not a team that has the same abilities but a team that complements each other.</h3>
                     </div>
                     <div className="row">
                         <div className="col-lg-4-center">
                             <div className="team-member">
-                                <img className="mx-auto rounded-circle" src="assets/img/team/rayhan.jpg" alt="..." />
+                                <img className="mx-auto rounded-circle" src={rayhan} alt="..." />
                                 <h4>Rayhan Febriyan Saputra</h4>
                                 <p className="text-muted">Lead Project &amp; Back End Developer</p>
-                                <a className="btn btn-dark btn-social mx-2" href="#" aria-label="Parveen Anand Twitter Profile"><i className="fab fa-instagram" /></a>
-                                <a className="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/dava-attabrani-b584b0267/" aria-label="Parveen Anand LinkedIn Profile"><i className="fab fa-linkedin-in" /></a>
-                            </div>
-                        </div>
-                        <div className="col-lg-4">
-                            <div className="team-member">
-                                <img className="mx-auto rounded-circle" src="assets/img/team/dava.jpg" alt="..." />
-                                <h4>Dava Attabrani</h4>
-                                <p className="text-muted">Front End Developer</p>
-                                <a className="btn btn-dark btn-social mx-2" href="https://www.instagram.com/davaattabrani/" aria-label="Parveen Anand Twitter Profile"><i className="fab fa-instagram" /></a>
+                                <a className="btn btn-dark btn-social mx-2" href="https://www.instagram.com/_reean/" aria-label="Parveen Anand Twitter Profile"><i className="fab fa-instagram" /></a>
                                 <a className="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/rayhan-febriyan-saputra-945a05162/" aria-label="Parveen Anand LinkedIn Profile"><i className="fab fa-linkedin-in" /></a>
                             </div>
                         </div>
                         <div className="col-lg-4">
                             <div className="team-member">
-                                <img className="mx-auto rounded-circle" src="assets/img/team/selvi.jpg" alt="..." />
+                                <img className="mx-auto rounded-circle" src={dava} alt="..." />
+                                <h4>Dava Attabrani</h4>
+                                <p className="text-muted">Front End Developer</p>
+                                <a className="btn btn-dark btn-social mx-2" href="https://www.instagram.com/davaattabrani/" aria-label="Parveen Anand Twitter Profile"><i className="fab fa-instagram" /></a>
+                                <a className="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/dava-attabrani-b584b0267/" aria-label="Parveen Anand LinkedIn Profile"><i className="fab fa-linkedin-in" /></a>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div className="team-member">
+                                <img className="mx-auto rounded-circle" src={selvi} alt="..." />
                                 <h4>Selvi Jenifer Ezenwune</h4>
                                 <p className="text-muted">Front End Developer</p>
                                 <a className="btn btn-dark btn-social mx-2" href="https://www.instagram.com/selvijenifer11/" aria-label="Diana Petersen Twitter Profile"><i className="fab fa-instagram" /></a>
@@ -163,16 +168,16 @@ const LandingPage = () => {
                         </div>
                         <div className="col-lg-4">
                             <div className="team-member">
-                                <img className="mx-auto rounded-circle" src="assets/img/team/mila.JPG" alt="..." />
+                                <img className="mx-auto rounded-circle" src={mila} alt="..." />
                                 <h4>Mila Yuliani</h4>
                                 <p className="text-muted">UI/UX Developer</p>
-                                <a className="btn btn-dark btn-social mx-2" href aria-label="Parveen Anand Twitter Profile"><i className="fab fa-instagram" /></a>
+                                <a className="btn btn-dark btn-social mx-2" href="https://www.instagram.com/_mila.yyy/" aria-label="Parveen Anand Twitter Profile"><i className="fab fa-instagram" /></a>
                                 <a className="btn btn-dark btn-social mx-2" href="https://www.linkedin.com/in/mila-yuliani-67b2ba218/" aria-label="Parveen Anand LinkedIn Profile"><i className="fab fa-linkedin-in" /></a>
                             </div>
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-lg-8 mx-auto text-center"><p className="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p></div>
+                        <div className="col-lg-8 mx-auto text-center"><p className="large text-muted"></p></div>
                     </div>
                 </div>
             </section>
