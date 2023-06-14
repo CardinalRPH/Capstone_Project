@@ -31,16 +31,13 @@ import ADXUsers_pg from "../views/pages/Editor/ADXUsers";
 import ADXPlants_pg from "../views/pages/Editor/ADXPlants";
 import ADXArticle from "../views/pages/Editor/ADXArticle";
 import ADXContent from "../views/pages/Editor/ADXContent1";
+import LandingPage from "../views/pages/LandingPage";
 
 const AppRouter = createBrowserRouter([
-    // {
-    //     path: "/",
-    //     element: <Navigate to="/login" replace />
-    // },
-    // {
-    //     path: "/home",
-    //     element: <LandingPage />
-    // },
+     {
+         path: "/",
+         element: <LandingPage />
+     },
     {
         path: '/i',
         element: <LnSuLayout />,
