@@ -25,8 +25,8 @@ export const for_getValue = (value) => {
 }
 
 export const for_LoginorSignUpGoogle = (req, res) => {
-    let { name, email, verif, uid } = req.body;
-    if (name == null || email == null || verif == null || uid == null) {
+    let { name, email, uid } = req.body;
+    if (name == null || email == null || uid == null) {
         res.status(400).send({
             ok: false,
             code: 400,
