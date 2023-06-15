@@ -20,6 +20,7 @@ const LandingPage = () => {
                     <div className="collapse navbar-collapse" id="navbarResponsive">
                         <ul className="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                             <li className="nav-item"><a className="nav-link" href="#services">Services</a></li>
+                            <li className="nav-item"><a className="nav-link" href="#about">About</a></li>
                             <li className="nav-item"><a className="nav-link" href="#team">Team</a></li>
                             <li className="nav-item"><Link className="nav-link" to="/i/login">SignUp / Login</Link></li>
                         </ul>
@@ -31,7 +32,7 @@ const LandingPage = () => {
                 <div className="container">
                     <div className="masthead-subheading">Welcome To CropPlanner!</div>
                     <div className="masthead-heading text-uppercase">It's Nice To Plan a Planting!</div>
-                    <a className="btn btn-primary btn-xl text-uppercase" href="#services">Tell Me More</a>
+                    <a className="btn btn-primary btn-xl text-uppercase" href="#about">Tell Me More</a>
                 </div>
             </header>
             {/* Services*/}
@@ -70,76 +71,39 @@ const LandingPage = () => {
                 </div>
             </section>
             {/* About*/}
-            <section className="page-section" id="about">
-                <div className="container">
+            <section id="about" class="about">
+              <div class="container">
                     <div className="text-center">
-                        <h2 className="section-heading text-uppercase">About</h2>
-                        <h3 className="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                        <h2 className="section-heading text-uppercase">About Us</h2>
+                        <h3 className="section-subheading text-muted" />
                     </div>
-                    <ul className="timeline">
-                        <li>
-                            <div className="timeline-image"><img className="rounded-circle img-fluid" src="assets/img/about/1.jpg" alt="..." /></div>
-                            <div className="timeline-panel">
-                                <div className="timeline-heading">
-                                    <h4>2009-2011</h4>
-                                    <h4 className="subheading">Our Humble Beginnings</h4>
-                                </div>
-                                <div className="timeline-body"><p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
-                            </div>
-                        </li>
-                        <li className="timeline-inverted">
-                            <div className="timeline-image"><img className="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="..." /></div>
-                            <div className="timeline-panel">
-                                <div className="timeline-heading">
-                                    <h4>March 2011</h4>
-                                    <h4 className="subheading">An Agency is Born</h4>
-                                </div>
-                                <div className="timeline-body"><p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
-                            </div>
-                        </li>
-                        <li>
-                            <div className="timeline-image"><img className="rounded-circle img-fluid" src="assets/img/about/3.jpg" alt="..." /></div>
-                            <div className="timeline-panel">
-                                <div className="timeline-heading">
-                                    <h4>December 2015</h4>
-                                    <h4 className="subheading">Transition to Full Service</h4>
-                                </div>
-                                <div className="timeline-body"><p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
-                            </div>
-                        </li>
-                        <li className="timeline-inverted">
-                            <div className="timeline-image"><img className="rounded-circle img-fluid" src="assets/img/about/4.jpg" alt="..." /></div>
-                            <div className="timeline-panel">
-                                <div className="timeline-heading">
-                                    <h4>July 2020</h4>
-                                    <h4 className="subheading">Phase Two Expansion</h4>
-                                </div>
-                                <div className="timeline-body"><p className="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
-                            </div>
-                        </li>
-                        <li className="timeline-inverted">
-                            <div className="timeline-image">
-                                <h4>
-                                    Be Part
-                                    <br />
-                                    Of Our
-                                    <br />
-                                    Story!
-                                </h4>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="row content">
+                  <div class="col-lg-6">
+                    <p>CropPlanner is an innovative platform specially designed to help farmers and plant lovers plan their plantings more efficiently. By providing up-to-date information on planting calendars, weather, and planting history, CropPlanner ensures that every step in the planting process can be executed with in-depth knowledge.</p>
+                    <p>With CropPlanner, users can easily access a cropping calendar that is updated in real-time, so they know the best time to plant each type of crop. Accurate weather information is also provided, so farmers can take into account factors such as temperature, rainfall, and humidity to maximize their yields.</p>
+                    <p>One of the great features of CropPlanner is access to planting history data. Users can view past records of plantings made in their area, including the type of crops planted, when they were planted, and yields achieved. This information is invaluable in identifying patterns and trends that may affect the success of future plantings.</p>
+                  </div>
+                  <div class="col-lg-6 pt-4 pt-lg-0">
+                    <p>
+                    Not only that, CropPlanner also provides practical tips and tricks for caring for plants properly. From proper watering to effective fertilization, users can find a comprehensive guide to keeping their plants healthy and thriving all year round.
+                    </p>
+                    <p>With CropPlanner, we are committed to providing our users with a better understanding of the agricultural environment. We believe that with the right information and the right tools, every farmer and plant lover can achieve better yields and improve their quality of life.</p>
+                    <p>Join CropPlanner today and explore a world of planting full of potential!</p>
+                    <a href="i/login" class="btn-learn-more">Join Us!</a>
+                  </div>
                 </div>
+
+              </div>
             </section>
             {/* Team*/}
-            <section className="page-section bg-light" id="team">
+            <section className="page-section bg-light text-center" id="team">
                 <div className="container">
                     <div className="text-center">
                         <h2 className="section-heading text-uppercase">Our Amazing Team</h2>
                         <h3 className="section-subheading text-muted">A good team is not a team that has the same abilities but a team that complements each other.</h3>
                     </div>
-                    <div className="row">
-                        <div className="col-lg-4-center">
+                    <div className="row justify-content-center">
+                        <div className="col-lg-4">
                             <div className="team-member">
                                 <img className="mx-auto rounded-circle" src={rayhan} alt="..." />
                                 <h4>Rayhan Febriyan Saputra</h4>
