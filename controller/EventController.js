@@ -122,7 +122,6 @@ export const GetAllEvent = (req, res, next) => {
                     uid: id
                 }
             }).then((resolve) => {
-                console.log(resolve);
                 if (resolve != false) {
                     const mergedArray = [];
                     for (let i in resolve) {
@@ -131,6 +130,7 @@ export const GetAllEvent = (req, res, next) => {
                         mergedArray.push(...JSON.parse(resolve[i].pupuk));
                         mergedArray.push(JSON.parse(resolve[i].panen));
                     }
+                    console.log('looks Good');
                     res.status(200).json({
                         ok: true,
                         code: 200,
