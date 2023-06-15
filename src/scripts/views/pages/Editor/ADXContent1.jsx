@@ -20,11 +20,9 @@ const ADXContent = () => {
     }).then((response) => response.json())
       .then((resolve) => {
         if (resolve.ok && (resolve.data != '')) {
-          document.getElementById('TipsList').style.display = 'block';
           document.getElementById('TipsNotFound').style.display = 'none';
           setTips(resolve.data);
         } else {
-          document.getElementById('TipsList').style.display = 'none';
           document.getElementById('TipsNotFound').style.display = 'block';
         }
       }).catch((error) => {
@@ -52,6 +50,9 @@ const ADXContent = () => {
       <div className="container" id="TipsList">
         <div className="container">
           <div className="row justify-content-center">
+            <div id="TipsNotFound" className="text-center" style={{ display: 'none' }}>
+              <h1>Not Found</h1>
+            </div>
             {Tips.map((tips) => (<ADXCard imgUri={tips.Imguri} text={tips.article} idx={tips.tipsId} Author={tips.Author} date={tips.date} titlex={tips.title} catG={tips.categories} />))}
             <div className="col-24 mx-2 mb-4">
               <div className="card cursor-pointer" onClick={modalShow} style={{ width: '18rem' }}>
@@ -63,9 +64,6 @@ const ADXContent = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div id="TipsNotFound" className="text-center" style={{ display: 'none' }}>
-        <h1>Not Found</h1>
       </div>
       <ADXcontent_modal />
     </>

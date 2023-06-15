@@ -8,16 +8,17 @@ import { AuthVar } from "../../../globals/config";
 import { useDispatch, useSelector } from "react-redux";
 import { authAction } from "../../stores/authReducer";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"
 
 const provider = new GoogleAuthProvider();
 const auth = getAuth(firebaseApp);
 
 const Login_pg = () => {
 
-    const ErrorShow = (msg) => {
-        document.getElementById('errormsg').innerText = msg;
-        document.querySelector('.modalCus').classList.remove('hide');
-        document.querySelector('.frameCus').style.display = "flex";
+    const ErrorShow = (value) => {
+        document.getElementById('ERROR-TEXT').innerHTML = value;
+        const myModal = new Modal(document.getElementById('ErrorModal2'));
+        myModal.show();
     
     }
 

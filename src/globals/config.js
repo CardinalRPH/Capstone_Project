@@ -4,7 +4,7 @@ const g_variable = {
     passFormat: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/
 }
 
-const BackBaseURI = 'https://capstoneproject-production-5788.up.railway.app';
+const BackBaseURI = 'http://localhost:3000';
 
 
 const AuthVar = {
