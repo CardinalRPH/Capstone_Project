@@ -7,7 +7,7 @@ import { for_LoginEmail, for_SignUp, for_LoginorSignUpGoogle, for_getValue, chec
 import { createUser, findAllUser, findOneUser, SQLCountUser, SQLDeleteUser, UpdateUser } from "./SQLDBController.js";
 import { GentToken, GentTokenEditor } from "../utils/generateJwt.js";
 import { g_variable } from "../globals/config.js";
-import UID_JWT from "../utils/UID_jwt.js";
+import {UID_JWT, UID_JWTEditor} from "../utils/UID_jwt.js";
 
 const auth = getAuth(firebaseApp);
 const adminAuth = FirebaseAdmin.auth();
@@ -924,6 +924,43 @@ export const CountUser = (req, res, next) => {
                     error: reject
                 });
             })
+        }
+    }
+}
+
+export const getEditorInfo = (req, res) => {
+    if (cType(req, res)) {
+        if (JWT_checkEditor(req, res)) {
+            const id = UID_JWTEditor(req);
+            if (for_getValue(id)) {
+                findOneUser({
+                    attributes: ['Fname', 'Lname', 'province', 'regence', 'email', 'isGoogle'],
+                    where: { uid: id }
+                }).then((resolve) => {
+                    if (resolve != false) {
+                        res.status(200).json({
+                            ok: true,
+                            code: 200,
+                            data: resolve,
+                            message: 'User Info Goted',
+                        });
+                    } else {
+                        res.status(404).send({
+                            ok: false,
+                            code: 404,
+                            data: false,
+                            message: 'User Not Found',
+                        });
+                    }
+                })
+            } else {
+                res.status(400).json({
+                    ok: false,
+                    code: 400,
+                    data: false,
+                    message: "Bad Request"
+                });
+            }
         }
     }
 }

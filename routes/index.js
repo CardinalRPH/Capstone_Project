@@ -1,7 +1,7 @@
 import express from 'express';
 const router = express.Router();
 
-import { CheckJwt, CheckJwtEditor, CountUser, EnableUser, LoginEmail, LoginEmailEditor, Login_Google, MakeItEditor, MakeItUser, SignUp, deleteUser, disableUser, forgetPass, getAllUsers, getUserInfo, getUserLoaction, updateUserInfo, updateUserPass } from '../controller/AuthController.js';
+import { CheckJwt, CheckJwtEditor, CountUser, EnableUser, LoginEmail, LoginEmailEditor, Login_Google, MakeItEditor, MakeItUser, SignUp, deleteUser, disableUser, forgetPass, getAllUsers, getEditorInfo, getUserInfo, getUserLoaction, updateUserInfo, updateUserPass } from '../controller/AuthController.js';
 import { GetPlant, GetAllPlant, CreatePlant, UpdatePlant, DeletePlant, CountPlant } from '../controller/PlantWeatherController.js';
 import { TestEvent, CreateNewEvent, GetAllEvent, getOneEvent, UpdateOneEvent, DeleteOneEvent } from '../controller/EventController.js';
 import { createNewHistory, getAllHistory } from '../controller/HistoryController.js';
@@ -73,6 +73,8 @@ router.put('/e/MakeEditor/:uid', MakeItEditor);
 router.put('/e/MakeUser/:uid', MakeItUser);
 
 router.post('/e/login-email-editor', LoginEmailEditor);
+
+router.get('/e/Editor-info', getEditorInfo);
 
 
 

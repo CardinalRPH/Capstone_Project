@@ -3,7 +3,7 @@ import cType from "../utils/general_check.js";
 import {JWT_check} from "../utils/jwt_checker.js";
 import { for_createHistory } from "../utils/component_check.js";
 import Plant from "../models/plantModel.js";
-import UID_JWT from "../utils/UID_jwt.js";
+import {UID_JWT} from "../utils/UID_jwt.js";
 
 export const createNewHistory = (req, res, next) => {
     if (cType(req, res)) {

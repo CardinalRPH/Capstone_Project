@@ -4,7 +4,7 @@ import {JWT_check} from "../utils/jwt_checker.js";
 import { for_CreateEvent, for_getValue, for_updateEvent } from "../utils/component_check.js";
 import { getFertilization, getHarvest, getWatering } from "../utils/dateCalculator.js";
 import genColor from "../utils/colorGenerator.js";
-import UID_JWT from "../utils/UID_jwt.js";
+import {UID_JWT} from "../utils/UID_jwt.js";
 
 export const CreateNewEvent = (req, res, next) => {
     if (cType(req, res)) {
