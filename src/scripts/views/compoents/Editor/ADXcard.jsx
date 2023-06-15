@@ -4,10 +4,9 @@ class ADXCard extends React.Component {
   render() {
     const { imgUri, text, date, idx, titlex, catG, Author } = this.props || null;
 
-    const subsText = `${text.substring(0, 100)} ...`;
+    const subsText = `${text.substring(0, 50)} ...`;
     return (
-      <div className="col-24 mb-4 mx-2">
-        <div className="card cusCard" style={{ width: '18rem' }}>
+        <div className="card cusCard mx-3" style={{ width: '18rem' }}>
           <img className="card-img-top" src={imgUri} height={'180px'} alt="Card image cap" />
           <div className="card-body">
             <h5 className="card-title">{titlex}</h5>
@@ -17,7 +16,6 @@ class ADXCard extends React.Component {
             <Link to={`/e/dashboard/article/${idx}`} className="btn btn-primary">Visit/Edit/Delete</Link>
           </div>
         </div>
-      </div>
     )
   }
 }

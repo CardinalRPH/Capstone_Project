@@ -4,6 +4,8 @@ import dava from '../../../public/images/team/dava.jpg';
 import rayhan from '../../../public/images/team/rayhan.jpg';
 import mila from '../../../public/images/team/mila.JPG';
 import selvi from '../../../public/images/team/selvi.jpg';
+// import '../../../styles/stylesLP.css';
+
 
 const LandingPage = () => {
     return (<>

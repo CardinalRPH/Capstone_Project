@@ -213,11 +213,11 @@ h3 {
 }
 
 .custom-card {
-  width: fit-content;
+  width: 250px !important;
   cursor: pointer;
 }
 .custom-card img {
-  width: 250px;
+  width: 100%;
   height: 150px;
   object-fit: cover;
   filter: brightness(80%);

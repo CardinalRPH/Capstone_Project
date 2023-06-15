@@ -45,40 +45,34 @@ const Tips_pg = () => {
             </div>
             <div className="container">
                 <div className="row justify-content-center">
-                    <div className="custom-card bg-primary position-relative m-3 rounded">
+                    <div className="custom-card p-0 position-relative m-3 d-flex rounded">
                         <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
-                        <div className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center rounded text-container">
+                        <div className="position-absolute custom-card h-100 d-flex justify-content-center align-items-center rounded text-container">
                             <h4>Kategori 1</h4>
                         </div>
                     </div>
-                    <div className="custom-card bg-primary position-relative m-3 rounded">
+                    <div className="custom-card p-0 position-relative m-3 d-flex rounded">
                         <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
-                        <div className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center rounded text-container">
-                            <h4>Kategori 2</h4>
+                        <div className="position-absolute custom-card h-100 d-flex justify-content-center align-items-center rounded text-container">
+                            <h4>Kategori 1</h4>
                         </div>
                     </div>
-                    <div className="custom-card bg-primary position-relative m-3 rounded">
+                    <div className="custom-card p-0 position-relative m-3 d-flex rounded">
                         <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
-                        <div className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center rounded text-container">
-                            <h4>Kategori 3</h4>
+                        <div className="position-absolute custom-card h-100 d-flex justify-content-center align-items-center rounded text-container">
+                            <h4>Kategori 1</h4>
                         </div>
                     </div>
-                    <div className="custom-card bg-primary position-relative m-3 rounded">
+                    <div className="custom-card p-0 position-relative m-3 d-flex rounded">
                         <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
-                        <div className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center rounded text-container">
-                            <h4>Kategori 4</h4>
+                        <div className="position-absolute custom-card h-100 d-flex justify-content-center align-items-center rounded text-container">
+                            <h4>Kategori 1</h4>
                         </div>
                     </div>
-                    <div className="custom-card bg-primary position-relative m-3 rounded">
+                    <div className="custom-card p-0 position-relative m-3 d-flex rounded">
                         <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
-                        <div className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center rounded text-container">
-                            <h4>Kategori 5</h4>
-                        </div>
-                    </div>
-                    <div className="custom-card bg-primary position-relative m-3 rounded">
-                        <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
-                        <div className="position-absolute w-100 h-100 d-flex justify-content-center align-items-center rounded text-container">
-                            <h4>Kategori 6</h4>
+                        <div className="position-absolute custom-card h-100 d-flex justify-content-center align-items-center rounded text-container">
+                            <h4>Kategori 1</h4>
                         </div>
                     </div>
                 </div>
@@ -88,10 +82,8 @@ const Tips_pg = () => {
                 <h1 className="h3 mb-0 text-gray-800">Tips & Trick</h1>
             </div>
             <div className="container" id="TipsList">
-                <div className="container">
-                    <div className="row justify-content-center">
-                        {Tips.map((tips) => (<Card imgUri={tips.Imguri} text={tips.article} idx={tips.tipsId} Author={tips.Author} date={tips.date} titlex={tips.title} catG={tips.categories} />))}
-                    </div>
+                <div className="row justify-content-center">
+                    {Tips.map((tips) => (<Card imgUri={tips.Imguri} text={tips.article} idx={tips.tipsId} Author={tips.Author} date={tips.date} titlex={tips.title} catG={tips.categories} />))}
                 </div>
             </div>
             <div id="TipsNotFound" className="text-center" style={{ display: 'none' }}>

@@ -19,7 +19,7 @@ const Login_pg = () => {
         document.getElementById('ERROR-TEXT').innerHTML = value;
         const myModal = new Modal(document.getElementById('ErrorModal2'));
         myModal.show();
-    
+
     }
 
     const dispatch = useDispatch();
@@ -96,6 +96,19 @@ const Login_pg = () => {
             });
     }
 
+    const showPass = (e, id) => {
+        const password = document.getElementById(id);
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        if (type === 'password') {
+            e.classList.remove('fa-eye-slash');
+            e.classList.add('fa-eye');
+        } else {
+            e.classList.add('fa-eye-slash');
+            e.classList.remove('fa-eye');
+        }
+    }
+
     const As_Email = (e) => {
         e.preventDefault();
         document.getElementById('Loader').style.display = "flex";
@@ -143,8 +156,11 @@ const Login_pg = () => {
                     <input id="inputEmail" type="email" placeholder="" required autoFocus="" className="form-control rounded border-0 shadow-sm px-4 my-2" />
                 </div>
                 <div className="form-group mb-3 formPassword">
-                    <label htmlFor="inputPassword">Password</label>
-                    <input id="passwordInput" type="password" placeholder="" required className="form-control rounded border-0 shadow-sm px-4 mt-2" /><span className="password-toggle" onMouseDown="" onMouseUp="hidePassword()" onMouseOut="hidePassword()">&#x1f441;</span>
+                    <label htmlFor="passwordInput">Password</label>
+                    <div className="position-relative">
+                        <input id="passwordInput" type="password" name="password" placeholder="" required="" className="form-control rounded border-0 shadow-sm px-4 mt-2" />
+                        <i class="fa-regular fa-eye password-toggle position-absolute" onClick={(e) => { showPass(e.target, "passwordInput") }}></i>
+                    </div>
                     <small><a href="/forget-password" className="text-secondary text-decoration-none forgetPassword">Forget your password?</a></small>
                 </div>
                 <div className="d-flex flex-column align-items-center">

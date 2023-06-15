@@ -4,7 +4,7 @@ const g_variable = {
     passFormat: /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/
 }
 
-const BackBaseURI = 'http://localhost:3000';
+const BackBaseURI = 'https://capstoneproject-production-5788.up.railway.app';
 
 
 const AuthVar = {
@@ -17,7 +17,8 @@ const AuthVar = {
     forUpdateUserPassword:`${BackBaseURI}/user-update-password`,
     checkJwt: `${BackBaseURI}/checkJwt`,
     checkJwtEditor: `${BackBaseURI}/checkJwtEditor`,
-    forLoginEditor:`${BackBaseURI}/e/login-email-editor`,
+    forLoginEditor: `${BackBaseURI}/e/login-email-editor`,
+    forGetEditorInfo: `${BackBaseURI}/e/Editor-info`,
 }
 
 const WeatherandPlant = (code) => {

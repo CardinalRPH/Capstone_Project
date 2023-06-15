@@ -36,7 +36,6 @@ const Profile_pg = () => {
       }
     }
   };
-  toggleLoader(true);
   const toggleBadReq = (show) => {
     const loaderElement = document.getElementById('BadReq');
     if (show) {

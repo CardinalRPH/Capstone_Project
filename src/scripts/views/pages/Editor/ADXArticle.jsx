@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { EditorURI, TipsURI } from "../../../../globals/config";
 import { Check_Object } from "../../../utils/component_check";
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"
+
 const ADXArticle = () => {
     const { isAuthenticatedADX } = useSelector((state) => state.authADX);
     const { id } = useParams();
@@ -17,6 +19,28 @@ const ADXArticle = () => {
         Author: '',
         ImgRef: ''
     });
+
+    const toggleLoader = (show) => {
+        const loaderElement = document.getElementById('Loader');
+        if (loaderElement != null) {
+            if (show) {
+                loaderElement.style.display = 'flex';
+            } else {
+                loaderElement.style.display = 'none';
+            }
+        }
+    };
+
+    const SuccesShow = (value) => {
+        document.getElementById('SUCCESS-TEXT').innerHTML = value;
+        const myModal = new Modal(document.getElementById('SuccesModal'));
+        myModal.show();
+    }
+    const ErrorShow = (value) => {
+        document.getElementById('ERROR-TEXT').innerHTML = value;
+        const myModal = new Modal(document.getElementById('ErrorModal2'));
+        myModal.show();
+    }
 
     const getOneTIps = () => {
         fetch(TipsURI(id).getTipsOne(), {
@@ -47,6 +71,7 @@ const ADXArticle = () => {
 
     const onUpdate = () => {
         if (Check_Object(Article)) {
+            toggleLoader(true);
             fetch(EditorURI(id).UpdateTips(), {
                 method: 'PUT',
                 headers: {
@@ -55,31 +80,39 @@ const ADXArticle = () => {
                 },
                 body: JSON.stringify(Article)
             }).then(() => {
-                console.log('Success Update');
+                toggleLoader(false);
+                SuccesShow('Successfully Update Article');
             }).catch((error) => {
+                toggleLoader(false);
+                ErrorShow('Failed To Update Article');
                 console.log(error);
             });
+        } else {
+            ErrorShow('All Fields Must Be Filled');
         }
     }
 
     const onDelete = () => {
-        if (window.confirm(`Yakin Menghapus Article Ini?`) == true) {
-          fetch(EditorURI(id).DeleteTips(), {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-              'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
-            },
-          }).then(() => {
-              console.log('Success Delete');
-              navigate('/e/dashboard/content', { replace: true });
-          }).catch((error) => {
-            console.log(error);
-          });
+        if (window.confirm(`Are You Sure To Delete This Article ?`) == true) {
+            toggleLoader(true);
+            fetch(EditorURI(id).DeleteTips(), {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
+                },
+            }).then(() => {
+                toggleLoader(false);
+                navigate('/e/dashboard/content', { replace: true });
+            }).catch((error) => {
+                toggleLoader(false);
+                ErrorShow('Failed To Delete Article');
+                console.log(error);
+            });
         } else {
-          
+
         }
-      }
+    }
 
     useEffect(() => {
         if (isAuthenticatedADX) {

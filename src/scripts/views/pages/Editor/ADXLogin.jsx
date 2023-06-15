@@ -4,14 +4,15 @@ import { AuthVar } from "../../../../globals/config";
 import { useDispatch, useSelector } from "react-redux";
 import { authActionADX } from "../../../stores/ADXauthReducer";
 import { useNavigate } from "react-router-dom";
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"
 
 const ADXLogin_pg = () => {
 
-    const ErrorShow = (msg) => {
-        document.getElementById('errormsg').innerText = msg;
-        document.querySelector('.modalCus').classList.remove('hide');
-        document.querySelector('.frameCus').style.display = "flex";
-    
+    const ErrorShow = (value) => {
+        document.getElementById('ERROR-TEXT').innerHTML = value;
+        const myModal = new Modal(document.getElementById('ErrorModal2'));
+        myModal.show();
+
     }
 
     const [inputState, setInputState] = useState({
@@ -37,6 +38,19 @@ const ADXLogin_pg = () => {
             [event.target.name]: event.target.value,
         }));
     };
+
+    const showPass = (e, id) => {
+        const password = document.getElementById(id);
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        if (type === 'password') {
+            e.classList.remove('fa-eye-slash');
+            e.classList.add('fa-eye');
+        } else {
+            e.classList.add('fa-eye-slash');
+            e.classList.remove('fa-eye');
+        }
+    }
 
     useEffect(() => {
         if (isAuthenticatedADX && token) {
@@ -76,6 +90,7 @@ const ADXLogin_pg = () => {
                 console.log(error);
             })
         } else {
+            document.getElementById('Loader').style.display = "none";
             console.log("Email or Pass Not Req minimum spec");
         }
 
@@ -90,7 +105,10 @@ const ADXLogin_pg = () => {
                 </div>
                 <div className="form-group mb-3 formPassword">
                     <label htmlFor="inputPassword">Password</label>
-                    <input id="passwordInput" type="password" placeholder="" name="password" onChange={handleChange} required className="form-control rounded border-0 shadow-sm px-4 mt-2" /><span className="password-toggle" onMouseDown="" onMouseUp="hidePassword()" onMouseOut="hidePassword()">&#x1f441;</span>
+                    <div className="position-relative">
+                        <input id="passwordInput" type="password" name="password" placeholder="" required="" onChange={handleChange} className="form-control rounded border-0 shadow-sm px-4 mt-2" />
+                        <i className="fa-regular fa-eye password-toggle position-absolute" onClick={(e) => { showPass(e.target, "passwordInput") }}></i>
+                    </div>
                     <small><a href="/forget-password" className="text-secondary text-decoration-none forgetPassword">Forget your password?</a></small>
                 </div>
                 <div className="d-flex flex-column align-items-center">

@@ -4,7 +4,7 @@ class Dshhistorywidget extends React.Component {
         const { history } = this.props || null;
 
         return (
-            <div className="bg-white shadow rounded m-3 col">
+            <div className="bg-white shadow rounded p-4 m-3 col">
                 <div className="card-body">
                     <h4 className="card-title">History</h4>
                     <table className="table table-hover">

@@ -74,7 +74,7 @@ const Signup_pg = () => {
         e.preventDefault();
         signInWithPopup(auth, provider)
             .then((result) => {
-                let { uid, email, emailVerified, displayName } = result.user;
+                let { uid, email, displayName } = result.user;
                 document.getElementById('Loader').style.display = "flex";
                 // This gives you a Google Access Token. You can use it to access the Google API.
                 fetch(AuthVar.forLoginG, {
@@ -86,7 +86,6 @@ const Signup_pg = () => {
                         name: displayName,
                         email: email,
                         uid: uid,
-                        verif: emailVerified
                     })
                 }).then((response) => {
                     if (!response.ok) {

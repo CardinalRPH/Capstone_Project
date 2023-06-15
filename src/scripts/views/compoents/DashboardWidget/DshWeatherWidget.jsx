@@ -28,7 +28,7 @@ const Dshweatherwidget = (props) => {
     setInterval(updateClock, 1000);
 
     return (
-        <div className="rounded text-dark dashboard-weather shadow m-3 col dsh-weather-widget" >
+        <div className="rounded text-dark dashboard-weather p-4 shadow m-3 col dsh-weather-widget" >
             <div className="card-body p-4">
                 <h4>Cuaca Saat ini</h4>
                 <div className="d-flex align-items-center">

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import weatherCode from "../../../../../globals/WeatherCode";
 import { Check_Object } from "../../../../utils/component_check";
 import { EditorURI } from "../../../../../globals/config";
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 const ADXcontent_modal = () => {
     const [inputState, setInputState] = useState({
@@ -14,6 +14,37 @@ const ADXcontent_modal = () => {
         Author: '',
     });
 
+    const toggleBadReq = (show) => {
+        const loaderElement = document.getElementById('BadReq');
+        if (show) {
+            loaderElement.style.display = 'block';
+        } else {
+            loaderElement.style.display = 'none';
+        }
+    };
+
+    const toggleLoader = (show) => {
+        const loaderElement = document.getElementById('Loader');
+        if (loaderElement != null) {
+            if (show) {
+                loaderElement.style.display = 'flex';
+            } else {
+                loaderElement.style.display = 'none';
+            }
+        }
+    };
+
+    const SuccesShow = (value) => {
+        document.getElementById('SUCCESS-TEXT').innerHTML = value;
+        const myModal = new Modal(document.getElementById('SuccesModal'));
+        myModal.show();
+    }
+    const ErrorShow = (value) => {
+        document.getElementById('ERROR-TEXT').innerHTML = value;
+        const myModal = new Modal(document.getElementById('ErrorModal2'));
+        myModal.show();
+    }
+
     const handleChange = (event) => {
         setInputState((prevInputState) => ({
             ...prevInputState,
@@ -23,6 +54,8 @@ const ADXcontent_modal = () => {
 
     const onSave = () => {
         if (Check_Object(inputState)) {
+            toggleBadReq(false);
+            toggleLoader(true);
             fetch(EditorURI().CreateTips(), {
                 method: 'POST',
                 headers: {
@@ -32,10 +65,16 @@ const ADXcontent_modal = () => {
                 body: JSON.stringify(inputState)
             }).then(() => {
                 modalHide();
-                console.log('Success Create');
+                SuccesShow('Succesfully Add Content');
+                toggleLoader(false);
             }).catch((error) => {
+                modalHide();
+                toggleLoader(false);
+                ErrorShow('Failed to Add Content');
                 console.log(error);
             });
+        } else {
+            toggleBadReq(true);
         }
     }
 
@@ -121,6 +160,7 @@ const ADXcontent_modal = () => {
                             </div>
                         </div>
                     </div>
+                    <p id="BadReq" className="text-danger text-center" style={{ display: 'none' }}>All fields must be filled</p>
                     <div className="modal-footer mx-auto">
                         <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={onSave}>Save</button>
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={modalHide}>Close</button>

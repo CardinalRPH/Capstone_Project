@@ -53,14 +53,14 @@ const ADXContent = () => {
             <div id="TipsNotFound" className="text-center" style={{ display: 'none' }}>
               <h1>Not Found</h1>
             </div>
+            <div className="card cursor-pointer mx-3" onClick={modalShow} style={{ width: '18rem' }}>
+              <div className="card-body align-items-center justify-content-center d-flex flex-column">
+                <i className="fa-solid fa-plus fa-3x text-primary"></i>
+                <h5>Add Content</h5>
+              </div>
+            </div>
             {Tips.map((tips) => (<ADXCard imgUri={tips.Imguri} text={tips.article} idx={tips.tipsId} Author={tips.Author} date={tips.date} titlex={tips.title} catG={tips.categories} />))}
             <div className="col-24 mx-2 mb-4">
-              <div className="card cursor-pointer" onClick={modalShow} style={{ width: '18rem' }}>
-                <div className="card-body align-items-center d-flex flex-column">
-                  <i className="fa-solid fa-plus fa-3x text-primary"></i>
-                  <h5>Add Content</h5>
-                </div>
-              </div>
             </div>
           </div>
         </div>

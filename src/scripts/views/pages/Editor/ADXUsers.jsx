@@ -2,10 +2,33 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import DataTable from "react-data-table-component";
 import { EditorURI } from "../../../../globals/config";
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"
 
 const ADXUsers_pg = () => {
     const { isAuthenticatedADX } = useSelector((state) => state.authADX);
     const [users, setUsers] = useState([]);
+
+    const toggleLoader = (show) => {
+        const loaderElement = document.getElementById('Loader');
+        if (loaderElement != null) {
+            if (show) {
+                loaderElement.style.display = 'flex';
+            } else {
+                loaderElement.style.display = 'none';
+            }
+        }
+    };
+
+    const SuccesShow = (value) => {
+        document.getElementById('SUCCESS-TEXT').innerHTML = value;
+        const myModal = new Modal(document.getElementById('SuccesModal'));
+        myModal.show();
+    }
+    const ErrorShow = (value) => {
+        document.getElementById('ERROR-TEXT').innerHTML = value;
+        const myModal = new Modal(document.getElementById('ErrorModal2'));
+        myModal.show();
+    }
 
     const getAllUser = () => {
         fetch(EditorURI().getAllUsers(), {
@@ -30,11 +53,11 @@ const ADXUsers_pg = () => {
             selector: (row) => row.uid
         },
         {
-            name: 'Fname',
+            name: 'First name',
             selector: (row) => row.Fname
         },
         {
-            name: 'Lname',
+            name: 'Last name',
             selector: (row) => row.Lname
         },
         {
@@ -53,7 +76,8 @@ const ADXUsers_pg = () => {
 
     const ExpandedComponent = ({ data }) => {
         const DisableUser = () => {
-            if (window.confirm(`Yakin Men-Disable User ${data.Fname}`) == true) {
+            if (window.confirm(`Are you sure to Disable User ${data.Fname} ?`) == true) {
+                toggleLoader(true);
                 fetch(EditorURI(data.uid).DisableUser(), {
                     method: 'PUT',
                     headers: {
@@ -61,8 +85,12 @@ const ADXUsers_pg = () => {
                         'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
                     },
                 }).then(() => {
-                    console.log('Success Disable');
+                    toggleLoader(false);
+                    SuccesShow(`Successfully Disable User ${data.Fname}`);
+                    getAllUser();
                 }).catch((error) => {
+                    toggleLoader(false);
+                    ErrorShow(`Failed to Disable User ${data.Fname}`);
                     console.log(error);
                 });
             } else {
@@ -71,7 +99,8 @@ const ADXUsers_pg = () => {
         }
 
         const EnableUser = () => {
-            if (window.confirm(`Yakin Men-Enable User ${data.Fname}`) == true) {
+            if (window.confirm(`Are you sure to Enable User ${data.Fname} ?`) == true) {
+                toggleLoader(true);
                 fetch(EditorURI(data.uid).EnableUser(), {
                     method: 'PUT',
                     headers: {
@@ -79,8 +108,12 @@ const ADXUsers_pg = () => {
                         'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
                     },
                 }).then(() => {
-                    console.log('Success Enable');
+                    toggleLoader(false);
+                    SuccesShow(`Successfully Enable User ${data.Fname}`);
+                    getAllUser();
                 }).catch((error) => {
+                    toggleLoader(false);
+                    ErrorShow(`Failed to Enable User ${data.Fname}`);
                     console.log(error);
                 });
             } else {
@@ -89,7 +122,8 @@ const ADXUsers_pg = () => {
         }
 
         const DeleteUser = () => {
-            if (window.confirm(`Yakin Men-Delete User ${data.Fname}`) == true) {
+            if (window.confirm(`Are you sure to Delete User ${data.Fname} ?`) == true) {
+                toggleLoader(true);
                 fetch(EditorURI(data.uid).DeleteUser(), {
                     method: 'DELETE',
                     headers: {
@@ -97,8 +131,12 @@ const ADXUsers_pg = () => {
                         'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
                     },
                 }).then(() => {
-                    console.log('Success Enable');
+                    toggleLoader(false);
+                    SuccesShow(`Successfully Delete User ${data.Fname}`);
+                    getAllUser();
                 }).catch((error) => {
+                    toggleLoader(false);
+                    ErrorShow(`Failed to Delete User ${data.Fname}`);
                     console.log(error);
                 });
             } else {
@@ -107,7 +145,8 @@ const ADXUsers_pg = () => {
         }
 
         const MakeItUser = () => {
-            if (window.confirm(`Yakin menajadikan ${data.Fname} sebagai User?`) == true) {
+            if (window.confirm(`Are you sure to make ${data.Fname} as User ?`) == true) {
+                toggleLoader(true);
                 fetch(EditorURI(data.uid).MakeItUser(), {
                     method: 'PUT',
                     headers: {
@@ -115,8 +154,12 @@ const ADXUsers_pg = () => {
                         'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
                     },
                 }).then(() => {
-                    console.log('Success make it User');
+                    toggleLoader(false);
+                    SuccesShow(`Successfully make ${data.Fname} as User`);
+                    getAllUser();
                 }).catch((error) => {
+                    toggleLoader(false);
+                    ErrorShow(`Failed to make ${data.Fname} as User`);
                     console.log(error);
                 });
             } else {
@@ -125,7 +168,8 @@ const ADXUsers_pg = () => {
         }
 
         const MakeItEditor = () => {
-            if (window.confirm(`Yakin menajadikan ${data.Fname} sebagai Editor?`) == true) {
+            if (window.confirm(`Are you sure to make ${data.Fname} as Editor ?`) == true) {
+                toggleLoader(true);
                 fetch(EditorURI(data.uid).MakeItEditor(), {
                     method: 'PUT',
                     headers: {
@@ -133,8 +177,12 @@ const ADXUsers_pg = () => {
                         'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
                     },
                 }).then(() => {
-                    console.log('Success make it Editor');
+                    toggleLoader(false);
+                    SuccesShow(`Successfully make ${data.Fname} as Editor`);
+                    getAllUser();
                 }).catch((error) => {
+                    toggleLoader(false);
+                    ErrorShow(`Failed to make ${data.Fname} as Editor`);
                     console.log(error);
                 });
             } else {

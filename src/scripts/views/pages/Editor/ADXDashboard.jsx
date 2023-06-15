@@ -5,9 +5,9 @@ import { EditorURI } from "../../../../globals/config";
 
 const ADXDashboard_pg = () => {
   const { isAuthenticatedADX } = useSelector((state) => state.authADX);
-  const [users, setUsers] = useState('');
-  const [plant, setPlant] = useState('');
-  const [Tips, setTips] = useState('');
+  const [users, setUsers] = useState('0');
+  const [plant, setPlant] = useState('0');
+  const [Tips, setTips] = useState('0');
 
   const CountUser = () => {
     fetch(EditorURI().CountUser(), {

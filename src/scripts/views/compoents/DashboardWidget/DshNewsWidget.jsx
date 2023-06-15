@@ -6,7 +6,7 @@ class Dshnewswidget extends React.Component {
         const { Tips } = this.props || null;
         
         return (
-            <div className="w-100 bg-white shadow rounded">
+            <div className="w-100 p-4 bg-white shadow rounded">
                 <div className="card-body">
                     <h4 className="card-title text-dark"> News & Updates</h4>
                     {Tips.reverse().slice(0, 4).map((tips) => (<News key={tips.tipsId} imgUri={tips.Imguri} text={tips.article} idx={tips.tipsId} Author={tips.Author} date={tips.date} titlex={tips.title} catG={tips.categories} />))}

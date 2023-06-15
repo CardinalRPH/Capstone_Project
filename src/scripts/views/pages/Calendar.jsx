@@ -104,7 +104,6 @@ const Calendar_pg = () => {
         NewItem();
         toggleBadReq2(false)
         toggleBadReq(false);
-        console.log(info.dateStr);
         const myModal = new Modal(document.getElementById('calendarModal'));
         document.getElementById('date-input').value = info.dateStr;
         myModal.show();

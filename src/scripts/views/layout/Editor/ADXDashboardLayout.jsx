@@ -1,18 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthVar } from '../../../../globals/config';
 import ErrorModal1 from '../../compoents/ErrorModal1';
 import { authActionADX } from '../../../stores/ADXauthReducer';
 import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"
+import SuccessModal from '../../compoents/SuccessModal';
+import ErrorModal2 from '../../compoents/ErrorModal2';
 
 const ADXDashboardLayout = () => {
-    const [decoded, setDecoded] = useState([]);
+    const [Name, setName] = useState([]);
     const { isAuthenticatedADX } = useSelector((state) => state.authADX)
 
     const dispatch = useDispatch();
+
+    const getEditorInfo = () => {
+        fetch(AuthVar.forGetEditorInfo, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': JSON.parse(localStorage.getItem('ADXauthentication')).token
+            }
+        })
+            .then((response) => response.json())
+            .then((resolve) => {
+                if (resolve.ok && (resolve.data != false)) {
+                    setName(resolve.data.Fname)
+                }
+            }).catch((error) => {
+                console.log(error);
+            })
+    }
 
     const CheckToken = () => {
         fetch(AuthVar.checkJwtEditor, {
@@ -31,8 +50,9 @@ const ADXDashboardLayout = () => {
                 console.log(error);
             })
     }
+
     const ExpiredShow = () => {
-        const myModal = new Modal(document.getElementById('ErrorModal2'));
+        const myModal = new Modal(document.getElementById('ErrorModal1'));
         myModal.show();
     }
 
@@ -47,15 +67,13 @@ const ADXDashboardLayout = () => {
 
     useEffect(() => {
         if (isAuthenticatedADX) {
-            const getLocalStorage = localStorage.getItem("ADXauthentication");
-            const { token } = JSON.parse(getLocalStorage);
-            setDecoded(jwtDecode(token));
             CheckToken();
+            getEditorInfo();
         }
     }, []);
 
     return (
-        <div>
+        <>
             {/* Page Wrapper */}
             <div id="wrapper">
                 {/* Sidebar */}
@@ -145,59 +163,12 @@ const ADXDashboardLayout = () => {
                                     </div>
                                 </li>
                                 {/* Nav Item - Alerts */}
-                                <li className="nav-item dropdown no-arrow mx-1">
-                                    <a className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i className="fas fa-bell fa-fw" />
-                                        {/* Counter - Alerts */}
-                                        <span className="badge badge-danger badge-counter">3+</span>
-                                    </a>
-                                    {/* Dropdown - Alerts */}
-                                    <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                                        <h6 className="dropdown-header">
-                                            Alerts Center
-                                        </h6>
-                                        <a className="dropdown-item d-flex align-items-center" href="#">
-                                            <div className="mr-3">
-                                                <div className="icon-circle bg-primary">
-                                                    <i className="fas fa-file-alt text-white" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className="small text-gray-500">December 12, 2019</div>
-                                                <span className="font-weight-bold">A new monthly report is ready to download!</span>
-                                            </div>
-                                        </a>
-                                        <a className="dropdown-item d-flex align-items-center" href="#">
-                                            <div className="mr-3">
-                                                <div className="icon-circle bg-success">
-                                                    <i className="fas fa-donate text-white" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className="small text-gray-500">December 7, 2019</div>
-                                                $290.29 has been deposited into your account!
-                                            </div>
-                                        </a>
-                                        <a className="dropdown-item d-flex align-items-center" href="#">
-                                            <div className="mr-3">
-                                                <div className="icon-circle bg-warning">
-                                                    <i className="fas fa-exclamation-triangle text-white" />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div className="small text-gray-500">December 2, 2019</div>
-                                                Spending Alert: We've noticed unusually high spending for your account.
-                                            </div>
-                                        </a>
-                                        <a className="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                                    </div>
-                                </li>
                                 {/* Nav Item - Messages */}
                                 <div className="topbar-divider d-none d-sm-block" />
                                 {/* Nav Item - User Information */}
                                 <li className="nav-item dropdown no-arrow">
                                     <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{decoded.fname}</span>
+                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{Name}</span>
                                     </a>
                                     {/* Dropdown - User Information */}
                                     <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -260,7 +231,9 @@ const ADXDashboardLayout = () => {
             {/* Page level plugins */}
             {/* Page level custom scripts */}
             <ErrorModal1 FuClick={TExpired} />
-        </div>
+            <SuccessModal />
+            <ErrorModal2 />
+        </>
 
 
     );
