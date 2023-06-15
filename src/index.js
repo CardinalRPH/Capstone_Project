@@ -14,7 +14,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'jquery.easing';
 
 import './scripts/js/sb-admin-2.min.js';
-import './scripts/main.js'
+import './scripts/js/index.js';
+import './scripts/main.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
