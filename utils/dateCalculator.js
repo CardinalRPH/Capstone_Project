@@ -12,18 +12,19 @@ export const getWatering = (targetDate, plusRef, harvestDate, title, color, idEv
     const Watering = [];
 
     let currentDate = new Date(TargetDate);
-
+    let Numo = 1;
     while (currentDate < HarvestDate) {
         currentDate.setDate(currentDate.getDate() + parseInt(plusRef));
         const result = currentDate.toISOString().split('T')[0];
         Watering.push({
-            id: `2${idEvent}`,
+            id: `2${idEvent}${Numo}`,
             groupId: idEvent,
             title: `Watering: ${title}`,
             start: result,
             end: result,
             color:color
         });
+        Numo++;
     }
     return Watering;
 }
@@ -34,18 +35,19 @@ export const getFertilization = (targetDate, plusRef, harvestDate, title, color,
     const Fertilization = [];
 
     let currentDate = new Date(TargetDate);
-
+    let Numo = 1;
     while (currentDate < HarvestDate) {
         currentDate.setDate(currentDate.getDate() + parseInt(plusRef));
         const result = currentDate.toISOString().split('T')[0];
         Fertilization.push({
-            id: `3${idEvent}`,
+            id: `3${idEvent}${Numo}`,
             groupId: idEvent,
             title: `Fertilization: ${title}`,
             start: result,
             end: result,
             color:color
         });
+        Numo++;
     }
     return Fertilization;
 }

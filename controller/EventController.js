@@ -123,14 +123,13 @@ export const GetAllEvent = (req, res, next) => {
                 }
             }).then((resolve) => {
                 if (resolve != false) {
-                    const mergedArray = [];
+                    let mergedArray = [];
                     for (let i in resolve) {
-                        mergedArray.push(JSON.parse(resolve[i].tanam));
-                        mergedArray.push(...JSON.parse(resolve[i].siram));
-                        mergedArray.push(...JSON.parse(resolve[i].pupuk));
-                        mergedArray.push(JSON.parse(resolve[i].panen));
+                        mergedArray.push(resolve[i].dataValues.tanam);
+                        mergedArray.push(...resolve[i].dataValues.siram);
+                        mergedArray.push(...resolve[i].dataValues.pupuk);
+                        mergedArray.push(resolve[i].dataValues.panen);
                     }
-                    console.log('looks Good');
                     res.status(200).json({
                         ok: true,
                         code: 200,
