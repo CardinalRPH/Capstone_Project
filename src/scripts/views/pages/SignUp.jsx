@@ -154,7 +154,7 @@ const Signup_pg = () => {
                 console.log(error);
             })
         } else {
-            console.log("Email or Pass Not Req minimum spec");
+            ErrorShow('All Fields Must Be Filled');
         }
 
     }
