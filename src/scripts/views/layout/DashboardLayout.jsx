@@ -12,7 +12,7 @@ import ErrorModal2 from '../compoents/ErrorModal2';
 import Loader from '../compoents/Loader';
 
 const DashboardLayout = () => {
-    const [decoded, setDecoded] = useState([]);
+    const [Name, setName] = useState([]);
     const { isAuthenticated } = useSelector((state) => state.auth)
 
     const dispatch = useDispatch();
@@ -21,6 +21,26 @@ const DashboardLayout = () => {
         const myModal = new Modal(document.getElementById('ErrorModal1'));
         myModal.show();
     }
+
+    
+    const getUserInfo = () => {
+        fetch(AuthVar.forGetUserInfo, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': JSON.parse(localStorage.getItem('authentication')).token
+            }
+        })
+            .then((response) => response.json())
+            .then((resolve) => {
+                if (resolve.ok && (resolve.data != false)) {
+                    setName(resolve.data.Fname)
+                }
+            }).catch((error) => {
+                console.log(error);
+            })
+    }
+
 
     const CheckToken = () => {
         fetch(AuthVar.checkJwt, {
@@ -34,17 +54,12 @@ const DashboardLayout = () => {
             .then((resolve) => {
                 if (resolve.ok == false) {
                     ExpiredShow();
+                } else {
+                    getUserInfo();
                 }
             }).catch((error) => {
                 console.log(error);
             })
-    }
-
-    const ErrorShow = (msg) => {
-        document.getElementById('errormsg').innerText = msg;
-        document.querySelector('.modalCus').classList.remove('hide');
-        document.querySelector('.frameCus').style.display = "flex";
-
     }
 
     const LogOut = () => {
@@ -58,9 +73,6 @@ const DashboardLayout = () => {
 
     useEffect(() => {
         if (isAuthenticated) {
-            const getLocalStorage = localStorage.getItem("authentication");
-            const { token } = JSON.parse(getLocalStorage);
-            setDecoded(jwtDecode(token));
             CheckToken();
         }
     }, []);
@@ -155,13 +167,13 @@ const DashboardLayout = () => {
                                     </div>
                                 </li>
                                 {/* Nav Item - Alerts */}
-                                <li className="nav-item dropdown no-arrow mx-1">
+                                {/* <li className="nav-item dropdown no-arrow mx-1">
                                     <a className="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i className="fas fa-bell fa-fw" />
-                                        {/* Counter - Alerts */}
+                                        Counter - Alerts
                                         <span className="badge badge-danger badge-counter">3+</span>
                                     </a>
-                                    {/* Dropdown - Alerts */}
+                                    Dropdown - Alerts
                                     <div className="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                                         <h6 className="dropdown-header">
                                             Alerts Center
@@ -201,13 +213,13 @@ const DashboardLayout = () => {
                                         </a>
                                         <a className="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                                     </div>
-                                </li>
+                                </li> */}
                                 {/* Nav Item - Messages */}
                                 <div className="topbar-divider d-none d-sm-block" />
                                 {/* Nav Item - User Information */}
                                 <li className="nav-item dropdown no-arrow">
                                     <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{decoded.fname}</span>
+                                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{Name}</span>
                                     </a>
                                     {/* Dropdown - User Information */}
                                     <div className="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -276,7 +288,7 @@ const DashboardLayout = () => {
             <ErrorModal1 FuClick={TExpired} />
             <SuccessModal />
             <ErrorModal2 />
-            <Loader/>
+            <Loader />
         </div>
 
 

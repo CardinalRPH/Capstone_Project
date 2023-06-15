@@ -16,7 +16,7 @@ class SuccessModal extends React.Component {
                         <div className="modal-body text-center">
                             <h4>Great!</h4>
                             <p id='SUCCESS-TEXT'>Successfully Text.</p>
-                            <button className="btn btn-success" data-dismiss="modal"><span>Start Exploring</span> <i className="material-icons"></i></button>
+                            <button className="btn btn-success" data-dismiss="modal">OK</button>
                         </div>
                     </div>
                 </div>

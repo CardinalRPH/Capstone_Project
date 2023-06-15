@@ -136,7 +136,7 @@ const LandingPage = () => {
                     <div className="row">
                         <div className="col-lg-4-center">
                             <div className="team-member">
-                                <img className="mx-auto rounded-circle" src="assets/img/team/rayhan.jpg" alt="..." />
+                                <img className="mx-auto rounded-circle" src="./images/Me1.jpg" alt="..." />
                                 <h4>Rayhan Febriyan Saputra</h4>
                                 <p className="text-muted">Lead Project &amp; Back End Developer</p>
                                 <a className="btn btn-dark btn-social mx-2" href="#" aria-label="Parveen Anand Twitter Profile"><i className="fab fa-instagram" /></a>

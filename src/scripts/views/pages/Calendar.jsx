@@ -19,10 +19,12 @@ const Calendar_pg = () => {
 
     const toggleLoader = (show) => {
         const loaderElement = document.getElementById('Loader');
-        if (show) {
-            loaderElement.style.display = 'flex';
-        } else {
-            loaderElement.style.display = 'none';
+        if (loaderElement != null) {
+            if (show) {
+                loaderElement.style.display = 'flex';
+            } else {
+                loaderElement.style.display = 'none';
+            }
         }
     };
     const toggleBadReq = (show) => {
@@ -33,8 +35,25 @@ const Calendar_pg = () => {
             loaderElement.style.display = 'none';
         }
     };
+    const toggleBadReq2 = (show) => {
+        const loaderElement = document.getElementById('BadReq2');
+        if (show) {
+            loaderElement.style.display = 'block';
+        } else {
+            loaderElement.style.display = 'none';
+        }
+    };
 
-
+    const SuccesShow = (value) => {
+        document.getElementById('SUCCESS-TEXT').innerHTML = value;
+        const myModal = new Modal(document.getElementById('SuccesModal'));
+        myModal.show();
+    }
+    const ErrorShow = (value) => {
+        document.getElementById('ERROR-TEXT').innerHTML = value;
+        const myModal = new Modal(document.getElementById('ErrorModal2'));
+        myModal.show();
+    }
 
     const fetchAllEvent = () => {
         fetch(EventURI().getAllEvent(), {
@@ -83,6 +102,7 @@ const Calendar_pg = () => {
 
     const modalSave = (info) => {
         NewItem();
+        toggleBadReq2(false)
         toggleBadReq(false);
         console.log(info.dateStr);
         const myModal = new Modal(document.getElementById('calendarModal'));
@@ -90,6 +110,7 @@ const Calendar_pg = () => {
         myModal.show();
     }
     const modalUpdate = (info) => {
+        toggleBadReq2(false)
         toggleBadReq(false);
         setEventId(info.event.groupId);
         fetch(EventURI(info.event.groupId).getOneEvent(), {
@@ -176,10 +197,12 @@ const Calendar_pg = () => {
                     fetchAllEvent();
                     modalHide();
                     toggleLoader(false);
-                    console.log('Success Create');
+                    SuccesShow('Create Event Successful');
                     //add here for success
                 }
             }).catch((error) => {
+                modalHide();
+                ErrorShow('Failed To Save Event');
                 console.log(error);
             })
         } else {
@@ -204,8 +227,10 @@ const Calendar_pg = () => {
             }).then(() => {
                 fetchAllEvent();
                 modalHide();
-                console.log('Success Update');
+                SuccesShow('Update Event Successful');
             }).catch((error) => {
+                modalHide();
+                ErrorShow('Failed To Update Event');
                 console.log(error);
             });
         } else {
@@ -224,9 +249,11 @@ const Calendar_pg = () => {
         }).then(() => {
             fetchAllEvent();
             modalHide();
-            console.log('Success Delete');
+            SuccesShow('Delete Event Successful');
         }).catch((error) => {
             console.log(error);
+            modalHide();
+            ErrorShow('Failed To Delete Event');
         });
     }
 
@@ -247,14 +274,16 @@ const Calendar_pg = () => {
                 if (result.ok == true) {
                     fetchAllEvent();
                     modalHide();
-                    console.log('Success Create History');
+                    SuccesShow('Success To Input Harvest Value');
                     //add here for success
                 }
             }).catch((error) => {
                 console.log(error);
+                modalHide();
+                ErrorShow('Success To Input Harvest Value');
             })
         } else {
-            console.log('Is bad req');
+            toggleBadReq2(true);
             //component is null
         }
     }
@@ -305,7 +334,7 @@ const Calendar_pg = () => {
                                             </div>
                                             <input type="Date" className="form-control" id="date-input" aria-describedby="basic-addon1" readOnly />
                                         </div>
-                                        <p id="BadReq" className="text-danger">All Field Must Filled</p>
+                                        <p id="BadReq" className="text-danger">All of the above fields are required</p>
                                     </div>
                                     <div id="forUpdate" style={{ display: 'none' }}>
                                         <button type="button" onClick={UpdateButton} className="btn btn-primary mx-1">Update</button>
@@ -318,7 +347,7 @@ const Calendar_pg = () => {
                                                 <button className="btn btn-outline-secondary" onClick={SubmitPanen} type="button">Submit Panen</button>
                                             </div>
                                         </div>
-
+                                        <p id="BadReq2" className="text-danger">Harvest fields are required</p>
                                     </div>
                                     <div id="forSave">
                                         <button type="button" onClick={SaveButton} className="btn btn-primary mx-1">Save</button>

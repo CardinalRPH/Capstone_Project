@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import province from '../../data/provinces.json'
 import regencie from '../../data/regencies.json'
 import { Check_Object } from "../../utils/component_check";
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"
 
 const Signup_pg = () => {
 
@@ -48,7 +49,6 @@ const Signup_pg = () => {
             ...prevInputState,
             [event.target.name]: event.target.value,
         }));
-        console.log(inputForm);
     };
 
     const handleLogin = (token) => {
@@ -63,10 +63,10 @@ const Signup_pg = () => {
         }
     }, [isAuthenticated])
 
-    const ErrorShow = (msg) => {
-        document.getElementById('errormsg').innerText = msg
-        document.querySelector('.modalCus').classList.remove('hide');
-        document.querySelector('.frameCus').style.display = "flex";
+    const ErrorShow = (value) => {
+        document.getElementById('ERROR-TEXT').innerHTML = value;
+        const myModal = new Modal(document.getElementById('ErrorModal2'));
+        myModal.show();
 
     }
 

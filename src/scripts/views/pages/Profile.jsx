@@ -4,6 +4,7 @@ import regencie from '../../data/regencies.json'
 import { useSelector } from "react-redux";
 import { AuthVar } from "../../../globals/config";
 import { Check_Object, Check_single_Vaalue } from "../../utils/component_check";
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"
 
 const Profile_pg = () => {
   const { isAuthenticated } = useSelector((state) => state.auth)
@@ -22,18 +23,47 @@ const Profile_pg = () => {
       ...prevInputState,
       [event.target.name]: event.target.value,
     }));
-    console.log(inputState);
   };
 
-  // const setProvinC = (provCVal) => {  //this wil get string name not ID
-  //   if (!provCVal) {
-  //     document.getElementById('provinsi').value = '';
-  //   } else {
-  //     const provC = province.filter((provCFilter) => provCFilter.name === provCVal)[0];
-  //     document.getElementById('provinsi').value = provC.id;
-  //     setRegenC(provC.id);
-  //   }
-  // }
+
+  const toggleLoader = (show) => {
+    const loaderElement = document.getElementById('Loader');
+    if (loaderElement != null) {
+      if (show) {
+        loaderElement.style.display = 'flex';
+      } else {
+        loaderElement.style.display = 'none';
+      }
+    }
+  };
+  toggleLoader(true);
+  const toggleBadReq = (show) => {
+    const loaderElement = document.getElementById('BadReq');
+    if (show) {
+      loaderElement.style.display = 'block';
+    } else {
+      loaderElement.style.display = 'none';
+    }
+  };
+  const toggleBadReq2 = (show) => {
+    const loaderElement = document.getElementById('BadReq2');
+    if (show) {
+      loaderElement.style.display = 'block';
+    } else {
+      loaderElement.style.display = 'none';
+    }
+  };
+
+  const SuccesShow = (value) => {
+    document.getElementById('SUCCESS-TEXT').innerHTML = value;
+    const myModal = new Modal(document.getElementById('SuccesModal'));
+    myModal.show();
+  }
+  const ErrorShow = (value) => {
+    document.getElementById('ERROR-TEXT').innerHTML = value;
+    const myModal = new Modal(document.getElementById('ErrorModal2'));
+    myModal.show();
+  }
 
   const setRegenC = () => {
     if (inputState.province != '') {
@@ -65,6 +95,7 @@ const Profile_pg = () => {
   }
 
   const UpdateUserInfo = () => {
+    toggleLoader(true);
     if (Check_Object(inputState)) {
       fetch(AuthVar.forUpdateUserInfo, {
         method: 'PUT',
@@ -76,20 +107,24 @@ const Profile_pg = () => {
       })
         .then((response) => response.json())
         .then((resolve) => {
-          console.log(resolve);
           if (resolve.ok) {
-            console.log('Update Success');
-            // window.location.reload();
+            toggleLoader(false);
+            SuccesShow('Successfully to Update Info');
+            toggleBadReq(false);
           }
         }).catch((error) => {
+          toggleLoader(false);
+          ErrorShow('Failed to Update Info');
+          toggleBadReq(false);
           console.log(error);
         })
     } else {
-      console.log('Bad Input');
+      toggleBadReq(true);
     }
   }
 
   const UpdateUserPassword = () => {
+    toggleLoader(true);
     if (Check_single_Vaalue(newPassword)) {
       fetch(AuthVar.forUpdateUserPassword, {
         method: 'PUT',
@@ -103,16 +138,20 @@ const Profile_pg = () => {
       })
         .then((response) => response.json())
         .then((resolve) => {
-          console.log(resolve);
           if (resolve.ok) {
-            console.log('Update Pass Success');
-            // window.location.reload();
+            toggleLoader(false);
+            SuccesShow('Successfully to Change Password');
+            toggleBadReq2(false);
+            setNewPassword('');
           }
         }).catch((error) => {
+          toggleLoader(false);
+          ErrorShow('Successfully to Change Password');
+          toggleBadReq2(false);
           console.log(error);
         })
     } else {
-      console.log('Bad Input');
+      toggleBadReq2(true);
     }
   }
 
@@ -170,6 +209,7 @@ const Profile_pg = () => {
                 ))}
               </select>
             </div>
+            <p style={{ display: 'none' }} id="BadReq" className="text-danger">All of the above fields are required</p>
             <div className="m-2" id="passField">
               <label htmlFor="newPassword">New Password</label>
               <div className="input-group">
@@ -178,9 +218,10 @@ const Profile_pg = () => {
                   <button className="btn btn-outline-secondary" onClick={UpdateUserPassword} type="button">Change Password</button>
                 </div>
               </div>
+              <p style={{ display: 'none' }} id="BadReq2" className="text-danger">Password fields are required for change Password</p>
             </div>
             <div className="mt-5 text-center">
-              <button className="btn btn-success profile-button mx-1 plus float-right" onClick={UpdateUserInfo} type="submit">Update</button>
+              <button className="btn btn-success profile-button mx-1 plus float-right" onClick={UpdateUserInfo} >Update</button>
             </div>
           </div>
         </div>
