@@ -122,6 +122,7 @@ export const GetAllEvent = (req, res, next) => {
                     uid: id
                 }
             }).then((resolve) => {
+                console.log(resolve);
                 if (resolve != false) {
                     const mergedArray = [];
                     for (let i in resolve) {
