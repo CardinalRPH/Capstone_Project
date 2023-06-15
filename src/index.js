@@ -7,6 +7,7 @@ import './styles/index.css';
 import './styles/style.css';
 import './styles/css/sb-admin-2.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/stylesLP.css';
 
 import 'jquery';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
