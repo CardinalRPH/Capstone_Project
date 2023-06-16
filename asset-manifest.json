@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.be2843b1.css",
+    "main.js": "/static/js/main.6859b61f.js",
+    "static/js/787.422150df.chunk.js": "/static/js/787.422150df.chunk.js",
+    "static/media/Lupa-Password.jpg": "/static/media/Lupa-Password.d4e4ae57aa25040b8d6f.jpg",
+    "static/media/dava.jpg": "/static/media/dava.3b29b0ebaa79728696d5.jpg",
+    "static/media/rayhan.jpg": "/static/media/rayhan.ce0cb56f73c3d74be9c9.jpg",
+    "static/media/mila.JPG": "/static/media/mila.f756fd3b336d0df60a65.JPG",
+    "static/media/orang-bertani.jpg": "/static/media/orang-bertani.f4a04c935d517664dbab.jpg",
+    "static/media/selvi.jpg": "/static/media/selvi.6ecc8c3b53960740acb2.jpg",
+    "static/media/orang-bertani-jumbotron.jpg": "/static/media/orang-bertani-jumbotron.1d636ae0a0e38c529303.jpg",
+    "static/media/Buah.jpg": "/static/media/Buah.fff7dda5cbe4710522f6.jpg",
+    "static/media/Rempah.jpg": "/static/media/Rempah.c2b96fcd29cc0de68dfa.jpg",
+    "static/media/Sayur.jpg": "/static/media/Sayur.836ca5207c57d0a8eeea.jpg",
+    "static/media/Pangan.jpg": "/static/media/Pangan.1f18e3be5c8988552f7b.jpg",
+    "index.html": "/index.html",
+    "main.be2843b1.css.map": "/static/css/main.be2843b1.css.map",
+    "main.6859b61f.js.map": "/static/js/main.6859b61f.js.map",
+    "787.422150df.chunk.js.map": "/static/js/787.422150df.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.be2843b1.css",
+    "static/js/main.6859b61f.js"
+  ]
+}
