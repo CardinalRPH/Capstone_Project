@@ -4,10 +4,12 @@ import dava from '../../../public/images/team/dava.jpg';
 import rayhan from '../../../public/images/team/rayhan.jpg';
 import mila from '../../../public/images/team/mila.JPG';
 import selvi from '../../../public/images/team/selvi.jpg';
-// import '../../../styles/stylesLP.css';
 
 
 const LandingPage = () => {
+    const sidehandleToggle = () => {
+        document.querySelector('#navbarResponsive').classList.toggle('show');
+    }
     return (<>
 
         <div>
@@ -15,7 +17,7 @@ const LandingPage = () => {
                 <div className="container">
                     <a className="navbar-brand" href="#page-top">
                         <h2>CropPlanner</h2></a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <button className="navbar-toggler" onClick={sidehandleToggle} type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                         Menu
                         <i className="fas fa-bars ms-1" />
                     </button>
