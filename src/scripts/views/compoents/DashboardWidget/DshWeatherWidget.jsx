@@ -30,7 +30,7 @@ const Dshweatherwidget = (props) => {
     return (
         <div className="rounded text-dark dashboard-weather p-4 shadow m-3 col dsh-weather-widget" >
             <div className="card-body p-4">
-                <h4>Cuaca Saat ini</h4>
+                <h4>Current Weather</h4>
                 <div className="d-flex align-items-center">
                     <i className="fas fa-location-dot mr-2 fa-2x" />
                     <div className="flex-grow-1 mb-0">

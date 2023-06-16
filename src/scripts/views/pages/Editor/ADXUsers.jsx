@@ -194,7 +194,7 @@ const ADXUsers_pg = () => {
             <div className="d-flex justify-content-center">
                 <button className="btn btn-danger mx-2" onClick={DeleteUser}>Delete</button>
                 {data.disabled ? (<button className="btn btn-success mx-2" onClick={EnableUser}>Enable</button>) : (<button className="btn btn-warning mx-2" onClick={DisableUser}>Disable</button>)}
-                {data.role == 'user' ? (<button className="btn btn-primary mx-2" onClick={MakeItEditor}>Jadikan Editor</button>) : (<button className="btn btn-secondary mx-2" onClick={MakeItUser}>Jadikan User</button>)}
+                {data.role == 'user' ? (<button className="btn btn-primary mx-2" onClick={MakeItEditor}>Make the Editor</button>) : (<button className="btn btn-secondary mx-2" onClick={MakeItUser}>Make the User</button>)}
             </div>
 
         );
@@ -211,6 +211,9 @@ const ADXUsers_pg = () => {
 
     return (
         <>
+            <div className="d-sm-flex align-items-center justify-content-between mb-2">
+                <h1 className="h3 mb-0 text-gray-800">Users</h1>
+            </div>
             <DataTable
                 columns={columns}
                 data={users}

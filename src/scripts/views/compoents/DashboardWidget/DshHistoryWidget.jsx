@@ -11,8 +11,8 @@ class Dshhistorywidget extends React.Component {
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Jenis Tanaman</th>
-                                <th>Tanggal Panen</th>
+                                <th>Plant Type</th>
+                                <th>Harvest Date</th>
                             </tr>
                         </thead>
                         <tbody>

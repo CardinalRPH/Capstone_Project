@@ -40,11 +40,11 @@ const ADXPlants_pg = () => {
       selector: (row) => row.name
     },
     {
-      name: 'inWeatherFrom',
+      name: 'in Weather From',
       selector: (row) => row.inWeatherFrom
     },
     {
-      name: 'inWeatherto',
+      name: 'in Weather to',
       selector: (row) => row.inWeatherto
     },
     {
@@ -112,6 +112,9 @@ const ADXPlants_pg = () => {
 
   return (
     <>
+      <div className="d-sm-flex align-items-center justify-content-between mb-2">
+        <h1 className="h3 mb-0 text-gray-800">Plants</h1>
+      </div>
       <button className="btn btn-primary" onClick={modalShowNew}>Add Item</button>
       <DataTable
         columns={columns}

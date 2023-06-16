@@ -198,28 +198,28 @@ const Signup_pg = () => {
             <form className="mx-3" onSubmit={(e) => { As_UpEmail(e) }}>
                 <div className="row g-2">
                     <div className="form-group col-sm mb-3 formFullName">
-                        <label for="inputFirstName">Nama Depan</label>
+                        <label for="inputFirstName">First Name</label>
                         <input id="inputFirstName" name="fname" type="text" placeholder="" required autofocus="" className="form-control rounded border-0 shadow-sm px-4 my-2" onChange={handleChange} />
                     </div>
                     <div className="form-group col-sm mb-3 formFullName">
-                        <label for="inputLastName">Nama Belakang</label>
+                        <label for="inputLastName">Last Name</label>
                         <input id="inputLastName" name="lname" type="text" placeholder="" required autofocus="" className="form-control rounded border-0 shadow-sm px-4 my-2" onChange={handleChange} />
                     </div>
                 </div>
                 <div className="row g-2">
                     <div className="form-group col-sm mb-3 formFullName">
-                        <label for="province">Provinsi</label>
+                        <label for="province">Province</label>
                         <select className="form-control rounded border-0 shadow-sm px-4 my-2" name="province" id="province" onChange={setRegenC} required>
-                            <option value="">Pilih Provinsi</option>
+                            <option value="">Choose Province</option>
                             {province.map((provinsi, i) => (
                                 <option key={i} value={provinsi.id}>{provinsi.name}</option>
                             ))}
                         </select>
                     </div>
                     <div className="form-group col-sm mb-3 formFullName">
-                        <label for="regence">Kabupaten/Kota</label>
+                        <label for="regence">Regence</label>
                         <select className="form-control rounded border-0 shadow-sm px-4 my-2" name="regence" id="regence" onChange={handleChange} required>
-                            <option value="">Pilih Kabupaten/Kota</option>
+                            <option value="">Choose Regence</option>
                             {regencies.map((kabupaten, i) => (
                                 <option key={i} value={kabupaten.name}>{kabupaten.name}</option>
                             ))}

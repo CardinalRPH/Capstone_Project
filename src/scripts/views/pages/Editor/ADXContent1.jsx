@@ -47,6 +47,9 @@ const ADXContent = () => {
 
   return (
     <>
+       <div className="d-sm-flex align-items-center justify-content-between mb-2">
+        <h1 className="h3 mb-0 text-gray-800">Content</h1>
+      </div>
       <div className="container" id="TipsList">
         <div className="container">
           <div className="row justify-content-center">
@@ -59,7 +62,7 @@ const ADXContent = () => {
                 <h5>Add Content</h5>
               </div>
             </div>
-            {Tips.map((tips) => (<ADXCard imgUri={tips.Imguri} text={tips.article} idx={tips.tipsId} Author={tips.Author} date={tips.date} titlex={tips.title} catG={tips.categories} />))}
+            {Tips.map((tips) => (<ADXCard key={tips.tipsId} imgUri={tips.Imguri} text={tips.article} idx={tips.tipsId} Author={tips.Author} date={tips.date} titlex={tips.title} catG={tips.categories} />))}
             <div className="col-24 mx-2 mb-4">
             </div>
           </div>

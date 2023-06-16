@@ -13,7 +13,7 @@ const weatherCode = [
     },
     {
         code: 3,
-        text: 'Udara Kabur'
+        text: 'Berawan'
     },
     {
         code: 4,
@@ -21,35 +21,35 @@ const weatherCode = [
     },
     {
         code: 5,
-        text: 'Asap'
+        text: 'Udara Kabur'
     },
     {
         code: 10,
-        text: 'Kabut'
+        text: 'Asap'
     },
     {
         code: 45,
-        text: 'Hujan Ringan'
+        text: 'Kabut'
     },
     {
         code: 60,
-        text: 'Hujan Sedang'
+        text: 'Hujan Ringan'
     },
     {
         code: 61,
-        text: 'Hujan Lebat'
+        text: 'Hujan Sedang'
     },
     {
         code: 63,
-        text: 'Hujan Lokal'
+        text: 'Hujan Lebat'
     },
     {
         code: 80,
-        text: 'Hujan Petir'
+        text: 'Hujan Lokal'
     },
     {
         code: 95,
-        text: 'Cerah'
+        text: 'Hujan Petir'
     },
     {
         code: 97,

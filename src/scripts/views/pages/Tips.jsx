@@ -3,10 +3,17 @@ import Card from "../compoents/card";
 import Articlemodal from "../compoents/ArticleModal";
 import { TipsURI } from "../../../globals/config";
 import { useSelector } from "react-redux";
+import Category from "../compoents/Category";
+
+import Vegetrable from '../../../public/images/Category/Sayur.jpg';
+import FoodCrop from '../../../public/images/Category/Pangan.jpg';
+import Fruits from '../../../public/images/Category/Buah.jpg';
+import Herbs from '../../../public/images/Category/Rempah.jpg';
 
 const Tips_pg = () => {
     const [Tips, setTips] = useState([]);
-    const { isAuthenticated } = useSelector((state) => state.auth)
+    const [TipsTemp, setTipsTemp] = useState([]);
+    const { isAuthenticated } = useSelector((state) => state.auth);
 
     const getTipsTrick = () => {
         fetch(TipsURI().getTips(), {
@@ -21,6 +28,7 @@ const Tips_pg = () => {
                     document.getElementById('TipsList').style.display = 'block';
                     document.getElementById('TipsNotFound').style.display = 'none';
                     setTips(resolve.data);
+                    setTipsTemp(resolve.data);
                 } else {
                     document.getElementById('TipsList').style.display = 'none';
                     document.getElementById('TipsNotFound').style.display = 'block';
@@ -33,6 +41,15 @@ const Tips_pg = () => {
             })
     }
 
+    const FilterFruits = (value) => {
+        let filter = Tips.filter((myFilter) => myFilter.categories === value);
+        setTipsTemp(filter)
+    }
+
+    const ResetFilter = () => {
+        setTipsTemp(Tips);
+    }
+
     useEffect(() => {
         if (isAuthenticated) {
             getTipsTrick();   //for Design Front End  Jangan Dihapus !
@@ -41,49 +58,23 @@ const Tips_pg = () => {
     return (
         <>
             <div className="d-sm-flex align-items-center justify-content-center mb-4">
-                <h1 className="h3 mb-0 text-gray-800">Kategori</h1>
+                <h1 className="h3 mb-0 text-gray-800">Category</h1>
             </div>
             <div className="container">
                 <div className="row justify-content-center">
-                    <div className="custom-card p-0 position-relative m-3 d-flex rounded">
-                        <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
-                        <div className="position-absolute custom-card h-100 d-flex justify-content-center align-items-center rounded text-container">
-                            <h4>Kategori 1</h4>
-                        </div>
-                    </div>
-                    <div className="custom-card p-0 position-relative m-3 d-flex rounded">
-                        <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
-                        <div className="position-absolute custom-card h-100 d-flex justify-content-center align-items-center rounded text-container">
-                            <h4>Kategori 1</h4>
-                        </div>
-                    </div>
-                    <div className="custom-card p-0 position-relative m-3 d-flex rounded">
-                        <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
-                        <div className="position-absolute custom-card h-100 d-flex justify-content-center align-items-center rounded text-container">
-                            <h4>Kategori 1</h4>
-                        </div>
-                    </div>
-                    <div className="custom-card p-0 position-relative m-3 d-flex rounded">
-                        <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
-                        <div className="position-absolute custom-card h-100 d-flex justify-content-center align-items-center rounded text-container">
-                            <h4>Kategori 1</h4>
-                        </div>
-                    </div>
-                    <div className="custom-card p-0 position-relative m-3 d-flex rounded">
-                        <img src="https://cdn.dribbble.com/users/1026512/screenshots/10130839/waifu_laifu_404_copia.png" className="rounded" alt="" />
-                        <div className="position-absolute custom-card h-100 d-flex justify-content-center align-items-center rounded text-container">
-                            <h4>Kategori 1</h4>
-                        </div>
-                    </div>
+                    <Category img={Fruits} func={() => FilterFruits('Fruits')} catName='Fruits' />
+                    <Category img={FoodCrop} func={() => FilterFruits('Food Crop')} catName='Food Crop' />
+                    <Category img={Vegetrable} func={() => FilterFruits('Vegetables')} catName='Vegetables' />
+                    <Category img={Herbs} func={() => FilterFruits('Herbs')} catName='Herbs' />
                 </div>
             </div>
 
             <div className="d-sm-flex align-items-center justify-content-center mb-4">
-                <h1 className="h3 mb-0 text-gray-800">Tips & Trick</h1>
+                <h1 className="h3 mb-0 text-gray-800 cursorer" onClick={ResetFilter}>Tips & Trick</h1>
             </div>
             <div className="container" id="TipsList">
                 <div className="row justify-content-center">
-                    {Tips.map((tips) => (<Card imgUri={tips.Imguri} text={tips.article} idx={tips.tipsId} Author={tips.Author} date={tips.date} titlex={tips.title} catG={tips.categories} />))}
+                    {TipsTemp.map((tips) => (<Card imgUri={tips.Imguri} key={tips.tipsId} text={tips.article} idx={tips.tipsId} Author={tips.Author} date={tips.date} titlex={tips.title} catG={tips.categories} />))}
                 </div>
             </div>
             <div id="TipsNotFound" className="text-center" style={{ display: 'none' }}>

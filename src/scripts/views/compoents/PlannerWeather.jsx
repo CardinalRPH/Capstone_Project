@@ -71,11 +71,11 @@ const WeatherPlan = () => {
         <div className="courses-container">
             <div className="course">
                 <div className="course-preview">
-                    <h6>Cuaca Saat ini</h6>
+                    <h6>Current Weather</h6>
                     <h2>{weather}</h2>
                 </div>
                 <div className="course-info">
-                    <h6>Tanaman yang cocok pada saat ini</h6>
+                    <h6>Plants Suitable At This Time</h6>
                     {/* <li>{plant.name}</li> */}
                     {plant.slice(0, 3).map((plants, i) => (<li key={i}>{plants.name}</li>))}
                 </div>

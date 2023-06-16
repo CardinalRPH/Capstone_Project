@@ -13,19 +13,19 @@ class DataTables extends React.Component {
                 selector: (row, i) => i + 1
             },
             {
-                name: 'Jenis Tanaman',
+                name: 'Plant Type',
                 selector: (row) => row.jenisTanaman
             },
             {
-                name: 'Tanggal Tanam',
+                name: 'Planting Date',
                 selector: (row) => row.onPlant
             },
             {
-                name: 'Tanggal Panen',
+                name: 'Harvest Date',
                 selector: (row) => row.onHarvest
             },
             {
-                name: 'Hasil Panen (Ton)',
+                name: 'Hasil Result (Ton)',
                 selector: (row) => row.harvestResult
             },
         ];

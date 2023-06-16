@@ -99,31 +99,30 @@ const ADXcontent_modal = () => {
                     <div className="modal-body">
                         <div className="row">
                             <div className="col-2">
-                                <label htmlFor="title">Judul</label>
+                                <label htmlFor="title">Title</label>
                             </div>
                             <div className="col">
-                                <input type="text" placeholder="Judul" className="w-100" name="title" onChange={handleChange} id="title" />
+                                <input type="text" placeholder="Title" className="w-100" name="title" onChange={handleChange} id="title" />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-2">
-                                <label htmlFor="categories">Kategori</label>
+                                <label htmlFor="categories">Category</label>
                             </div>
                             <div className="col">
                                 <select name="categories" onChange={handleChange} className="w-100" id="categories">
-                                    <option value="">Pilih Kategori</option>
-                                    <option value="Semangka">Semangka</option>
-                                    <option value="Padi">Padi</option>
-                                    <option value="Jagung">Jagung</option>
-                                    <option value="Tebu">Tebu</option>
-                                    <option value="Singkong">Singkong</option>
-                                    <option value="Lainnya">Lainnya...</option>
+                                    <option value="">Choose Category</option>
+                                    <option value="Food Crop">Food Crop</option>
+                                    <option value="Fruits">Fruits</option>
+                                    <option value="Vegetrable">Vegetables</option>
+                                    <option value="Herbs">Herbs</option>
+                                    <option value="Other">Other..</option>
                                 </select>
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-2">
-                                <label htmlFor="date">Tanggal</label>
+                                <label htmlFor="date">Date</label>
                             </div>
                             <div className="col">
                                 <input type="date" onChange={handleChange} className="w-100" name="date" id="date" />
@@ -137,26 +136,26 @@ const ADXcontent_modal = () => {
                                 <input type="url" onChange={handleChange} placeholder="Image URL" className="w-100" name="Imguri" id="Imguri" />
                             </div>
                             <div className="col-2">
-                                <label htmlFor="ImgRef">Image Refrensi</label>
+                                <label htmlFor="ImgRef">Image Reference</label>
                             </div>
                             <div className="col">
-                                <input type="text" onChange={handleChange} placeholder="Image Refrensi" className="w-100" name="ImgRef" id="ImgRef" />
+                                <input type="text" onChange={handleChange} placeholder="Image Reference" className="w-100" name="ImgRef" id="ImgRef" />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-2">
-                                <label htmlFor="Author">Penulis</label>
+                                <label htmlFor="Author">Writer</label>
                             </div>
                             <div className="col">
-                                <input type="text" onChange={handleChange} placeholder="Penulis" className="w-100" name="Author" id="Author" />
+                                <input type="text" onChange={handleChange} placeholder="Writer" className="w-100" name="Author" id="Author" />
                             </div>
                         </div>
                         <div className="row">
                             <div className="col-2">
-                                <label htmlFor="article">Artikel</label>
+                                <label htmlFor="article">Article</label>
                             </div>
                             <div className="col">
-                                <textarea name="article" onChange={handleChange} className="w-100" id="article" cols="30" rows="10"></textarea>
+                                <textarea name="article" placeholder="Article" onChange={handleChange} className="w-100" id="article" cols="30" rows="10"></textarea>
                             </div>
                         </div>
                     </div>

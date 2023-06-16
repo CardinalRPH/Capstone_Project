@@ -68,16 +68,20 @@ const ADXDashboard_pg = () => {
   }, []);
 
   return (
-    <div className="row">
-      <div className="col">
-        <ADXDashCard icon='fa-users' name='Users' value={users} color='primary' />
-        <ADXDashCard icon='fa-newspaper' name='Tips and Trick' value={Tips} color='warning' />
+    <>
+      <div className="d-sm-flex align-items-center justify-content-between mb-2">
+        <h1 className="h3 mb-0 text-gray-800">Dashboard</h1>
       </div>
-      <div className="col">
-        <ADXDashCard icon='fa-seedling' name='Plant' value={plant} color='success' />
+      <div className="row">
+        <div className="col">
+          <ADXDashCard icon='fa-users' name='Users' value={users} color='primary' />
+          <ADXDashCard icon='fa-newspaper' name='Tips and Trick' value={Tips} color='warning' />
+        </div>
+        <div className="col">
+          <ADXDashCard icon='fa-seedling' name='Plant' value={plant} color='success' />
+        </div>
       </div>
-    </div>
-
+    </>
   );
 };
 

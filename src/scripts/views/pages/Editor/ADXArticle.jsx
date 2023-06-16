@@ -131,13 +131,12 @@ const ADXArticle = () => {
                         <input type="date" placeholder="date" name="date" id="" onChange={handleChange} value={Article.date} />
                         <input type="text" placeholder="Author" name="Author" id="" onChange={handleChange} value={Article.Author} />
                         <select name="categories" onChange={handleChange} value={Article.categories} className="w-100" id="categories">
-                            <option value="">Pilih Kategori</option>
-                            <option value="Semangka">Semangka</option>
-                            <option value="Padi">Padi</option>
-                            <option value="Jagung">Jagung</option>
-                            <option value="Tebu">Tebu</option>
-                            <option value="Singkong">Singkong</option>
-                            <option value="Lainnya">Lainnya...</option>
+                            <option value="">Choose Category</option>
+                            <option value="Food Crop">Food Crop</option>
+                            <option value="Fruits">Fruits</option>
+                            <option value="Vegetrable">Vegetables</option>
+                            <option value="Herbs">Herbs</option>
+                            <option value="Other">Other..</option>
                         </select>
                     </div>
                 </div>

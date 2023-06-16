@@ -313,7 +313,7 @@ const Calendar_pg = () => {
                                     <div className="mb-3">
                                         <div className="input-group mb-3">
                                             <div className="input-group-prepend">
-                                                <span className="input-group-text px-2" id="basic-addon1">Name of Plant</span>
+                                                <span className="input-group-text px-2" id="basic-addon1">Name of Event</span>
                                             </div>
                                             <input type="text" id="nameOfPlant" className="form-control" placeholder="Name" aria-label="Name" aria-describedby="basic-addon1" />
                                         </div>
@@ -340,10 +340,10 @@ const Calendar_pg = () => {
                                         <button type="button" onClick={DeleteButton} className="btn btn-danger mx-1">Delete</button>
 
                                         <div className="input-group my-3">
-                                            <input type="number" className="form-control" min={0} id="Panen-value" onFocus={OnFocusP} onBlur={OnBlurP} placeholder="Sudah Panen?" aria-label="Sudah Panen?" aria-describedby="basic-addon2" />
+                                            <input type="number" className="form-control" min={0} id="Panen-value" onFocus={OnFocusP} onBlur={OnBlurP} placeholder="Harvested?" aria-label="Harvested?" aria-describedby="basic-addon2" />
                                             <div className="input-group-append">
                                                 <span className="input-group-text">ton</span>
-                                                <button className="btn btn-outline-secondary" onClick={SubmitPanen} type="button">Submit Panen</button>
+                                                <button className="btn btn-outline-secondary" onClick={SubmitPanen} type="button">Submit Harvest</button>
                                             </div>
                                         </div>
                                         <p id="BadReq2" className="text-danger">Harvest fields are required</p>
