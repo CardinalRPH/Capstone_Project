@@ -23,10 +23,9 @@ export const createNewHistory = (req, res, next) => {
                         eventId: id
                     }
                 }).then((resolve) => {
-                    console.log('kasdjuyavvduaywd');
                     if (resolve != false) {
-                        const tanam = resolve[0].dataValues.tanam
-                        const panen = resolve[0].dataValues.panen
+                        const tanam = resolve.dataValues.tanam
+                        const panen = resolve.dataValues.panen
                         findMaxIdHistory().then((idHistory) => {
                             let HistoryId = 0;
 

@@ -220,10 +220,10 @@ export const UpdateOneEvent = (req, res, next) => {
                     }
                 }).then((resolve) => {
                     if (resolve != false) {
-                        let tanam = JSON.parse(resolve.tanam);
-                        let pupuk = JSON.parse(resolve.pupuk);
-                        let siram = JSON.parse(resolve.siram);
-                        let panen = JSON.parse(resolve.panen);
+                        let tanam = resolve.dataValues.tanam;
+                        let pupuk = resolve.dataValues.pupuk;
+                        let siram = resolve.dataValues.siram;
+                        let panen = resolve.dataValues.panen;
 
                         //changing value
                         tanam.title = `Planting: ${name}`;
