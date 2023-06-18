@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.be2843b1.css",
-    "main.js": "/static/js/main.18b56f52.js",
+    "main.js": "/static/js/main.8a678e96.js",
     "static/js/787.422150df.chunk.js": "/static/js/787.422150df.chunk.js",
     "static/media/Lupa-Password.jpg": "/static/media/Lupa-Password.d4e4ae57aa25040b8d6f.jpg",
     "static/media/dava.jpg": "/static/media/dava.3b29b0ebaa79728696d5.jpg",
@@ -16,11 +16,11 @@
     "static/media/Pangan.jpg": "/static/media/Pangan.1f18e3be5c8988552f7b.jpg",
     "index.html": "/index.html",
     "main.be2843b1.css.map": "/static/css/main.be2843b1.css.map",
-    "main.18b56f52.js.map": "/static/js/main.18b56f52.js.map",
+    "main.8a678e96.js.map": "/static/js/main.8a678e96.js.map",
     "787.422150df.chunk.js.map": "/static/js/787.422150df.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.be2843b1.css",
-    "static/js/main.18b56f52.js"
+    "static/js/main.8a678e96.js"
   ]
 }
