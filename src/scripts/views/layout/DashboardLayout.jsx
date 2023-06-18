@@ -35,6 +35,8 @@ const DashboardLayout = () => {
             .then((resolve) => {
                 if (resolve.ok && (resolve.data != false)) {
                     setName(resolve.data.Fname)
+                } else {
+                    LogOut();
                 }
             }).catch((error) => {
                 console.log(error);
