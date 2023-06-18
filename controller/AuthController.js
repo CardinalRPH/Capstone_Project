@@ -4,10 +4,10 @@ import FirebaseAdmin from "../libs/FirebaseAdminConfig.js";
 import cType from "../utils/general_check.js";
 import { JWT_check, JWT_checkEditor } from "../utils/jwt_checker.js";
 import { for_LoginEmail, for_SignUp, for_LoginorSignUpGoogle, for_getValue, checkIsValued } from "../utils/component_check.js";
-import { createUser, findAllUser, findOneUser, SQLCountUser, SQLDeleteUser, UpdateUser } from "./SQLDBController.js";
+import { createUser, deleteOneEvent, DeleteOneHistory, findAllUser, findOneUser, SQLCountUser, SQLDeleteUser, UpdateUser } from "./SQLDBController.js";
 import { GentToken, GentTokenEditor } from "../utils/generateJwt.js";
 import { g_variable } from "../globals/config.js";
-import {UID_JWT, UID_JWTEditor} from "../utils/UID_jwt.js";
+import { UID_JWT, UID_JWTEditor } from "../utils/UID_jwt.js";
 
 const auth = getAuth(firebaseApp);
 const adminAuth = FirebaseAdmin.auth();
@@ -865,26 +865,54 @@ export const deleteUser = (req, res, next) => {
             const { uid } = req.params;
             if (for_getValue(uid)) {
                 adminAuth.deleteUser(uid).then(() => {
-                    SQLDeleteUser({
+                    DeleteOneHistory({
                         where: {
                             uid: uid
                         }
                     }).then(() => {
-                        res.status(204).json({
-                            ok: true,
-                            code: 204,
+                        deleteOneEvent({
+                            where: {
+                                uid: uid
+                            }
+                        }).then(() => {
+                            SQLDeleteUser({
+                                where: {
+                                    uid: uid
+                                }
+                            }).then(() => {
+                                res.status(204).json({
+                                    ok: true,
+                                    code: 204,
+                                    data: false,
+                                    message: 'User Deleted'
+                                });
+                            }).catch((reject) => {
+                                res.status(204).json({
+                                    ok: true,
+                                    code: 204,
+                                    data: false,
+                                    message: 'User Deleted NoDB'
+                                });
+                                console.log(reject);
+                            });
+                        }).catch((error) => {
+                            res.status(500).send({
+                                ok: false,
+                                code: 500,
+                                data: false,
+                                message: 'Internal Server Error E',
+                                error: error
+                            });
+                        })
+                    }).catch((error) => {
+                        res.status(500).send({
+                            ok: false,
+                            code: 500,
                             data: false,
-                            message: 'User Deleted'
+                            message: 'Internal Server Error H',
+                            error: error
                         });
-                    }).catch((reject) => {
-                        res.status(204).json({
-                            ok: true,
-                            code: 204,
-                            data: false,
-                            message: 'User Deleted NoDB'
-                        });
-                        console.log(reject);
-                    });
+                    })
                 }).catch((error) => {
                     res.status(500).send({
                         ok: false,
