@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { TipsURI } from "../../../globals/config";
+import HTMLRenderer from "../../utils/HTMLParser";
 const Article_pg = () => {
     const { isAuthenticated } = useSelector((state) => state.auth);
     const { id } = useParams();
@@ -53,7 +54,7 @@ const Article_pg = () => {
             </div>
             <div className="container px-5">
                 <small>Img Source : {Article.ImgRef }</small>
-                <p className="py-5">{Article.article}</p>
+                <p className="py-5"><HTMLRenderer htmlCode={Article.article} /></p>
             </div>
         </div>
     )
