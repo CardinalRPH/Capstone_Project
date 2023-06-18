@@ -34,10 +34,10 @@ import ADXContent from "../views/pages/Editor/ADXContent1";
 import LandingPage from "../views/pages/LandingPage";
 
 const AppRouter = createBrowserRouter([
-     {
-         path: "/",
-         element: <LandingPage />
-     },
+    {
+        path: "/",
+        element: <LandingPage />
+    },
     {
         path: '/i',
         element: <LnSuLayout />,
@@ -124,6 +124,10 @@ const AppRouter = createBrowserRouter([
 
     //Editor
     {
+        path: '/editor',
+        element:(<Navigate to={'/e/login'} replace/>)
+    },
+    {
         path: '/e',
         element: <ADXLnSuLayout />,
         children: [
@@ -140,9 +144,9 @@ const AppRouter = createBrowserRouter([
     {
         path: '/e/dashboard',
         element: (
-           <ADXPrivateRoute>
+            <ADXPrivateRoute>
                 <ADXDashboardLayout />
-           </ADXPrivateRoute>
+            </ADXPrivateRoute>
         ),
         children: [
             {
