@@ -1,13 +1,33 @@
 import React from "react";
 import { AuthVar } from "../../../globals/config"
 import { EmailValidate } from "../../utils/EmailPassValidate";
+import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"
 
 const ForgetPw_pg = () => {
+
+    const ErrorShow = (value) => {
+        document.getElementById('ERROR-TEXT').innerHTML = value;
+        const myModal = new Modal(document.getElementById('ErrorModal2'));
+        myModal.show();
+    }
+
+    const toggleLoader = (show) => {
+        const loaderElement = document.getElementById('Loader');
+        if (loaderElement != null) {
+            if (show) {
+                loaderElement.style.display = 'flex';
+            } else {
+                loaderElement.style.display = 'none';
+            }
+        }
+    };
+
     const Forget_PW = (e) => {
         e.preventDefault();
         let email = document.getElementById('inputEmail').value;
 
         if (EmailValidate(email)) {
+            toggleLoader(true);
             fetch(AuthVar.forForgetPw, {
                 method: 'POST',
                 headers: {
@@ -18,21 +38,28 @@ const ForgetPw_pg = () => {
                 })
             }).then((response) => {
                 if (!response.ok) {
+                    toggleLoader(false);
                     throw new Error('Fail Load With Status ' + response.status);
                 }
                 return response.json();
             }).then((data) => {
+                toggleLoader(false);
                 if (data.ok) {
                     window.location.href = '/forget-password/sended';
-                } else {
-                    console.log("eroor 500");
+                } else if ((data.ok == false) && (data.code == 403)) {
+                    ErrorShow('Google Account cant reset password with this link');
                 }
             }).catch((error) => {
-                console.log(error);
+                toggleLoader(false);
+                if (error.message.substring(error.message.lastIndexOf(' ') + 1) == 403) {
+                    ErrorShow('Google Account cant reset password with this link');
+                } else {
+                    console.log(error);
+                }
             })
 
         } else {
-            console.log('email not valid min spec');
+            ErrorShow('Email not valid');
         }
     }
     return (

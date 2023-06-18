@@ -8,6 +8,7 @@ import { authActionADX } from '../../../stores/ADXauthReducer';
 import { Modal } from "bootstrap/dist/js/bootstrap.bundle.min.js"
 import SuccessModal from '../../compoents/SuccessModal';
 import ErrorModal2 from '../../compoents/ErrorModal2';
+import Loader from '../../compoents/Loader';
 
 const ADXDashboardLayout = () => {
     const [Name, setName] = useState([]);
@@ -84,6 +85,7 @@ const ADXDashboardLayout = () => {
 
     return (
         <>
+            <Loader />
             {/* Page Wrapper */}
             <div id="wrapper">
                 {/* Sidebar */}

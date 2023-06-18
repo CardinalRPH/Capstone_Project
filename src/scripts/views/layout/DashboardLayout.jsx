@@ -91,6 +91,7 @@ const DashboardLayout = () => {
 
     return (
         <div>
+            <Loader />
             {/* Page Wrapper */}
             <div id="wrapper">
                 {/* Sidebar */}
@@ -282,7 +283,6 @@ const DashboardLayout = () => {
             <ErrorModal1 FuClick={TExpired} />
             <SuccessModal />
             <ErrorModal2 />
-            <Loader />
         </div>
 
 
