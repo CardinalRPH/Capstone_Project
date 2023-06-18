@@ -9,9 +9,18 @@ import sequelizes from "../libs/db.config.js";
 Event.belongsTo(Users, { foreignKey: 'uid' });
 Event.belongsTo(Plant, { foreignKey: 'plantId' });
 History.belongsTo(Users, { foreignKey: 'uid' });
-Plant.hasMany(Event, { foreignKey: 'plantId' });
-Users.hasMany(History, { foreignKey: 'uid' });
-Users.hasMany(Event, { foreignKey: 'uid' });
+Plant.hasMany(Event, { foreignKey: 'plantId',
+ });
+Users.hasMany(History, {
+    foreignKey: 'uid',
+    onDelete: 'CASCADE',
+    onUpdate:'CASCADE'
+});
+Users.hasMany(Event, {
+    foreignKey: 'uid',
+    onDelete: 'CASCADE',
+    onUpdate:'CASCADE'
+});
 
 sequelizes.sync().then(() => {
     console.log("Create All Tablest Success");
