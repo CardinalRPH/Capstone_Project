@@ -266,7 +266,7 @@ export const Login_Google = (req, res) => {
                                 ok: false,
                                 code: 500,
                                 data: false,
-                                message: 'Internal Server Error',
+                                message: 'Internal Server Error 1',
                             });
                         }
                     }).catch((reject) => {
@@ -274,7 +274,7 @@ export const Login_Google = (req, res) => {
                             ok: false,
                             code: 500,
                             data: false,
-                            message: 'Internal Server Error',
+                            message: 'Internal Server Error 2',
                             error: reject.message
                         });
                     })
@@ -284,15 +284,9 @@ export const Login_Google = (req, res) => {
                     ok: false,
                     code: 500,
                     data: false,
-                    message: 'Internal Server Error',
+                    message: 'Internal Server Error 3',
                     error: reject.message
                 });
-            });
-        } else {
-            res.status(400).json({
-                ok: false,
-                code: 400,
-                message: "token required"
             });
         }
     }
